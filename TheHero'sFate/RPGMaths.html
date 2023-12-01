@@ -1,0 +1,321 @@
+<img src="Octopus.png" width=300 style='margin-bottom: 2rem'>
+
+<style>
+    body {
+        padding: 1rem;
+        background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(hexpaper.png);
+        background-size: 800px;
+        font-family: Tahoma;
+    }
+
+    table {
+        padding: 10px;
+    }
+
+    .box {
+        display: inline-block;
+        background: #f4cc8e;
+        border-radius: .2rem;
+        border: 2px solid rgba(0,0,0,.4);
+        box-shadow: 3px 3px 7px rgba(0,0,0,.4);
+        margin: .5rem;
+    }
+
+    .box > div {
+        padding: .4rem;
+        text-align: center;
+        background: #ca9859;
+        font-weight: bold;
+    }
+
+    td {
+        min-width: 2rem;
+    }
+
+    input {
+        width: 3rem;
+    }
+	input[type=checkbox] { 
+            vertical-align: middle; 
+            position: relative; 
+            bottom: 1px;
+	
+
+     button.initiative-button {
+        margin-top: 1rem;
+     }
+</style>
+
+<br>
+
+<div class='box'>
+    <div>Characteristics</div>
+    <table>
+        <tr> <td>STR</td> <td><input maxlength='2' id="STR" oninput="figureStats()"></td> <td>BOD</td> <td id="BOD">-</td> <td>OFF</td> <td id="OFF">-</td> </tr>
+        <tr> <td>DEX</td> <td><input maxlength='2' id="DEX" oninput="figureStats()"></td> <td>WIL</td> <td id="WIL">-</td> <td>DEF</td> <td id="DEF">-</td> </tr>
+        <tr> <td>INT</td> <td><input maxlength='2' id="INT" oninput="figureStats()"></td> <td>AGI</td> <td id="AGI">-</td> <td>BUR</td> <td id="BUR">-</td> </tr>
+        <tr> <td></td><td></td>                                                           <td>FOC</td> <td id="FOC">-</td> <td>TRM</td> <td id="TRM">-</td> </tr>
+       
+    </table>
+</div>
+
+<div class='box'>
+	<div>Skills</div>
+	<table> 
+		<tr> <td>Experience</td> <td id="EXP">-</td> </tr>
+		<tr> <td>Acuity,</td> <td>INT</td>  <td> <input id="acuityLvl1" type="checkbox" oninput="figureStats()"> </td>
+											<td> <input id="acuityLvl2" type="checkbox" oninput="figureStats()"> </td> 
+											<td id="acuity">-</td> </tr>
+		<tr> <td>Empathy,</td> <td>INT</td> <td> <input id="empathyLvl1" type="checkbox" oninput="figureStats()"> </td>
+											<td> <input id="empathyLvl2" type="checkbox" oninput="figureStats()"> </td> 
+											<td id="empathy">-</td> </tr>
+		<tr> <td>Evoke,</td> <td>INT</td>   <td> <input id="evokeLvl1" type="checkbox" oninput="figureStats()"> </td>
+											<td> <input id="evokeLvl2" type="checkbox" oninput="figureStats()"> </td> 
+											<td id="evoke">-</td> </tr>
+		<tr> <td>Guile,</td> <td>INT</td>   <td> <input id="guileLvl1" type="checkbox" oninput="figureStats()"> </td>
+											<td> <input id="guileLvl2" type="checkbox" oninput="figureStats()"> </td> 
+											<td id="guile">-</td> </tr>
+		<tr> <td>Culture,</td> <td>INT</td> <td> <input id="cultureLvl1" type="checkbox"  oninput="figureStats()"> </td>
+											<td> <input id="cultureLvl2" type="checkbox"  oninput="figureStats()"> </td> 
+											<td id="culture">-</td> </tr>
+		<tr> <td>Crafts,</td> <td>INT</td>  <td> <input id="craftsLvl1" type="checkbox"  oninput="figureStats()"> </td>
+											<td> <input id="craftsLvl2" type="checkbox"  oninput="figureStats()"> </td> 
+											<td id="crafts">-</td> </tr>
+		<tr> <td>Nature,</td> <td>INT</td>  <td> <input id="natureLvl1" type="checkbox"  oninput="figureStats()"> </td>
+											<td> <input id="natureLvl2" type="checkbox"  oninput="figureStats()"> </td> 
+											<td id="nature">-</td> </tr>
+		<tr> <td>Magery,</td> <td>INT</td>  <td> <input id="mageryLvl1" type="checkbox"  oninput="figureStats()"> </td>
+											<td> <input id="mageryLvl2" type="checkbox"  oninput="figureStats()"> </td> 
+											<td id="magery">-</td> </tr>
+		<tr> <td>Grace,</td> <td>DEX</td>   <td> <input id="graceLvl1" type="checkbox"  oninput="figureStats()"> </td>
+											<td> <input id="graceLvl2" type="checkbox"  oninput="figureStats()"> </td> 
+											<td id="grace">-</td> </tr>
+		<tr> <td>Fitness,</td> <td>STR</td> <td> <input id="fitnessLvl1" type="checkbox"  oninput="figureStats()"> </td>
+											<td> <input id="fitnessLvl2" type="checkbox"  oninput="figureStats()"> </td> 
+											<td id="fitness">-</td> </tr>
+	</table>
+</div>
+
+<div class='box'>
+    <div>Equipment</div>
+    <table>
+        <tr>
+            <td>Weapon</td> <td id="PWR"></td>
+            <td>
+                <tr><td>Head or Blade</td> <td><input maxlength='2' id='head' oninput="figureStats()"></td>
+                <tr><td>Pole Handle</td> <td><input maxlength='2' id="poleHandle" type="checkbox" oninput="figureStats()"></td>
+                <tr><td>Thrown</td> <td><input maxlength='2' id="thrown" type="checkbox" oninput="figureStats()"></td>
+                <tr><td>Finess</td> <td><input maxlength='2' id="finess" type="checkbox" oninput="figureStats()"></td>
+                <tr><td>Two-Handed</td> <td><input maxlength='2' id="twoHanded" type="checkbox" oninput="figureStats()"></td>
+            </td>
+        </tr>
+        <tr> <td>Armor</td>  <td><input maxlength='2' id="armor" oninput="figureStats()"></td> </tr>
+        <tr>
+            <td>
+                <select id="offhandtype" oninput="figureStats()">
+                    <option value="Shield">Shield</option>
+                    <option value="Weapon">Offhand Weapon</option>
+                </select>
+            </td>
+            <td>
+                <input maxlength='2' id="offhand" oninput="figureStats()">
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class='box'>
+    <div>Preparations</div>
+    <table>
+        <tr> <td>Offensive</td> <td><input maxlength='2' id="OffPrep" oninput="figureStats()"></td>  </tr>
+        <tr> <td>Defensive</td> <td><input maxlength='2' id="DefPrep" oninput="figureStats()"></td>  </tr>
+        <tr> <td>Agility</td>   <td><input maxlength='2' id="AgiPrep" oninput="figureStats()"></td>  </tr>
+        <tr> <td>Initiative</td> <td id="Init"></td>           </tr>
+        <tr>
+            <td colspan=2>
+                <button onclick="rollInitiative()" class='initiative-button'>Roll Initiative</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class='box'>
+	<div>Spells</div>
+	<table>
+		<tr> <td>Magery Level</td> <td>Name</td> <td>Difficulty</td> <td>Cost</td> 
+			<td>Effect</td>
+		</tr>
+		<tr> <td>Magery 2</td>
+		</tr>
+		<tr> <td></td> <td>Image</td> <td>4</td> <td>X</td> 
+			<td>Create a 1 hex image within X*DEX hexes of the caster. An image cannot emit light but can emit smells no stronger than manure and sounds no louder than a speaking voice. Lasts X*12 minutes.</td>
+		</tr>
+</div>
+
+<script>
+let _init
+let _off
+let _def
+
+
+function getNumber (id) {
+	let e = document.getElementById(id)
+    if (e.type == "checkbox"){
+		return e.checked ? 1 : 0
+	} else if (e.tagName == "INPUT"){
+		return Number(e.value)
+	} else {
+		return Number(e.innerText)
+	}
+}
+
+function setValue(id, value) {
+	let e = document.getElementById(id)
+    if (e.tagName == "INPUT") {
+        e.value = value;
+    } else {
+        e.innerText = value;
+    }
+}
+
+function roll(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+}
+function PWR(pwr) {
+	let a=Math.trunc(pwr/4)
+	if (a==0){a=""}
+	else if (a==1){a="d8"}
+	else {a=a+"d8"}
+	
+	let b=(pwr%4)*2
+	if (b==0){b=""}
+	else if (b>0){b="d"+b}
+	
+	if (a && b) {a+="+"}
+		
+	return a+b
+}
+
+function figureStats(){
+	let STR=getNumber("STR") || 0
+	let DEX=getNumber("DEX") || 0
+	let INT=getNumber("INT") || 0
+	let BOD=getNumber("BOD") || 0
+	let WIL=getNumber("WIL") || 0
+	let AGI=getNumber("AGI") || 0
+	let FOC=getNumber("FOC") || 0
+	let TRM=getNumber("TRM") || 0
+	
+	let acuityLvl=getNumber("acuityLvl1")+getNumber("acuityLvl2")
+	let empathyLvl=getNumber("empathyLvl1")+getNumber("empathyLvl2")
+	let evokeLvl=getNumber("evokeLvl1")+getNumber("evokeLvl2")
+	let guileLvl=getNumber("guileLvl1")+getNumber("guileLvl2")
+	let cultureLvl=getNumber("cultureLvl1")+getNumber("cultureLvl2")
+	let craftsLvl=getNumber("craftsLvl1")+getNumber("craftsLvl2")
+	let natureLvl=getNumber("natureLvl1")+getNumber("natureLvl2")
+	let mageryLvl=getNumber("mageryLvl1")+getNumber("mageryLvl2")
+	let graceLvl=getNumber("graceLvl1")+getNumber("graceLvl2")
+	let fitnessLvl=getNumber("fitnessLvl1")+getNumber("fitnessLvl2")
+		
+	let EXP=INT-totalSkills()
+	
+	function totalSkills() {
+		let r = 
+			acuityLvl+
+			empathyLvl+
+			evokeLvl+
+			guileLvl+
+			cultureLvl+
+			craftsLvl+
+			natureLvl+
+			mageryLvl+
+			graceLvl+
+			fitnessLvl
+		
+		return r
+	}
+	
+	let Weight= (getNumber("head") || 0) +
+				(getNumber("armor") || 0) +
+				(getNumber("offhand") || 0)
+
+    if (document.getElementById("poleHandle").checked)
+        Weight+=1
+    if (document.getElementById("thrown").checked)
+        Weight+=1
+    if (document.getElementById("finess").checked)
+        Weight+=1
+    if (document.getElementById("twoHanded").checked)
+        Weight-=1
+
+	let BUR=STR-Weight
+	setValue ("BUR", BUR)
+	setValue ("PWR", PWR(getNumber("head")))
+	
+    _off = DEX;
+    _def = DEX;
+
+	let OffPrep = getNumber("OffPrep")
+	let DefPrep = getNumber("DefPrep")
+	let AgiPrep = getNumber("AgiPrep")
+	let PrepCost = (OffPrep + DefPrep + AgiPrep) * 3
+	setValue ("Init", _init-PrepCost)
+	
+	setValue ("BOD", STR*2)
+	setValue ("WIL", STR+INT)
+	setValue ("AGI", STR+DEX+BUR+AgiPrep)
+	setValue ("FOC", (DEX+INT+EXP))
+	setValue ("OFF", _off)
+	setValue ("DEF", _def)
+	setValue ("EXP", EXP)
+	setValue ("TRM", EXP)
+	setValue ("acuity", Math.ceil(acuityLvl/2*INT))
+	setValue ("empathy", Math.ceil(empathyLvl/2*INT))
+	setValue ("evoke", Math.ceil(evokeLvl/2*INT))
+	setValue ("guile", Math.ceil(guileLvl/2*INT))
+	setValue ("culture", Math.ceil(cultureLvl/2*INT))
+	setValue ("crafts", Math.ceil(craftsLvl/2*INT))
+	setValue ("nature", Math.ceil(natureLvl/2*INT))
+	setValue ("magery", Math.ceil(mageryLvl/2*INT))
+	setValue ("grace", Math.ceil(graceLvl/2*DEX))
+	setValue ("fitness", Math.ceil(fitnessLvl/2*STR))
+
+	
+
+    let offensiveEquipBonus = 0
+    let defensiveEquipBonus = 0
+    let offhandType = document.getElementById("offhandtype")
+    if (offhandType.value == "Shield") {
+        defensiveEquipBonus = getNumber("offhand") || 0
+    } else if (offhandType.value == "Weapon") {
+        offensiveEquipBonus = getNumber("offhand") || 0
+    }
+
+    let advantagedOffPreps = Math.min(offensiveEquipBonus, OffPrep)
+    let regularOffPreps = OffPrep - advantagedOffPreps
+    let equipmentOffBonus = advantagedOffPreps * Math.floor(DEX/2) + regularOffPreps;
+	setValue ("OFF", _off + equipmentOffBonus)
+
+    let advantagedDefPreps = Math.min(defensiveEquipBonus, DefPrep)
+    let regularDefPreps = DefPrep - advantagedDefPreps
+    let equipmentDefBonus = advantagedDefPreps * Math.floor(DEX/2) + regularDefPreps;
+	setValue ("DEF", _def + equipmentDefBonus)
+}
+
+function rollInitiative(){
+	let FOC = getNumber("FOC") || 0
+	_init = check()+FOC
+	setValue ("Init", _init)
+    setValue("OffPrep", "")
+    setValue("DefPrep", "")
+    setValue("AgiPrep", "")
+    figureStats()
+}
+
+function check(){
+	return (roll(1,12)-roll(1,12))
+}
+
+</script>
