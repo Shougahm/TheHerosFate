@@ -1,0 +1,44 @@
+body {
+    padding: 1rem;
+    background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(hexpaper.png);
+    background-size: 800px;
+    font-family: Tahoma;
+}
+
+table {
+    padding: 10px;
+}
+
+.box {
+    display: inline-block;
+    background: #f4cc8e;
+    border-radius: .2rem;
+    border: 2px solid rgba(0,0,0,.4);
+    box-shadow: 3px 3px 7px rgba(0,0,0,.4);
+    margin: .5rem;
+}
+
+.box > div {
+    padding: .4rem;
+    text-align: center;
+    background: #ca9859;
+    font-weight: bold;
+}
+
+td {
+    min-width: 2rem;
+}
+
+input {
+    width: 3rem;
+}
+
+input[type=checkbox] { 
+        vertical-align: middle; 
+        position: relative; 
+        bottom: 1px;
+}
+
+button.initiative-button {
+    margin-top: 1rem;
+}
