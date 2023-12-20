@@ -43,14 +43,14 @@ function PWR(pwr) {
 }
 
 function figureStats(){
-	let STR=getNumber("STR") || 0
-	let DEX=getNumber("DEX") || 0
-	let INT=getNumber("INT") || 0
-	let BOD=getNumber("BOD") || 0
-	let WIL=getNumber("WIL") || 0
-	let AGI=getNumber("AGI") || 0
-	let FOC=getNumber("FOC") || 0
-	let TRM=getNumber("TRM") || 0
+	let strength=getNumber("STR") || 0
+	let dexterity=getNumber("DEX") || 0
+	let intellect=getNumber("INT") || 0
+	let body=getNumber("Body") || 0
+	let will=getNumber("Will") || 0
+	let agility=getNumber("Agility") || 0
+	let focus=getNumber("Focus") || 0
+	let trauma=getNumber("Trauma") || 0
 	
 	let acuityLvl=getNumber("acuityLvl1")+getNumber("acuityLvl2")
 	let empathyLvl=getNumber("empathyLvl1")+getNumber("empathyLvl2")
@@ -63,7 +63,7 @@ function figureStats(){
 	let graceLvl=getNumber("graceLvl1")+getNumber("graceLvl2")
 	let fitnessLvl=getNumber("fitnessLvl1")+getNumber("fitnessLvl2")
 		
-	let EXP=INT-totalSkills()
+	let experience=intellect-totalSkills()
 	
 	function totalSkills() {
 		let r = 
@@ -81,25 +81,26 @@ function figureStats(){
 		return r
 	}
 	
-	let Weight= (getNumber("head") || 0) +
+	let load= (getNumber("head") || 0) +
 				(getNumber("armor") || 0) +
 				(getNumber("offhand") || 0)
 
     if (document.getElementById("poleHandle").checked)
-        Weight+=1
+        load+=1
     if (document.getElementById("thrown").checked)
-        Weight+=1
+        load+=1
     if (document.getElementById("finess").checked)
-        Weight+=1
+        load+=1
     if (document.getElementById("twoHanded").checked)
-        Weight-=1
+        load-=Math.floor(strength/3)
 
-	let BUR=STR-Weight
-	setValue ("BUR", BUR)
+	let liberty
+	let burden=strength-load
+	setValue ("Burden", burden)
 	setValue ("PWR", PWR(getNumber("head")))
 	
-    _off = DEX;
-    _def = DEX;
+    _off = dexterity;
+    _def = dexterity;
 
 	let OffPrep = getNumber("OffPrep")
 	let DefPrep = getNumber("DefPrep")
@@ -107,24 +108,24 @@ function figureStats(){
 	let PrepCost = (OffPrep + DefPrep + AgiPrep) * 3
 	setValue ("Init", _init-PrepCost)
 	
-	setValue ("BOD", STR*2)
-	setValue ("WIL", STR+INT)
-	setValue ("AGI", STR+DEX+BUR+AgiPrep)
-	setValue ("FOC", (DEX+INT+EXP))
-	setValue ("OFF", _off)
-	setValue ("DEF", _def)
-	setValue ("EXP", EXP)
-	setValue ("TRM", EXP)
-	setValue ("acuity", Math.ceil(acuityLvl/2*INT))
-	setValue ("empathy", Math.ceil(empathyLvl/2*INT))
-	setValue ("evoke", Math.ceil(evokeLvl/2*INT))
-	setValue ("guile", Math.ceil(guileLvl/2*INT))
-	setValue ("culture", Math.ceil(cultureLvl/2*INT))
-	setValue ("crafts", Math.ceil(craftsLvl/2*INT))
-	setValue ("nature", Math.ceil(natureLvl/2*INT))
-	setValue ("magery", Math.ceil(mageryLvl/2*INT))
-	setValue ("grace", Math.ceil(graceLvl/2*DEX))
-	setValue ("fitness", Math.ceil(fitnessLvl/2*STR))
+	setValue ("Body", strength*2)
+	setValue ("Will", strength+intellect)
+	setValue ("Agility", strength+dexterity+burden+AgiPrep)
+	setValue ("Focus", (dexterity+intellect+experience))
+	setValue ("Offense", _off)	
+	setValue ("Defense", _def)
+	setValue ("EXP", experience)
+	setValue ("Trauma", experience)
+	setValue ("acuity", Math.ceil(acuityLvl/2*intellect))
+	setValue ("empathy", Math.ceil(empathyLvl/2*intellect))
+	setValue ("evoke", Math.ceil(evokeLvl/2*intellect))
+	setValue ("guile", Math.ceil(guileLvl/2*intellect))
+	setValue ("culture", Math.ceil(cultureLvl/2*intellect))
+	setValue ("crafts", Math.ceil(craftsLvl/2*intellect))
+	setValue ("nature", Math.ceil(natureLvl/2*intellect))
+	setValue ("magery", Math.ceil(mageryLvl/2*intellect))
+	setValue ("grace", Math.ceil(graceLvl/2*dexterity))
+	setValue ("fitness", Math.ceil(fitnessLvl/2*strength))
 
 	
 
@@ -139,18 +140,18 @@ function figureStats(){
 
     let advantagedOffPreps = Math.min(offensiveEquipBonus, OffPrep)
     let regularOffPreps = OffPrep - advantagedOffPreps
-    let equipmentOffBonus = advantagedOffPreps * Math.floor(DEX/2) + regularOffPreps;
-	setValue ("OFF", _off + equipmentOffBonus)
+    let equipmentOffBonus = advantagedOffPreps * Math.floor(dexterity/2) + regularOffPreps;
+	setValue ("Offense", _off + equipmentOffBonus)
 
     let advantagedDefPreps = Math.min(defensiveEquipBonus, DefPrep)
     let regularDefPreps = DefPrep - advantagedDefPreps
-    let equipmentDefBonus = advantagedDefPreps * Math.floor(DEX/2) + regularDefPreps;
-	setValue ("DEF", _def + equipmentDefBonus)
+    let equipmentDefBonus = advantagedDefPreps * Math.floor(dexterity/2) + regularDefPreps;
+	setValue ("Defense", _def + equipmentDefBonus)
 }
 
 function rollInitiative(){
-	let FOC = getNumber("FOC") || 0
-	_init = check()+FOC
+	let focus = getNumber("Focus") || 0
+	_init = check()+focus
 	setValue ("Init", _init)
     setValue("OffPrep", "")
     setValue("DefPrep", "")

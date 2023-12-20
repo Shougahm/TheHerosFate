@@ -1,0 +1,5 @@
+>Server side initiative roller and revealer
+>Initiative must be bought above zero if it is rolled negative
+>Rename burden to liberty/burden, same with trauma/clarity (naivity)
+>get server side for entire rules document, abandon Notion
+    >tooltips perhaps

@@ -27,6 +27,7 @@ table {
 
 td {
     min-width: 2rem;
+    vertical-align: top;
 }
 
 input {
