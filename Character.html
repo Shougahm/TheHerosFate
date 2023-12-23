@@ -126,7 +126,13 @@
 		<table>
 			<tr>
 				<td>Weapon</td>
-				<td>{{model.pwr ?? '-'}}</td>
+				<td v-if="model.pwr == null">-</td>
+				<td v-else-if="model.pwr.length == 1">{{model.pwr[0]}}</td>
+				<td v-else>
+					<select>
+						<option v-for="dice in model.pwr">{{dice}}</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td>Head or Blade</td>
