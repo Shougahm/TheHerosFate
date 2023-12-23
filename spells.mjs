@@ -1,4 +1,4 @@
-class Spell {
+export class Spell {
     constructor(name, level, advanced, difficult, cost, effect) {
         this.name = name;
         this.level = level;
@@ -9,7 +9,7 @@ class Spell {
     }
 }
 
-let spells = [
+export let spells = [
     new Spell("Image",
         2,
         false,
@@ -183,6 +183,6 @@ let spells = [
         true,
         "3+Range",
         "2+1R",
-        "Causes any missile spells (or missile or thrown weapons) aimed at the spell's subject to turn against the one who fired them instead. When this spell is cast, the player records the fact, secretly. He shows it to the other player at the END of the first turn in which missiles were fired at the spell's subject. All missiles which hit that figure are then considered to have hit the figure who fired them, instead (same damage). This may result in "replaying" part of a turn, to achieve the proper unpleasant surprise to the player who fired the missiles. (Exception: If a highly dexterous archer fired two arrows at the protected figure in one turn, only the first arrow turns back. The dexterous archer is then warned, and NO second arrow is fired.) This spell has NO EFFECT against non-missile attacks. Cost: 2 WL, plus 1 each turn it is maintained. If the character who fired the missile is also protected by REVERSE MISSILES, the missile flies back and forth (one round trip per turn) until it strikes some intervening object or one of the spells ceases."
+        "Causes any missile spells (or missile or thrown weapons) aimed at the spell's subject to turn against the one who fired them instead. When this spell is cast, the player records the fact, secretly. He shows it to the other player at the END of the first turn in which missiles were fired at the spell's subject. All missiles which hit that figure are then considered to have hit the figure who fired them, instead (same damage). This may result in \"replaying\" part of a turn, to achieve the proper unpleasant surprise to the player who fired the missiles. (Exception: If a highly dexterous archer fired two arrows at the protected figure in one turn, only the first arrow turns back. The dexterous archer is then warned, and NO second arrow is fired.) This spell has NO EFFECT against non-missile attacks. Cost: 2 WL, plus 1 each turn it is maintained. If the character who fired the missile is also protected by REVERSE MISSILES, the missile flies back and forth (one round trip per turn) until it strikes some intervening object or one of the spells ceases."
     ),
 ]

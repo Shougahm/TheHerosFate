@@ -1,0 +1,188 @@
+<div>
+    <div class='box'>
+        <div>Characteristics</div>
+		<table>
+			<tr>
+				<td>STR</td>
+				<td><number-input v-model="model.strength" @input="model.figureStats()"></td>
+				<td>Body</td>
+				<td>{{model.body ?? '-'}}</td>
+				<td>Offense</td>
+				<td>{{model.offense ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td>DEX</td>
+				<td><number-input v-model="model.dexterity" @input="model.figureStats()"></td>
+				<td>Will</td>
+				<td>{{model.will ?? '-'}}</td>
+				<td>Defense</td>
+				<td>{{model.defense ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td>INT</td>
+				<td><number-input v-model="model.intellect"  @input="model.figureStats()"></td>
+				<td>Agility</td>
+				<td>{{model.agility ?? '-'}}</td>
+				<td>Burden</td>
+				<td>{{model.burden ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>Focus</td>
+				<td>{{model.focus ?? '-'}}</td>
+				<td>Trauma</td>
+				<td>{{model.trauma ?? '-'}}</td>
+			</tr>
+		</table>
+    </div>
+
+    <div class='box'>
+        <div>Skills</div>
+		<table>
+			<tr>
+				<td>Experience</td>
+				<td>{{model.experience ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td>Acuity,</td>
+				<td>INT</td>
+				<td> <number-checkbox v-model="model.acuityLvl1" @change="model.figureStats()"> </td>
+				<td> <number-checkbox v-model="model.acuityLvl2" @change="model.figureStats()"> </td>
+				<td>{{model.acuity ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td>Empathy,</td>
+				<td>INT</td>
+				<td> <number-checkbox v-model="model.empathyLvl1" @change="model.figureStats()"> </td>
+				<td> <number-checkbox v-model="model.empathyLvl2" @change="model.figureStats()"> </td>
+				<td>{{model.empathy ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td>Evoke,</td>
+				<td>INT</td>
+				<td> <number-checkbox v-model="model.evokeLvl1" @change="model.figureStats()"> </td>
+				<td> <number-checkbox v-model="model.evokeLvl2" @change="model.figureStats()"> </td>
+				<td>{{model.evoke ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td>Guile,</td>
+				<td>INT</td>
+				<td> <number-checkbox v-model="model.guileLvl1" @change="model.figureStats()"> </td>
+				<td> <number-checkbox v-model="model.guileLvl2" @change="model.figureStats()"> </td>
+				<td>{{model.guile ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td>Culture,</td>
+				<td>INT</td>
+				<td> <number-checkbox v-model="model.cultureLvl1" @change="model.figureStats()"> </td>
+				<td> <number-checkbox v-model="model.cultureLvl2" @change="model.figureStats()"> </td>
+				<td>{{model.culture ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td>Crafts,</td>
+				<td>INT</td>
+				<td> <number-checkbox v-model="model.craftsLvl1" @change="model.figureStats()"> </td>
+				<td> <number-checkbox v-model="model.craftsLvl2" @change="model.figureStats()"> </td>
+				<td>{{model.crafts ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td>Nature,</td>
+				<td>INT</td>
+				<td> <number-checkbox v-model="model.natureLvl1" @change="model.figureStats()"> </td>
+				<td> <number-checkbox v-model="model.natureLvl2" @change="model.figureStats()"> </td>
+				<td>{{model.nature ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td>Magery,</td>
+				<td>INT</td>
+				<td> <number-checkbox v-model="model.mageryLvl1" @change="model.figureStats()"> </td>
+				<td> <number-checkbox v-model="model.mageryLvl2" @change="model.figureStats()"> </td>
+				<td>{{model.magery ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td>Grace,</td>
+				<td>DEX</td>
+				<td> <number-checkbox v-model="model.graceLvl1" @change="model.figureStats()"> </td>
+				<td> <number-checkbox v-model="model.graceLvl2" @change="model.figureStats()"> </td>
+				<td>{{model.grace ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td>Fitness,</td>
+				<td>STR</td>
+				<td> <number-checkbox v-model="model.fitnessLvl1" @change="model.figureStats()"> </td>
+				<td> <number-checkbox v-model="model.fitnessLvl2" @change="model.figureStats()"> </td>
+				<td>{{model.fitness ?? '-'}}</td>
+			</tr>
+		</table>
+    </div>
+
+	<div class='box'>
+		<div>Equipment</div>
+		<table>
+			<tr>
+				<td>Weapon</td>
+				<td>{{model.pwr ?? '-'}}</td>
+				<td>
+			<tr>
+				<td>Head or Blade</td>
+				<td><number-input v-model='model.head' @input="model.figureStats()"></td>
+			<tr>
+				<td>Pole Handle</td>
+				<td><number-input v-model="model.poleHandle" type="checkbox" @input="model.figureStats()"></td>
+			<tr>
+				<td>Thrown</td>
+				<td><number-input v-model="model.thrown" type="checkbox" @input="model.figureStats()"></td>
+			<tr>
+				<td>Finess</td>
+				<td><number-input v-model="model.finess" type="checkbox" @input="model.figureStats()"></td>
+			<tr>
+				<td>Two-Handed</td>
+				<td><number-input v-model="model.twoHanded" type="checkbox" @input="model.figureStats()"></td>
+				</td>
+			</tr>
+			<tr>
+				<td>Armor</td>
+				<td><number-input v-model="model.armor" @input="model.figureStats()"></td>
+			</tr>
+			<tr>
+				<td>
+					<select v-model="model.offhandType" @change="model.figureStats()">
+						<option value="Shield">Shield</option>
+						<option value="Weapon">Offhand Weapon</option>
+					</select>
+				</td>
+				<td>
+					<number-input v-model="model.offhand" @input="model.figureStats()">
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class='box'>
+		<div>Preparations</div>
+		<table>
+			<tr>
+				<td>Offensive</td>
+				<td><number-input v-model="model.offPrep" @input="model.figureStats()"></td>
+			</tr>
+			<tr>
+				<td>Defensive</td>
+				<td><number-input v-model="model.defPrep" @input="model.figureStats()"></td>
+			</tr>
+			<tr>
+				<td>Agility</td>
+				<td><number-input v-model="model.agiPrep" @input="model.figureStats()"></td>
+			</tr>
+			<tr>
+				<td>Initiative</td>
+				<td>{{model.initiative ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					<button @click="model.rollInitiative()" class='initiative-button'>Roll Initiative</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

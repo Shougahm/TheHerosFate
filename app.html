@@ -1,0 +1,14 @@
+<div>
+    <img src="assets/Octopus.png" width=250 style='margin-bottom: 2rem'>
+
+    <br>
+
+	<Character :model="model.character" />
+
+	<div class="box">
+		<div>Spells</div>
+		<table>
+			<Spell v-for="spell of model.spells" :model="spell"></Spell>
+		</table>
+	</div>
+</div>
