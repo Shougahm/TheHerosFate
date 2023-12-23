@@ -23,8 +23,10 @@
 				<td><number-input v-model="model.intellect"  @input="model.figureStats()"></td>
 				<td>Agility</td>
 				<td>{{model.agility ?? '-'}}</td>
-				<td>Burden</td>
-				<td>{{model.burden ?? '-'}}</td>
+				<td v-if="model.burden!=null">Burden</td>
+				<td v-if="model.burden!=null">{{model.burden}}</td>
+				<td v-if="model.liberty!=null">Liberty</td>
+				<td v-if="model.liberty!=null">{{model.liberty}}</td>
 			</tr>
 			<tr>
 				<td></td>
@@ -123,19 +125,23 @@
 			<tr>
 				<td>Weapon</td>
 				<td>{{model.pwr ?? '-'}}</td>
-				<td>
+			</tr>
 			<tr>
 				<td>Head or Blade</td>
 				<td><number-input v-model='model.head' @input="model.figureStats()"></td>
+			</tr>
 			<tr>
 				<td>Pole Handle</td>
 				<td><number-input v-model="model.poleHandle" type="checkbox" @input="model.figureStats()"></td>
+			</tr>
 			<tr>
 				<td>Thrown</td>
 				<td><number-input v-model="model.thrown" type="checkbox" @input="model.figureStats()"></td>
+			</tr>
 			<tr>
-				<td>Finess</td>
-				<td><number-input v-model="model.finess" type="checkbox" @input="model.figureStats()"></td>
+				<td>Finesse</td>
+				<td><number-input v-model="model.finesse" type="checkbox" @input="model.figureStats()"></td>
+			</tr>
 			<tr>
 				<td>Two-Handed</td>
 				<td><number-input v-model="model.twoHanded" type="checkbox" @input="model.figureStats()"></td>

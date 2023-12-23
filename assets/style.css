@@ -7,6 +7,7 @@ body {
     background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(hexpaper.png);
     background-size: 800px;
     font-family: Tahoma;
+    user-select: none;
 }
 
 /* div, table { border: 1px solid red; }
@@ -41,12 +42,13 @@ tr.spell > td {
 }
 
 td {
-    min-width: 2rem;
+    width: 1rem;
+    padding: .2rem;
     vertical-align: top;
 }
 
-input {
-    width: 3rem;
+input[type=number] {
+    width: 2rem;
 }
 
 input[type=checkbox] { 

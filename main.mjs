@@ -1,38 +1,5 @@
+import { PWR, check } from "./dice.mjs";
 import { spells } from "./spells.mjs";
-
-function roll(min, max) {
-	return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-function PWR(pwr) {
-	let a = Math.trunc(pwr / 4);
-
-	if (a == 0) {
-		a = ""
-	} else if (a == 1) {
-		a = "d8";
-	} else {
-		a = a + "d8";
-	}
-
-	let b = (pwr % 4) * 2;
-
-	if (b == 0) {
-		b = "";
-	} else if (b > 0) {
-		b = "d" + b;
-	}
-
-	if (a && b) {
-		a += "+";
-	}
-
-	return a + b;
-}
-
-function check() {
-	return (roll(1, 12) - roll(1, 12))
-}
 
 class Character {
 	constructor() {
@@ -76,7 +43,7 @@ class Character {
 
 		this.poleHandle = false;
 		this.thrown = false;
-		this.finess = false;
+		this.finesse = false;
 		this.twoHanded = false;
 
 		this.offPrep = null;
@@ -86,7 +53,6 @@ class Character {
 		this.offense = null;
 		this.defense = null;
 		this.experience = null;
-		this.trauma = null;
 		this.acuity = null;
 		this.empathy = null;
 		this.evoke = null;
@@ -98,7 +64,10 @@ class Character {
 		this.grace = null;
 		this.fitness = null;
 
-		this.burden = 0;
+		this.burden = null;
+		this.liberty = null;
+		this.trauma = null;
+		this.clarity = null;
 	}
 
 	figureStats() {
@@ -113,7 +82,7 @@ class Character {
 		let graceLvl   = this.graceLvl1   + this.graceLvl2;
 		let fitnessLvl = this.fitnessLvl1 + this.fitnessLvl2;
 
-		let experience = this.intellect - totalSkills()
+		this.experience = totalSkills()
 
 		function totalSkills() {
 			let r =
@@ -133,33 +102,40 @@ class Character {
 
 		let load = this.head +
 			+ this.armor
-			+ this.offhand;
+			+ this.offhand
+			+ this.poleHandle
+			+ this.thrown
+			+ this.finesse;
 
-		if (this.poleHandle)
-			load+=1
-		if (this.thrown)
-			load+=1
-		if (this.finess)
-			load+=1
 		if (this.twoHanded)
 			load -= Math.floor(this.strength/3)
 
-		let liberty
-		this.burden = this.strength - load;
+		this.burden = null;
+		this.liberty = null;	
+			if (this.strength > load)
+				this.liberty = this.strength - load;
+			else if (this.strength < load)
+				this.burden = load - this.strength;
+		
+		this.trauma = null;
+		this.clarity = null;	
+			if (this.intellect > this.experience)
+				this.clarity = this.intellect - this.experience;
+			else if (this.intellect < this.experience)
+				this.trauma = this.experience - this.intellect;
+			
 		this.pwr = PWR(this.head);
 
-		let _off = this.dexterity;
-		let _def = this.dexterity;
+		let _off = this.dexterity-this.burden;
+		let _def = this.dexterity-this.burden;
 
 		let prepCost = (this.offPrep + this.defPrep + this.agiPrep) * 3
 		this.initiative = this.initiativeRoll - prepCost;
 
 		this.body = this.strength * 2;
 		this.will = this.strength + this.intellect;
-		this.agility = this.strength + this.dexterity + this.burden + this.agiPrep;
-		this.focus = this.dexterity + this.intellect + experience;
-		this.experience = experience;
-		this.trauma = experience;
+		this.agility = this.strength + this.dexterity - this.burden + this.liberty + this.agiPrep;
+		this.focus = this.dexterity + this.intellect - this.trauma + this.clarity;
 		this.acuity = Math.ceil(acuityLvl / 2 * this.intellect);
 		this.empathy = Math.ceil(empathyLvl / 2 * this.intellect);
 		this.evoke = Math.ceil(evokeLvl / 2 * this.intellect);
@@ -219,7 +195,7 @@ async function main() {
 	});
 
 	Vue.component("number-input", {
-		template: `<input maxlength='2' v-bind:value="value" v-on:input="$emit('input', Number($event.target.value))" @keypress="requireNumber($event)">`,
+		template: `<input type="number" maxlength='2' v-bind:value="value" v-on:input="$emit('input', Number($event.target.value))" @keypress="requireNumber($event)">`,
 		props: ['value'],
 		emits: ['update:value'],
 		methods: {
