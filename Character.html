@@ -33,8 +33,10 @@
 				<td></td>
 				<td>Focus</td>
 				<td>{{model.focus ?? '-'}}</td>
-				<td>Trauma</td>
-				<td>{{model.trauma ?? '-'}}</td>
+				<td v-if="model.trauma!=null">Trauma</td>
+				<td v-if="model.trauma!=null">{{model.trauma}}</td>
+				<td v-if="model.clarity!=null">Clarity</td>
+				<td v-if="model.clarity!=null">{{model.clarity}}</td>
 			</tr>
 		</table>
     </div>

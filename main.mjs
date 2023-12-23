@@ -36,7 +36,7 @@ class Character {
 		this.graceLvl2 = 0;
 		this.fitnessLvl2 = 0;
 
-		this.head = null;
+		this.head = 0;
 		this.armor = null;
 		this.offhandType = null;
 		this.offhand = 0;
@@ -52,7 +52,7 @@ class Character {
 
 		this.offense = null;
 		this.defense = null;
-		this.experience = null;
+		this.experience = 0;
 		this.acuity = null;
 		this.empathy = null;
 		this.evoke = null;
