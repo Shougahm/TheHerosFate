@@ -90,6 +90,9 @@ class Character {
 		}
 		return damage;
 	}
+	get injury() {
+		 
+	}
 	figureStats() {
 		let acuityLvl  = this.acuityLvl1  + this.acuityLvl2;
 		let empathyLvl = this.empathyLvl1 + this.empathyLvl2;
@@ -102,10 +105,7 @@ class Character {
 		let graceLvl   = this.graceLvl1   + this.graceLvl2;
 		let fitnessLvl = this.fitnessLvl1 + this.fitnessLvl2;
 
-		this.experience = totalSkills()
-
-		function totalSkills() {
-			let r =
+		this.experience = 
 				acuityLvl +
 				empathyLvl +
 				evokeLvl +
@@ -115,10 +115,7 @@ class Character {
 				natureLvl +
 				mageryLvl +
 				graceLvl +
-				fitnessLvl
-
-			return r
-		}
+				fitnessLvl;
 
 		let load = this.head +
 			+ this.armor

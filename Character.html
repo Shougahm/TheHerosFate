@@ -57,7 +57,8 @@
 			</tr>
 			<tr v-for="(wound, index) of model.wounds">
 				<td><button @click="model.removeWound(index)">-</button></td>
-				<td>{{wound}}</td> // TODO Add some kind of "will only" checkbox that makes a wound only affect Will.
+				<td>{{wound}}</td> 
+<!-- TODO Add some kind of "will only" checkbox that makes a wound only affect Will.-->
 			</tr>
 			<tr>
 				<select @change="model.addWound($event.target.value), $event.target.value='+'">
