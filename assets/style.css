@@ -41,10 +41,10 @@ tr.spell > td {
     font-weight: bold;
 }
 
-td {
-    width: 1rem;
+th, td {
     padding: .2rem;
     vertical-align: top;
+    text-align: left;
 }
 
 input[type=number] {

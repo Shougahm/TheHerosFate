@@ -1,9 +1,27 @@
 <div>
-    <img src="assets/Octopus.png" width=250 style='margin-bottom: 2rem'>
+    <!-- <img src="assets/Octopus.png" width=250 style='margin-bottom: 2rem'> -->
 
     <br>
 
 	<Character :model="model.character" />
+
+	<div class="box">
+		<div>Actions</div>
+		<table>
+			<tr>
+				<th>Action</th>
+				<th>Cost</th>
+				<th>Condition</th>
+				<th>Resolution</th>
+			</tk>
+			<tr v-for="action of model.actions" :model="action">
+				<td>{{action.action}}</td>
+				<td>{{action.cost}}</td>
+				<td>{{action.condition}}</td>
+				<td>{{action.resolution}}</td>
+			</tr>
+		</table>
+	</div>
 
 	<div class="box">
 		<div>Spells</div>

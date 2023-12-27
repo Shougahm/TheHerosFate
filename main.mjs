@@ -1,5 +1,6 @@
 import { PWR, check } from "./dice.mjs";
 import { spells } from "./spells.mjs";
+import { actions } from "./actions.mjs";
 
 class Character {
 	constructor() {
@@ -179,6 +180,7 @@ class App {
 	constructor() {
 		this.character = new Character();
 		this.spells = spells;
+		this.actions = actions;
 	}
 }
 
