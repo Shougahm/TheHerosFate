@@ -4,6 +4,8 @@ import { actions } from "./actions.mjs";
 
 class Character {
 	constructor() {
+		this.name = null;
+		
 		this.strength = 4;
 		this.dexterity = 4;
 		this.intellect = 4;
@@ -37,14 +39,16 @@ class Character {
 		this.graceLvl2 = 0;
 		this.fitnessLvl2 = 0;
 
-		this.head = 0;
+		this.experience = null;
+
+		this.head = null;
 		this.armor = null;
 		this.offhandType = null;
 		this.offhand = 0;
 
-		this.poleHandle = false;
-		this.thrown = false;
-		this.finesse = false;
+		this.poleHandle = 0;
+		this.thrown = 0;
+		this.finesse = 0;
 		this.twoHanded = false;
 
 		this.offPrep = null;
@@ -53,7 +57,6 @@ class Character {
 
 		this.offense = null;
 		this.defense = null;
-		this.experience = 0;
 		this.acuity = null;
 		this.empathy = null;
 		this.evoke = null;
@@ -69,8 +72,24 @@ class Character {
 		this.liberty = null;
 		this.trauma = null;
 		this.clarity = null;
-	}
 
+		this.wounds = [];
+	}
+	addWound(wound) {
+		this.wounds.push(Number(wound))
+		this.figureStats()
+	}
+	removeWound(woundIndex) {
+		this.wounds.splice(woundIndex, 1)
+		this.figureStats()
+	}
+	get damage() {
+		let damage = 0;
+		for (let wound of this.wounds) {
+			damage += wound;
+		}
+		return damage;
+	}
 	figureStats() {
 		let acuityLvl  = this.acuityLvl1  + this.acuityLvl2;
 		let empathyLvl = this.empathyLvl1 + this.empathyLvl2;
@@ -108,9 +127,10 @@ class Character {
 			+ this.thrown
 			+ this.finesse;
 
-		if (this.twoHanded)
-			load -= Math.floor(this.strength/3)
-
+		if (this.twoHanded) {
+			load -= Math.floor(this.strength/4);
+		}
+//TODO Figure out how to make negative will and body affect trauama and burden.
 		this.burden = null;
 		this.liberty = null;	
 			if (this.strength > load)
@@ -133,8 +153,8 @@ class Character {
 		let prepCost = (this.offPrep + this.defPrep + this.agiPrep) * 3
 		this.initiative = this.initiativeRoll - prepCost;
 
-		this.body = this.strength * 2;
-		this.will = this.strength + this.intellect;
+		this.body = this.strength * 2 - this.damage;
+		this.will = this.strength + this.intellect - this.damage;
 		this.agility = this.strength + this.dexterity - this.burden + this.liberty + this.agiPrep;
 		this.focus = this.dexterity + this.intellect - this.trauma + this.clarity;
 		this.acuity = Math.ceil(acuityLvl / 2 * this.intellect);
@@ -184,7 +204,7 @@ class App {
 	}
 }
 
-
+// TODO Save and Restore function.
 async function main() {
 	await Component("Character");
 	await Component("Spell");

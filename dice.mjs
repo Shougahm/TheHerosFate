@@ -3,7 +3,7 @@ function roll(min, max) {
 }
 
 export function PWR(power) {
-	power += 2;
+	power *= 2;
 
     let result = [];
     let d8s = Math.floor(power / 8);

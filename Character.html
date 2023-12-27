@@ -1,4 +1,9 @@
 <div>
+	<div class='box'>
+		<div>Name</div>
+		<input>{{model.name}}</input>
+	</div>
+
     <div class='box'>
         <div>Characteristics</div>
 		<table>
@@ -23,10 +28,14 @@
 				<td><number-input v-model="model.intellect"  @input="model.figureStats()"></td>
 				<td>Agility</td>
 				<td>{{model.agility ?? '-'}}</td>
-				<td v-if="model.burden!=null">Burden</td>
-				<td v-if="model.burden!=null">{{model.burden}}</td>
-				<td v-if="model.liberty!=null">Liberty</td>
-				<td v-if="model.liberty!=null">{{model.liberty}}</td>
+				<template v-if="model.burden!=null">
+					<td>Burden</td>
+					<td>{{model.burden}}</td>
+				</template>
+				<template v-if="model.liberty!=null">
+					<td>Liberty</td>
+					<td>{{model.liberty}}</td>
+				</template>
 			</tr>
 			<tr>
 				<td></td>
@@ -37,6 +46,24 @@
 				<td v-if="model.trauma!=null">{{model.trauma}}</td>
 				<td v-if="model.clarity!=null">Clarity</td>
 				<td v-if="model.clarity!=null">{{model.clarity}}</td>
+			</tr>
+			<tr>
+				<th>
+					Wounds
+				</th>
+				<td colspan="5">
+					{{model.damage}}
+				</td>
+			</tr>
+			<tr v-for="(wound, index) of model.wounds">
+				<td><button @click="model.removeWound(index)">-</button></td>
+				<td>{{wound}}</td> // TODO Add some kind of "will only" checkbox that makes a wound only affect Will.
+			</tr>
+			<tr>
+				<select @change="model.addWound($event.target.value), $event.target.value='+'">
+					<option>+</option>
+					<option v-for="damage in 99">{{damage}}</option>
+				</select>
 			</tr>
 		</table>
     </div>
@@ -120,18 +147,13 @@
 			</tr>
 		</table>
     </div>
-
 	<div class='box'>
 		<div>Equipment</div>
 		<table>
 			<tr>
 				<td>Weapon</td>
-				<td v-if="model.pwr == null">-</td>
-				<td v-else-if="model.pwr.length == 1">{{model.pwr[0]}}</td>
-				<td v-else>
-					<select>
-						<option v-for="dice in model.pwr">{{dice}}</option>
-					</select>
+				<td style="min-width: 7rem">
+					<span>{{model.pwr ?? '-'}}</span>
 				</td>
 			</tr>
 			<tr>
@@ -140,19 +162,19 @@
 			</tr>
 			<tr>
 				<td>Pole Handle</td>
-				<td><number-input v-model="model.poleHandle" type="checkbox" @input="model.figureStats()"></td>
+				<td><number-checkbox v-model="model.poleHandle" @input="model.figureStats()"></td>
 			</tr>
 			<tr>
 				<td>Thrown</td>
-				<td><number-input v-model="model.thrown" type="checkbox" @input="model.figureStats()"></td>
+				<td><number-checkbox v-model="model.thrown" @input="model.figureStats()"></td>
 			</tr>
 			<tr>
 				<td>Finesse</td>
-				<td><number-input v-model="model.finesse" type="checkbox" @input="model.figureStats()"></td>
+				<td><number-checkbox v-model="model.finesse" @input="model.figureStats()"></td>
 			</tr>
 			<tr>
 				<td>Two-Handed</td>
-				<td><number-input v-model="model.twoHanded" type="checkbox" @input="model.figureStats()"></td>
+				<td><input v-model="model.twoHanded" type="checkbox" @change="model.figureStats()"></td>
 				</td>
 			</tr>
 			<tr>

@@ -15,7 +15,7 @@ export let spells = [
         false,
         "4",
         "X",
-        "Create a 1 hex image within X*DX hexes of the caster. An image cannot emit light but can emit smells no stronger than manure and sounds no louder than a speaking voice. Lasts X*12 minutes."
+        "Create a 1 hex image within X*STR hexes of the caster. An image cannot emit light but can emit smells no stronger than manure and sounds no louder than a speaking voice. Lasts X*12 minutes."
     ),
     new Spell("Light",
         2,
@@ -34,16 +34,16 @@ export let spells = [
     new Spell("Project Force",
         2,
         true,
-        "3+(Range/DX)",
+        "3+(Range/DEX)",
         "X",
-        "Deals X Power to a target X+DX hexes away. If Project Force deals more damage the target has ST, it knocks the target prone."
+        "Deals X Power to a target X+STR hexes away. If Project Force wounds the target, it knocks the target prone."
     ),
     new Spell("Aid",
         2,
         true,
         "3+Range",
         "X",
-        "Grants the target +2X ST, DX, or IQ until they have spent 20 action points. "
+        "Grants the target +2X STR, DEX, or INT until they have spent 20 action points. "
     ),
     new Spell("Blur",
         2,
@@ -71,14 +71,14 @@ export let spells = [
         false,
         "3+Range",
         "1-2",
-        "The target drops any one thing held we in a single hand. This spell costs 2 if the target’s ST is 10 or more."
+        "The target drops any one thing held we in a single hand. This spell costs 2 if the target’s STR is 10 or more."
     ),
     new Spell("Confound",
         3,
         true,
         "3+Range",
         "X",
-        "Subtract X from the targets DX or IQ until the target has spent 20 Action Points."
+        "Subtract X from the targets DEX or INT until the target has spent 20 Action Points."
     ),
     new Spell("Avert",
         3,
@@ -106,14 +106,14 @@ export let spells = [
         false,
         "4",
         "2+1R",
-        "Summon a wolf with 5 ST (2 Liberty), 7 DX, 3 IQ and 3 Natural Power with Finesse within DX hexes of the caster. Lasts until no longer maintained."
+        "Summon a wolf with 5 STR (2 Liberty), 7 DEX, 3 INT and 3 Natural Power with Finesse within STR hexes of the caster. Lasts until no longer maintained."
     ),
     new Spell("Fire",
         4,
         true,
         "3+Range",
         "1",
-        "Fills one hex with magical flame. No creature of less than IQ 4 will pass through or stay in it, animals are afraid of fire. A figure who moves through a fire hex, or is in a hex when a mage creates fire there, takes 2 damage of damage. A figure which ends its turn in a fire hex takes 2 damage and suffers -2 DX next turn. The effects of fire hexes are cumulative within a turn, but armor and protective spells DO work, Example: A figure moves through 2 fire hexes (4 damage) and stops in a third one to attack (4 more damage). The protection given by that figure's armor and spells are taken from the total of 8 damage to see how much damage the figure actually took from the fire. The damage takes effect as soon as the protection is used up. A mage may also use this spell to produce controlled fire in his own or an adjacent hex. He could light his own cigar, a friend's torch, or an enemy's beard."
+        "Fills one hex with magical flame. No creature of less than INT 4 will pass through or stay in it, animals are afraid of fire. A figure who moves through a fire hex, or is in a hex when a mage creates fire there, takes 2 damage of damage. A figure which ends its turn in a fire hex takes 2 damage and suffers -2 DEX next turn. The effects of fire hexes are cumulative within a turn, but armor and protective spells DO work, Example: A figure moves through 2 fire hexes (4 damage) and stops in a third one to attack (4 more damage). The protection given by that figure's armor and spells are taken from the total of 8 damage to see how much damage the figure actually took from the fire. The damage takes effect as soon as the protection is used up. A mage may also use this spell to produce controlled fire in his own or an adjacent hex. He could light his own cigar, a friend's torch, or an enemy's beard."
     ),
     new Spell("Trip",
         4,
@@ -134,14 +134,14 @@ export let spells = [
         false,
         "4",
         "2+1R",
-        "Summon a myrmidon with 6 STR, 6 DEX, 4 INT, and a Power 6 Broadsword within DX hexes of the caster. Lasts until no longer maintained."
+        "Summon a myrmidon with 6 STR, 6 DEX, 4 INT, and a Power 6 Broadsword within STR hexes of the caster. Lasts until no longer maintained."
     ),
     new Spell("Dazzle",
         5,
         false,
         "4",
         "-",
-        "Creates a blinding psychic flash. All sighted creatures (friend or foe) in an area within 15 hexes of the mage (but NOT the mage himself) suffer -3 DX for 3 turns. Images, illusions, etc. (ANYTHING with eyes) are affected. Cost: 3 WL."
+        "Creates a blinding psychic flash. All sighted creatures (friend or foe) in an area within 15 hexes of the mage (but NOT the mage himself) suffer -3 DEX for 3 turns. Images, illusions, etc. (ANYTHING with eyes) are affected. Cost: 3 WL."
     ),
     new Spell("Shadow",
         5,
@@ -169,7 +169,7 @@ export let spells = [
         true,
         "4",
         "4+1R",
-        "Summon a bear with ST 15, DX 5, IQ 6, and 8 Natural Power within DEX hexes of the caster. Lasts until no longer maintained."
+        "Summon a bear with STR 15, DEX 5, INT 6, and 8 Natural Power within STR hexes of the caster. Lasts until no longer maintained."
     ),
     new Spell("Control Animal",
         5,
@@ -185,4 +185,18 @@ export let spells = [
         "2+1R",
         "Causes any missile spells (or missile or thrown weapons) aimed at the spell's subject to turn against the one who fired them instead. When this spell is cast, the player records the fact, secretly. He shows it to the other player at the END of the first turn in which missiles were fired at the spell's subject. All missiles which hit that figure are then considered to have hit the figure who fired them, instead (same damage). This may result in \"replaying\" part of a turn, to achieve the proper unpleasant surprise to the player who fired the missiles. (Exception: If a highly dexterous archer fired two arrows at the protected figure in one turn, only the first arrow turns back. The dexterous archer is then warned, and NO second arrow is fired.) This spell has NO EFFECT against non-missile attacks. Cost: 2 WL, plus 1 each turn it is maintained. If the character who fired the missile is also protected by REVERSE MISSILES, the missile flies back and forth (one round trip per turn) until it strikes some intervening object or one of the spells ceases."
     ),
+    new Spell ("Ensnare",
+        5,
+        true,
+        "3+Range",
+        "2",
+        "Everything near the target (plants, fibers, etc.) reaches out and tries to entangle them, doubling the cost of their movement actions. IMMEDIATELY reduce the victim's DEX by 2. Each 10 action points the victim spends reduces their DEX by 1 more while the spell lasts. To disentangle, the victim must spend 10 Action Points and succeed on a saving roll+Grace. A successful saving roll means the target has escaped all the entangling forces, which then “give up.” If a figure's DEX is reduced to 1 or less by a rope, he falls to the floor, helpless. A figure in an adjoining hex can disentangle the victim in the same way — by spending 10 action points and succeeding on a roll+Grace."
+    ),
+    new Spell ("Create Wall",
+        5,
+        true,
+        "4",
+        "2",
+        "Creates a solid wall in one hex within 2*STR hexes of the mage— looks like a real wall. This spell CANNOT be cast over a figure or part of a figure to entomb him/her in solid rock; cast at a hex containing a figure, it fails. (A wall cast on an image, or part of one, WILL destroy it.)",
+    )
 ]
