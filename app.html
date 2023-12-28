@@ -3,7 +3,20 @@
 
     <br>
 
-	<Character :model="model.character" />
+	<div class='tab-row' >
+		<div v-for="character of model.characters" class='tab' :class="{ selected: model.selectedCharacter == character}" @click="model.selectedCharacter = character">
+			{{character.name}}
+			<span @click="model.deleteCharacter(character)">
+				🗑
+			</span>
+		</div>
+		<div class='tab' @click="model.createNewCharacter()">
+			+
+		</div>
+	</div>
+
+	<Character :model="model.selectedCharacter" />
+
 // TODO Make these boxes fukin collapsable.
 	<div class="box">
 		<div>Actions</div>

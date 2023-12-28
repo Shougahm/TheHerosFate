@@ -1,8 +1,8 @@
 import { PWR, check } from "./dice.mjs";
 
 export class Character {
-	constructor() {
-		this.name = null;
+	constructor(name) {
+        this.name = name;
 
 		this.strength = 4;
 		this.dexterity = 4;
@@ -73,13 +73,6 @@ export class Character {
 
 		this.wounds = [];
 		this.stuns = [];
-
-		// save/restore
-		const savedCharacter = localStorage.getItem("HeroCharacter");
-		if (savedCharacter) {
-			Object.assign(this, JSON.parse(savedCharacter));
-		}
-		window.onbeforeunload = () => localStorage.setItem("HeroCharacter", JSON.stringify(this));
 	}
 	addWound(wound) {
 		this.wounds.push(Number(wound));

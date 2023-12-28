@@ -1,4 +1,3 @@
->Server side initiative roller and revealer
->Initiative must be bought above zero if it is rolled negative
->get server side for entire rules document, abandon Notion
-    >tooltips perhaps
+> Initiative must be bought above zero if it is rolled negative
+> get server side for entire rules document, abandon Notion
+    > tooltips perhaps

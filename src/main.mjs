@@ -1,12 +1,42 @@
 import { spells } from "./spells.mjs";
 import { actions } from "./actions.mjs";
-import { Character } from "./Character.mjs";
+import { Character } from "./character.mjs";
 
 class App {
 	constructor() {
 		this.spells = spells;
 		this.actions = actions;
-		this.character = new Character();
+
+		this.load();
+		if (this.characters == null) {
+			this.createNewCharacter();
+		}
+		this.selectedCharacter = this.characters[0];
+
+		window.onbeforeunload = () => this.save();
+	}
+
+	createNewCharacter() {
+		let name = prompt("Character Name");
+		this.characters.push(new Character(name));
+	}
+
+	deleteCharacter(character) {
+		if (confirm(`Delete ${character.name} forever?`)) {
+			this.characters.splice(this.characters.indexOf(character), 1);
+		}
+	}
+
+	save() {
+		localStorage.setItem("characters", JSON.stringify(this.characters));
+	}
+
+	load() {
+		const savedCharacters = localStorage.getItem("characters");
+		if (savedCharacters) {
+			this.characters = JSON.parse(savedCharacters)
+				.map(saveCharacter => Object.assign(new Character(), saveCharacter));
+		}
 	}
 }
 
@@ -34,7 +64,6 @@ window.onload = async () => {
 			},
 		},
 	});
-
 
 	bootstrap(new App());
 }
