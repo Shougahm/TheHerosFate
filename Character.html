@@ -51,21 +51,49 @@
 				<th>
 					Wounds
 				</th>
-				<td colspan="5">
+				<td>
 					{{model.damage}}
 				</td>
-			</tr>
-			<tr v-for="(wound, index) of model.wounds">
-				<td><button @click="model.removeWound(index)">-</button></td>
-				<td>{{wound}}</td> 
-<!-- TODO Add some kind of "will only" checkbox that makes a wound only affect Will.-->
+				<th>
+					Stuns
+				</th>
+				<td colspan="3">
+					{{model.bramage}}
+				</td>
 			</tr>
 			<tr>
-				<select @change="model.addWound($event.target.value), $event.target.value='+'">
+				<td colspan="2">
+					<div v-for="(wound, index) of model.wounds">
+						<button @click="model.removeWound(index)">-</button> {{wound}}
+					</div>
+					<select @change="model.addWound($event.target.value), $event.target.value='+'">
+						<option>+</option>
+						<option v-for="damage in 99">{{damage}}</option>
+					</select>
+				</td>
+				<td colspan="4">
+					<div v-for="(stun, index) of model.stuns">
+						<button @click="model.removeStun(index)">-</button> {{stun}}
+					</div>
+					<select @change="model.addStun($event.target.value), $event.target.value='+'">
+						<option>+</option>
+						<option v-for="bramage in 99">{{bramage}}</option>
+					</select>
+				</td>
+			</tr>
+			<!-- <tr>
+			</tr> -->
+			<!--TODO Get this stun buttons shit moved over to the right, you'll know when you see how it looks it's all fucked up.-->
+			<!-- <tr v-for="(stun, index) of model.stuns">
+				<td><button @click="model.removeStun(index)">-</button></td>
+				<td>{{stun}}</td> 
+			</tr>
+			<tr>
+				<select @change="model.addStun($event.target.value), $event.target.value='+'">
 					<option>+</option>
 					<option v-for="damage in 99">{{damage}}</option>
 				</select>
-			</tr>
+			</tr> -->
 		</table>
     </div>
 

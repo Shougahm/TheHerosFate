@@ -72,6 +72,7 @@ export class Character {
 		this.clarity = null;
 
 		this.wounds = [];
+		this.stuns = [];
 
 		// save/restore
 		const savedCharacter = localStorage.getItem("HeroCharacter");
@@ -95,7 +96,26 @@ export class Character {
 		}
 		return damage;
 	}
+	addStun(stun) {
+		this.stuns.push(Number(stun));
+		this.figureStats();
+	}
+	removeStun(stunIndex) {
+		this.stuns.splice(stunIndex, 1);
+		this.figureStats();
+	}
+	get bramage() {
+		let bramage = 0;
+		for (let stun of this.stuns) {
+			bramage += stun;
+		}
+		return bramage;
+	}
+
 	figureStats() {
+		this.body = this.strength * 2 - this.damage;
+		this.will = this.strength + this.intellect - this.damage - this.bramage;
+
 		let acuityLvl = this.acuityLvl1 + this.acuityLvl2;
 		let empathyLvl = this.empathyLvl1 + this.empathyLvl2;
 		let evokeLvl = this.evokeLvl1 + this.evokeLvl2;
@@ -107,10 +127,8 @@ export class Character {
 		let graceLvl = this.graceLvl1 + this.graceLvl2;
 		let fitnessLvl = this.fitnessLvl1 + this.fitnessLvl2;
 
-		this.experience = totalSkills();
-
-		function totalSkills() {
-			let r = acuityLvl +
+		this.experience = 
+				acuityLvl +
 				empathyLvl +
 				evokeLvl +
 				guileLvl +
@@ -120,8 +138,17 @@ export class Character {
 				mageryLvl +
 				graceLvl +
 				fitnessLvl;
-
-			return r;
+		if (this.will < 0) {
+			this.experience = this.experience - this.will
+		}
+		this.trauma = null;
+		this.clarity = null;
+		if (this.intellect > this.experience)
+			this.clarity = this.intellect - this.experience;
+		else if (this.intellect < this.experience)
+			this.trauma = this.experience - this.intellect;
+		if (this.will < 0) {
+				this.experience = this.experience + this.will
 		}
 
 		let load = this.head +
@@ -134,7 +161,10 @@ export class Character {
 		if (this.twoHanded) {
 			load -= Math.floor(this.strength / 4);
 		}
-		//TODO Figure out how to make negative will and body affect trauama and burden.
+		if (this.body < 0) {
+			load = load - this.body
+		}
+
 		this.burden = null;
 		this.liberty = null;
 		if (this.strength > load)
@@ -142,13 +172,7 @@ export class Character {
 		else if (this.strength < load)
 			this.burden = load - this.strength;
 
-		this.trauma = null;
-		this.clarity = null;
-		if (this.intellect > this.experience)
-			this.clarity = this.intellect - this.experience;
-		else if (this.intellect < this.experience)
-			this.trauma = this.experience - this.intellect;
-
+		
 		this.pwr = PWR(this.head);
 
 		let _off = this.dexterity - this.burden;
@@ -157,18 +181,17 @@ export class Character {
 		let prepCost = (this.offPrep + this.defPrep + this.agiPrep) * 3;
 		this.initiative = this.initiativeRoll - prepCost;
 
-		this.body = this.strength * 2 - this.damage;
-		this.will = this.strength + this.intellect - this.damage;
+		
 		this.agility = this.strength + this.dexterity - this.burden + this.liberty + this.agiPrep;
 		this.focus = this.dexterity + this.intellect - this.trauma + this.clarity;
-		this.acuity = Math.ceil(acuityLvl / 2 * this.intellect);
-		this.empathy = Math.ceil(empathyLvl / 2 * this.intellect);
-		this.evoke = Math.ceil(evokeLvl / 2 * this.intellect);
-		this.guile = Math.ceil(guileLvl / 2 * this.intellect);
-		this.culture = Math.ceil(cultureLvl / 2 * this.intellect);
-		this.crafts = Math.ceil(craftsLvl / 2 * this.intellect);
-		this.nature = Math.ceil(natureLvl / 2 * this.intellect);
-		this.magery = Math.ceil(mageryLvl / 2 * this.intellect);
+		this.acuity = Math.ceil(acuityLvl / 2 * this.intellect - this.trauma / 2);
+		this.empathy = Math.ceil(empathyLvl / 2 * this.intellect - this.trauma / 2);
+		this.evoke = Math.ceil(evokeLvl / 2 * this.intellect - this.trauma / 2);
+		this.guile = Math.ceil(guileLvl / 2 * this.intellect - this.trauma / 2);
+		this.culture = Math.ceil(cultureLvl / 2 * this.intellect - this.trauma / 2);
+		this.crafts = Math.ceil(craftsLvl / 2 * this.intellect - this.trauma / 2);
+		this.nature = Math.ceil(natureLvl / 2 * this.intellect - this.trauma / 2);
+		this.magery = Math.ceil(mageryLvl / 2 * this.intellect - this.trauma / 2);
 		this.grace = Math.ceil(graceLvl / 2 * this.dexterity);
 		this.fitness = Math.ceil(fitnessLvl / 2 * this.strength);
 
@@ -179,10 +202,14 @@ export class Character {
 		} else if (this.offhandType == "Weapon") {
 			offensiveEquipBonus = this.offhand;
 		}
-
+//TODO Fix sell rates so that you get better sell rates for having offhand wep and dex.
+//TODO Perhaps two handing should be agilityEquipBonus, it's an interesting concept.
 		let advantagedOffPreps = Math.min(offensiveEquipBonus, this.offPrep);
 		let regularOffPreps = (this.offPrep) - advantagedOffPreps;
 		let equipmentOffBonus = advantagedOffPreps * Math.floor(this.dexterity / 2) + regularOffPreps;
+		//if (this.offPrep+this.offhand < 0)
+		//this.offense = _off + (this.offPrep+this.offhand);
+		//else if (this.offPrep > 0)
 		this.offense = _off + equipmentOffBonus;
 
 		let advantagedDefPreps = Math.min(defensiveEquipBonus, this.defPrep);

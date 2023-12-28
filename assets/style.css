@@ -1,11 +1,15 @@
 :root {
     --dark-color: #ca9859;
     --light-color: #f4cc8e;
+    --light-color-odd: #f9c677;
 }
+
+/* tr:nth-child(odd) { background:var(--light-color-odd); } */
+
 body {
     padding: 1rem;
     background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(hexpaper.png);
-    background-size: 800px;
+    background-size: 800px; 
     font-family: Tahoma;
     user-select: none;
 }
