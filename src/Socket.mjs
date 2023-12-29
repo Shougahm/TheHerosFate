@@ -1,5 +1,3 @@
-import { ServerHost } from "./config.mjs";
-
 export class Socket {
     static socket = null;
     static port = 3001;
@@ -7,7 +5,7 @@ export class Socket {
 
     static async connect() {
         return new Promise(accept => {
-            this.socket = new WebSocket(`ws://${ServerHost}:${this.port}/`);
+            this.socket = new WebSocket(`ws://${location.hostname}:${this.port}/`);
             this.socket.onopen = accept;
             this.socket.onmessage = message => {
                 let { msg, arg } = JSON.parse(message.data)
