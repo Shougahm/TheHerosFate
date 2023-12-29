@@ -1,3 +1,5 @@
+import { Base64 } from "./Base64.mjs";
+
 export function deleteCookie(name) {
     document.cookie = `${name}=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 }
@@ -20,7 +22,12 @@ export function getCookie(name, defaultValue) {
     return undefined;
 }
 
-export function createSid() {
+export async function fetchText(uri) {
+    let response = await fetch(uri);
+    return await response.text();
+}
+
+export function createUID() {
     let now = Date.now().toString();
     let rand = Math.random().toString();
     return `sid-${now.substring(now.length-6)}-${rand.substring(rand.length-6)}`;

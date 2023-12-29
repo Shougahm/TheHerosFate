@@ -10,6 +10,7 @@ class Character {
     }
 
     update(source) {
+        this.id = source.id;
         this.name = source.name;
         this.initiative = source.initiative;
         this.isReady = source.isReady;
@@ -31,11 +32,11 @@ class Room {
 
     join(playerId, characters) {
         this.leave(playerId);
-        let playersCharactersByName = new Map(this.characters
+        let playersCharactersById = new Map(this.characters
                 .filter(c => c.playerId == playerId)
-                .map(c => [c.name, c]));
+                .map(c => [c.id, c]));
         for (let character of characters) {
-            let existingCharacter = playersCharactersByName.get(character.name);
+            let existingCharacter = playersCharactersById.get(character.id);
             if (existingCharacter) {
                 existingCharacter.update(character);
             } else {
@@ -185,7 +186,7 @@ function resetRound(client) {
 function updateCharacter(client, source) {
     let room = getRoomByClientOrDie(client);
     let character = room.characters.find(char => char.playerId == client.id
-         && char.name == source.name);
+         && char.id == source.id);
     if (character == null) {
         throw new Error('Character not found.');
     }

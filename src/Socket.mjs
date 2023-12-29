@@ -18,8 +18,9 @@ export class Socket {
                 }
             };
             this.socket.onerror = e => {
-                alert("Error communicating with server. Reloading.");
-                location.reload();
+                alert("Game server not found, running in offline mode. Refresh page to try connecting again.");
+                //HACK??? alert("Error communicating with server. Reloading.");
+                //HACK??? location.reload();
             };
         });
     }

@@ -1,45 +1,33 @@
 <div>
-    <!-- <img src="assets/Octopus.png" width=250 style='margin-bottom: 2rem'> -->
+    <!-- <img src="assets/Octopus.png" width=250 
+	style='position: fixed; top: 2rem; left: 2rem; z-index: -1;'> -->
 
-    <br>
+	<div class="row">
+		<div class="stretch" style="margin-right: 1rem">
+			<div class='tab-row' >
+				<div v-for="character of model.characters" class='tab'
+						:class="{ selected: model.selectedCharacter == character}"
+						@click="model.selectedCharacter = character">
+					<span style="margin-right: 1rem;">{{character.name}}</span>
+					<span @click="model.editName(character)">
+						✎
+					</span>
+					<span @click="model.deleteCharacter(character)">
+						🗑
+					</span>
+				</div>
+				<div class='tab' @click="model.createNewCharacter()">
+					<b>+</b>
+				</div>
+			</div>
 
-	<div class='tab-row' >
-		<div v-for="character of model.characters" class='tab' :class="{ selected: model.selectedCharacter == character}" @click="model.selectedCharacter = character">
-			{{character.name}}
-			<span @click="model.deleteCharacter(character)">
-				🗑
-			</span>
+			<Character class='tab-body' :model="model.selectedCharacter" />
 		</div>
-		<div class='tab' @click="model.createNewCharacter()">
-			+
+
+		<div>
+			<Room v-if='model.server.room' :model='model.server.room' />
 		</div>
 	</div>
 
-	<Character :model="model.selectedCharacter" />
-
-// TODO Make these boxes fukin collapsable.
-	<div class="box">
-		<div>Actions</div>
-		<table>
-			<tr>
-				<th>Action</th>
-				<th>Cost</th>
-				<th>Condition</th>
-				<th>Resolution</th>
-			</tk>
-			<tr v-for="action of model.actions" :model="action">
-				<td>{{action.action}}</td>
-				<td>{{action.cost}}</td>
-				<td>{{action.condition}}</td>
-				<td>{{action.resolution}}</td>
-			</tr>
-		</table>
-	</div>
-// TODO Make this spells list filterable
-	<div class="box">
-		<div>Spells</div>
-		<table>
-			<Spell v-for="spell of model.spells" :model="spell"></Spell>
-		</table>
-	</div>
+	<SpellList :model="model.spellList" />
 </div>

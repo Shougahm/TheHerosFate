@@ -1,6 +1,5 @@
 <div>
-    <div class='box'>
-        <div @click='model.hideCharacteristics = !model.hideCharacteristics'>Characteristics</div>
+    <Box label='Characteristics'>
 		<table :class="{ 'box-collapsed': model.hideCharacteristics }">
 			<tr>
 				<td>STR</td>
@@ -21,8 +20,13 @@
 			<tr>
 				<td>INT</td>
 				<td><number-input v-model="model.intellect"  @input="model.figureStats()"></td>
-				<td>Agility</td>
-				<td>{{model.agility ?? '-'}}</td>
+				<td>Agility 
+					<Help label="Actions">
+						<Action :model="model.actions" />
+					</Help>
+				</td>
+				<td>{{model.agility ?? '-'}}
+				</td>
 				<template v-if="model.burden!=null">
 					<td>Burden</td>
 					<td>{{model.burden}}</td>
@@ -76,103 +80,123 @@
 					</select>
 				</td>
 			</tr>
-			<!-- <tr>
-			</tr> -->
-			<!--TODO Get this stun buttons shit moved over to the right, you'll know when you see how it looks it's all fucked up.-->
-			<!-- <tr v-for="(stun, index) of model.stuns">
-				<td><button @click="model.removeStun(index)">-</button></td>
-				<td>{{stun}}</td> 
+		</table>
+    </Box>
+
+	<Box label="Preparations">
+		<table>
+			<tr>
+				<td>Offensive</td>
+				<td><number-input v-model="model.offPrep" @input="model.figureStats()"></td>
 			</tr>
 			<tr>
-				<select @change="model.addStun($event.target.value), $event.target.value='+'">
-					<option>+</option>
-					<option v-for="damage in 99">{{damage}}</option>
-				</select>
-			</tr> -->
+				<td>Defensive</td>
+				<td><number-input v-model="model.defPrep" @input="model.figureStats()"></td>
+			</tr>
+			<tr>
+				<td>Agility</td>
+				<td><number-input v-model="model.agiPrep" @input="model.figureStats()"></td>
+			</tr>
+			<tr>
+				<td>Initiative</td>
+				<td>{{model.initiative ?? '-'}}</td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					<div v-if="model.isReady" class='ready-text'>
+						Ready ✓
+					</div>
+					<button class='fancy-button' v-else-if="model.initiativeRoll" @click="model.ready()">
+						Ready Up ✓
+					</button>
+					<button class='fancy-button' v-else @click='model.rollInitiative()'>
+						Roll Initiative
+					</button>
+				</td>
+			</tr>
 		</table>
-    </div>
+	</Box>
 
-    <div class='box'>
-        <div>Skills</div>
+	<Box label="Skills">
 		<table>
 			<tr>
 				<td>Experience</td>
 				<td>{{model.experience ?? '-'}}</td>
 			</tr>
 			<tr>
-				<td>Acuity,</td>
+				<td>Acuity</td>
 				<td>INT</td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.acuityLvl1" @change="model.figureStats()"> </td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.acuityLvl2" @change="model.figureStats()"> </td>
 				<td>{{model.acuity ?? '-'}}</td>
 			</tr>
 			<tr>
-				<td>Empathy,</td>
+				<td>Empath</td>
 				<td>INT</td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.empathyLvl1" @change="model.figureStats()"> </td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.empathyLvl2" @change="model.figureStats()"> </td>
 				<td>{{model.empathy ?? '-'}}</td>
 			</tr>
 			<tr>
-				<td>Evoke,</td>
+				<td>Evoke</td>
 				<td>INT</td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.evokeLvl1" @change="model.figureStats()"> </td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.evokeLvl2" @change="model.figureStats()"> </td>
 				<td>{{model.evoke ?? '-'}}</td>
 			</tr>
 			<tr>
-				<td>Guile,</td>
+				<td>Guile</td>
 				<td>INT</td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.guileLvl1" @change="model.figureStats()"> </td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.guileLvl2" @change="model.figureStats()"> </td>
 				<td>{{model.guile ?? '-'}}</td>
 			</tr>
 			<tr>
-				<td>Culture,</td>
+				<td>Culture</td>
 				<td>INT</td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.cultureLvl1" @change="model.figureStats()"> </td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.cultureLvl2" @change="model.figureStats()"> </td>
 				<td>{{model.culture ?? '-'}}</td>
 			</tr>
 			<tr>
-				<td>Crafts,</td>
+				<td>Crafts</td>
 				<td>INT</td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.craftsLvl1" @change="model.figureStats()"> </td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.craftsLvl2" @change="model.figureStats()"> </td>
 				<td>{{model.crafts ?? '-'}}</td>
 			</tr>
 			<tr>
-				<td>Nature,</td>
+				<td>Nature</td>
 				<td>INT</td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.natureLvl1" @change="model.figureStats()"> </td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.natureLvl2" @change="model.figureStats()"> </td>
 				<td>{{model.nature ?? '-'}}</td>
 			</tr>
 			<tr>
-				<td>Magery,</td>
+				<td>Magery</td>
 				<td>INT</td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.mageryLvl1" @change="model.figureStats()"> </td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.mageryLvl2" @change="model.figureStats()"> </td>
 				<td>{{model.magery ?? '-'}}</td>
 			</tr>
 			<tr>
-				<td>Grace,</td>
+				<td>Grace</td>
 				<td>DEX</td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.graceLvl1" @change="model.figureStats()"> </td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.graceLvl2" @change="model.figureStats()"> </td>
 				<td>{{model.grace ?? '-'}}</td>
 			</tr>
 			<tr>
-				<td>Fitness,</td>
+				<td>Fitness</td>
 				<td>STR</td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.fitnessLvl1" @change="model.figureStats()"> </td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.fitnessLvl2" @change="model.figureStats()"> </td>
 				<td>{{model.fitness ?? '-'}}</td>
 			</tr>
 		</table>
-    </div>
-	<div class='box'>
-		<div>Equipment</div>
+	</Box>
+
+	<Box label="Equipment">
 		<table>
 			<tr>
 				<td>Weapon</td>
@@ -217,32 +241,5 @@
 				</td>
 			</tr>
 		</table>
-	</div>
-	
-	<div class='box'>
-		<div>Preparations</div>
-		<table>
-			<tr>
-				<td>Offensive</td>
-				<td><number-input v-model="model.offPrep" @input="model.figureStats()"></td>
-			</tr>
-			<tr>
-				<td>Defensive</td>
-				<td><number-input v-model="model.defPrep" @input="model.figureStats()"></td>
-			</tr>
-			<tr>
-				<td>Agility</td>
-				<td><number-input v-model="model.agiPrep" @input="model.figureStats()"></td>
-			</tr>
-			<tr>
-				<td>Initiative</td>
-				<td>{{model.initiative ?? '-'}}</td>
-			</tr>
-			<tr>
-				<td colspan=2>
-					<button @click="model.rollInitiative()" class='initiative-button'>Roll Initiative</button>
-				</td>
-			</tr>
-		</table>
-	</div>
+	</Box>
 </div>

@@ -1,48 +1,33 @@
-import { spells } from "./spells.mjs";
-import { actions } from "./actions.mjs";
-import { Character } from "./character.mjs";
-
-class App {
-	constructor() {
-		this.spells = spells;
-		this.actions = actions;
-
-		this.load();
-		if (this.characters == null) {
-			this.createNewCharacter();
-		}
-		this.selectedCharacter = this.characters[0];
-
-		window.onbeforeunload = () => this.save();
-	}
-
-	createNewCharacter() {
-		let name = prompt("Character Name");
-		this.characters.push(new Character(name));
-	}
-
-	deleteCharacter(character) {
-		if (confirm(`Delete ${character.name} forever?`)) {
-			this.characters.splice(this.characters.indexOf(character), 1);
-		}
-	}
-
-	save() {
-		localStorage.setItem("characters", JSON.stringify(this.characters));
-	}
-
-	load() {
-		const savedCharacters = localStorage.getItem("characters");
-		if (savedCharacters) {
-			this.characters = JSON.parse(savedCharacters)
-				.map(saveCharacter => Object.assign(new Character(), saveCharacter));
-		}
-	}
-}
+import { fetchText } from "./util.mjs";
+import { App } from "./App.mjs";
 
 window.onload = async () => {
 	await Component("Character");
-	await Component("Spell");
+    await Component("Room");
+	await Component("Action");
+	await Component("SpellList");
+
+	Vue.component("Box", {
+		props: ['label'],
+		data: () => ({ collapsed: false }),
+        template: await fetchText('Box.html')
+	});
+
+	Vue.component("Help", {
+		props: ['shown', 'label'],
+        template: `<span>
+				<b class='help-icon' @click='shown = !shown'/>
+				<div v-if='shown' class='help-bg'>
+					<div class='box-header' @click='shown=false'>
+						{{label}}
+						<span style='margin-left: auto'>X</span>
+					</div>
+					<div class='help-content'>
+						<slot/>
+					</div>
+				</span>
+			</div>`
+	});
 
 	Vue.component("number-checkbox", {
 		props: ['value'],

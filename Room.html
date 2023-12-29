@@ -1,0 +1,18 @@
+<Box label="Game">
+	<div style='padding: .4rem;'>
+		<div class='row horizontal-spacing-4' v-for="character of model.initiatives">
+			<div class='name stretch' :title='character.name'>
+				{{character.name}}
+			</div>
+			<div style="margin-left: .4rem;">
+				<div v-if='model.frozenCharacters'>{{character.initiative}}</div>
+				<div v-else-if='character.isReady' class="ready-text">✓</div>
+				<div v-else>⌛</div>
+			</div>
+		</div>
+		<div v-if='model.isGM'>
+			<hr>
+			<button @click='model.reset()'  :disabled='!model.canReset'>Reset Round</button>
+		</div>
+	</div>
+</Box>

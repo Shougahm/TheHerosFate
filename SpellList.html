@@ -1,0 +1,32 @@
+<Box label="Spells">
+	<div style="padding: .4rem;">
+		<input v-model="model.spellFilter" placeholder="search spells">
+		<span><input type='checkbox' v-model='model.showKnown'>Known</span>
+	</div>
+	<table>
+		<tr>
+			<th>Name</b></th>
+			<th>Level</th>
+			<th>Difficulty</th>
+			<th>Cost</th>
+		</tr>
+		<template v-for="spell of model.filteredSpells">
+			<tr class="spell">
+				<td><b>{{spell.name}}</b></td>
+				<td>   {{spell.level}}
+					<span v-if="spell.advanced">(advanced)</span>
+				</td>
+
+				</td>
+				<td>   {{spell.difficulty}}</td>
+				<td>   {{spell.cost}}</td>
+			</tr>
+			<tr class="spelleffect">
+				<td colspan="5">{{spell.effect}}</td>
+			</tr>
+		</template>
+	</table>
+</Box>
+<!-- TODO Only display "Advanced" if the spell is advanced and its level is equal to character's Magery. -->
+<!-- TODO Add Magery filter checkbox (it won't display spells requiring a higher magery than the character has) -->
+<!-- TODO Add Experience checkboxes, add the ability to learn the spells, add checkbox that filters unknown spells. -->

@@ -1,7 +1,11 @@
 import { PWR, check } from "./dice.mjs";
+import { actions } from "./actions.mjs";
+import { server } from "./Server.mjs";
+import { createUID } from "./util.mjs";
 
 export class Character {
 	constructor(name) {
+		this.id = createUID();
         this.name = name;
 
 		this.strength = 4;
@@ -14,6 +18,7 @@ export class Character {
 
 		this.initiativeRoll = null;
 		this.initiative = null;
+		this.isReady = false;
 
 		this.acuityLvl1 = 0;
 		this.empathyLvl1 = 0;
@@ -74,6 +79,11 @@ export class Character {
 		this.wounds = [];
 		this.stuns = [];
 	}
+
+	get actions() {
+		return actions;
+	}
+
 	addWound(wound) {
 		this.wounds.push(Number(wound));
 		this.figureStats();
@@ -172,8 +182,11 @@ export class Character {
 		let _def = this.dexterity - this.burden;
 
 		let prepCost = (this.offPrep + this.defPrep + this.agiPrep) * 3;
+		let oldInitiative= this.initiative;
 		this.initiative = this.initiativeRoll - prepCost;
-
+		if (this.initiative != oldInitiative) {
+			this.unready();
+		}
 		
 		this.agility = this.strength + this.dexterity - this.burden + this.liberty + this.agiPrep;
 		this.focus = this.dexterity + this.intellect - this.trauma + this.clarity;
@@ -212,10 +225,29 @@ export class Character {
 	}
 
 	rollInitiative() {
+		this.resetRound();
 		this.initiativeRoll = check() + this.focus;
+		this.figureStats();
+	}
+
+	resetRound() {
 		this.offPrep = null;
 		this.defPrep = null;
 		this.agiPrep = null;
-		this.figureStats();
+		this.initiative = null;
+		this.initiativeRoll = null;
+		this.isReady = false;
+	}
+
+	ready() {
+		this.isReady = true;
+        server.updateCharacter(this);
+	}
+
+	unready() {
+		if (this.isReady) {
+			this.isReady = false;
+			server.updateCharacter(this);
+		}
 	}
 }

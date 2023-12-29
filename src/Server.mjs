@@ -1,4 +1,4 @@
-import { getCookie } from "./util.mjs";
+import { getCookie, createUID } from "./util.mjs";
 import { Socket } from "./Socket.mjs";
 import { Room } from "./Room.mjs";
 
@@ -6,7 +6,7 @@ export class Server {
     constructor() {
         this.room = null;
         this.message = null;
-        this.playerId = getCookie('playerid', () => createSid());
+        this.playerId = getCookie('playerid', () => createUID());
         this.onRoundReset = null;
 
         Socket.addListener("roundreset", () => this.onRoundReset?.());
@@ -45,3 +45,5 @@ export class Server {
         }
     }
 }
+
+export let server = new Server();

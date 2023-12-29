@@ -1,13 +1,12 @@
 export class Action {
     constructor(action, cost, condition, resolution) {
-		this.action = action;
-		this.cost = cost;
-		this.condition = condition;
-		this.resolution = resolution;
+      this.action = action;
+      this.cost = cost;
+      this.condition = condition;
+      this.resolution = resolution;
     }
 }
 
-export const actionRules = "Each unit is given an amount of Action Points (AP) equal to their Agility at the beginning of the first Phase of a Round of combat. During each phase, units take turns spending AP one action at time in order of highest initiative to lowest, and then, in case of ties, in order of highest remaining AP to lowest, then in order of highest Focus to lowest (at this point you can feel free to compare whatever attributes you want to break ties, think about the situation and use your best judgement). Each phase ends only when each unit has agreed that it should, and so does the Round. Each option on the action table will specify what type of Phase you are allowed to take that action on. In general, Odd phases are for movement actions, Even phases are for attack actions.";
 // TODO Make these costs real numbers in anticipation of some kind of Action Point tracker. 
 export const actions = [
     new Action('Melee', 5, 'Even Phase', 'Roll damage against a melee target whose Defense≤Roll+Offense+2Flanking equal to Weapon Power. If you are grappling the target, roll damage equal to ½ Strength + Natural Weapon Power. If you have submitted the target, roll damage equal to Strength + Natural Weapon Power'),

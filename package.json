@@ -2,15 +2,12 @@
   "name": "theherosfate",
   "version": "1.0.0",
   "description": "The Hero's Fate",
-  "main": "src/main.mjs",
+  "main": "server.js",
   "dependencies": {
     "express": "^4.17.1",
     "js-base64": "^3.6.1",
     "websocket": "^1.0.34"
   },
   "devDependencies": {},
-  "scripts": {
-    "server": "node server.js"
-  },
-  "author": "Cameron Tetz",
+  "author": "Cameron Tetz"
 }
