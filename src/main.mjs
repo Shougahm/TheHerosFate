@@ -1,4 +1,3 @@
-import { fetchText } from "./util.mjs";
 import { App } from "./App.mjs";
 
 window.onload = async () => {
@@ -10,7 +9,16 @@ window.onload = async () => {
 	Vue.component("Box", {
 		props: ['label'],
 		data: () => ({ collapsed: false }),
-        template: await fetchText('Box.html')
+        template: `
+			<div class="box">
+				<div class='box-header' @click='collapsed = !collapsed'>
+					<span>{{label}}</span>
+					<span class="expander-button" :class="{ 'expander-button-expanded': !collapsed }"></span> 
+				</div>
+				<div v-if="!collapsed">
+					<slot />
+				</div>
+			</div>`
 	});
 
 	Vue.component("Help", {
@@ -33,7 +41,9 @@ window.onload = async () => {
 		props: ['value'],
 		emits: ['update:value'],
 		mounted() { this.$el.checked = this.$props.value != 0; },
-		template: `<input type="checkbox" v-bind:value="value" v-on:input="$emit('input', $event.target.checked ? 1 : 0), $emit('change')">`
+		updated() { this.$el.checked = this.$props.value != 0; },
+		template: `<input type="checkbox" v-bind:value="value" 
+			v-on:input="$emit('input', $event.target.checked ? 1 : 0), $emit('change')">`
 	});
 
 	Vue.component("number-input", {

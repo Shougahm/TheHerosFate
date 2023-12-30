@@ -1,9 +1,0 @@
-<div class="box">
-	<div class='box-header' @click='collapsed = !collapsed'>
-		 <span>{{label}}</span>
-		 <span class="expander-button" :class="{ 'expander-button-expanded': !collapsed }"></span> 
-	</div>
-	<div v-if="!collapsed">
-		<slot />
-	</div>
-</div>

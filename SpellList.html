@@ -1,7 +1,7 @@
 <Box label="Spells">
 	<div style="padding: .4rem;">
 		<input v-model="model.spellFilter" placeholder="search spells">
-		<span><input type='checkbox' v-model='model.showKnown'>Known</span>
+		<span><input type='checkbox' v-model='model.showKnown'>Only Show Known Spells</span>
 	</div>
 	<table>
 		<tr>
@@ -20,6 +20,7 @@
 				</td>
 				<td>   {{spell.difficulty}}</td>
 				<td>   {{spell.cost}}</td>
+				<td>   <button>Learn</button></td>
 			</tr>
 			<tr class="spelleffect">
 				<td colspan="5">{{spell.effect}}</td>

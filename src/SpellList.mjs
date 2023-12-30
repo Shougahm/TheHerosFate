@@ -204,6 +204,15 @@ export class SpellList {
 
         this.spellFilter = "";
         this.showKnown = true;
+        this.character = null;
+    }
+
+    learn(spell) {
+        this.character.knownSpells.add(spell);
+    }
+
+    unlearn(spell) {
+        this.character.knownSpells.delete(spell);
     }
 
     get filteredSpells() {

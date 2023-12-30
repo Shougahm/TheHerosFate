@@ -77,6 +77,13 @@ let g_nextRoomId = 1;
 // periodically check for orphaned rooms or players
 setInterval(() => {
     const now = Date.now();
+    
+    // boot clients that have stopped talking to us
+    for (let client of g_roomsByClient.keys()) {
+        if (now - client.keepalive > 5000) {
+            g_roomsByClient.delete(client);
+        }
+    }
 
     // mark any room which has no client attached as abandoned
     let liveRooms = new Set(g_roomsByClient.values());
@@ -93,6 +100,7 @@ setInterval(() => {
 
     // boot players from rooms if the player has no client attached
     let livePlayerIds = new Set(Array.from(g_roomsByClient.keys()).map(client => client.id));
+    // console.log('live clients', livePlayerIds);
     for (let room of g_rooms) {
         let deadPlayers = room.characters.filter(character => !livePlayerIds.has(character.playerId));
         if (deadPlayers.length > 0) {
@@ -185,14 +193,31 @@ function resetRound(client) {
 
 function updateCharacter(client, source) {
     let room = getRoomByClientOrDie(client);
-    let character = room.characters.find(char => char.playerId == client.id
-         && char.id == source.id);
+    let character = room.characters.find(char => char.id == source.id);
     if (character == null) {
         throw new Error('Character not found.');
     }
     character.update(source);
     room.checkReveal();
     onRoomUpdated(room);
+}
+
+function addCharacter(client, character) {
+    let room = getRoomByClientOrDie(client);
+    character.playerId = client.id;
+    room.characters.push(character);
+    onRoomUpdated(room);
+}
+
+function deleteCharacter(client, character) {
+    let room = getRoomByClientOrDie(client);
+    let characterIndex = room.characters.findIndex(char => char.id == character.id);
+    if (characterIndex != -1) {
+        room.characters.splice(characterIndex, 1);
+        onRoomUpdated(room);
+    } else {
+        console.log("deleteCharacter: Character not found");
+    }
 }
 
 function debug(client) {
@@ -211,7 +236,7 @@ function getCookie(request, name) {
 
 // websocket server
 const socketServer = http.createServer();
-socketServer.listen(3001);
+socketServer.listen(3334);
 const wsServer = new websocket.server({ httpServer: socketServer });
 wsServer.on('request', request => {
     const client = request.accept(null, request.origin);
@@ -223,13 +248,16 @@ wsServer.on('request', request => {
     g_roomsByClient.set(client, null);
     client.on('message', message => {
         try {
+            client.keepalive = Date.now();
             let { msg, arg } = JSON.parse(message.utf8Data);
-            console.log('message:', msg);
+            // console.log(client.id, msg);
             switch (msg) {
                 case 'createroom':        createRoom(client);             break;
                 case 'joinroom':          joinRoom(client, arg);          break;
                 case 'leaveroom':         leaveRoom(client, arg);         break;
                 case 'updatecharacter':   updateCharacter(client, arg);   break;
+                case 'addcharacter':      addCharacter(client, arg);   break;
+                case 'deletecharacter':   deleteCharacter(client, arg);   break;
                 case 'resetround':        resetRound(client, arg);        break;
                 case 'debug':             debug(client);                  break;
             }
@@ -239,6 +267,7 @@ wsServer.on('request', request => {
         }
     });
     client.on('close', () => {
+        console.log('client.on("close")');
         g_roomsByClient.delete(client);
     });
 });
@@ -246,7 +275,7 @@ wsServer.on('request', request => {
 // file server
 const app = express();
 app.use(express.static('.'));
-let server = app.listen(3000, err => {
+let server = app.listen(3333, err => {
     if (err) throw err;
     let address = server.address();
     console.log("The Hero's Fate server started at http://%s:%s", address.address, address.port);

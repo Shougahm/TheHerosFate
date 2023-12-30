@@ -5,19 +5,23 @@ import { server } from "./Server.mjs";
 export class App {
 	constructor() {
 		this.spellList = new SpellList();
-
 		this.loadCharacters();
 		if (this.characters == null) {
 			this.characters = [];
 			this.createNewCharacter();
 		}
-		this.selectedCharacter = this.characters[0];
+		this.selectCharacter(this.characters[0]);
 
 		window.onbeforeunload = () => this.saveCharacters();
 
 		this.server = server;
 		server.joinRoom(this.characters);
 		server.onRoundReset = () => this.resetRound();
+	}
+
+	selectCharacter(character) {
+		this.selectedCharacter = character;
+		this.spellList.character = character;
 	}
 
 	resetRound() {
@@ -31,6 +35,7 @@ export class App {
 		if (name) {
 			this.selectedCharacter = new Character(name);
 			this.characters.push(this.selectedCharacter);
+			server.addCharacter(this.selectedCharacter);
 		}
 	}
 
@@ -39,22 +44,27 @@ export class App {
 		if (name) {
 			character.name = name;
 			server.updateCharacter(character);
+			// HACK
+			location.reload();
 		}
 	}
 
 	deleteCharacter(character) {
 		if (confirm(`Delete ${character.name} forever?`)) {
 			this.characters.splice(this.characters.indexOf(character), 1);
+			server.deleteCharacter(character);
 		}
 	}
 
 	saveCharacters() {
+		console.log("saveCharacters:", JSON.stringify(this.characters));
 		localStorage.setItem("characters", JSON.stringify(this.characters));
 	}
 
 	loadCharacters() {
 		const savedCharacters = localStorage.getItem("characters");
 		if (savedCharacters) {
+			console.log('loadCharacters:', savedCharacters);
 			this.characters = JSON.parse(savedCharacters)
 				.map(saveCharacter => Object.assign(new Character(), saveCharacter));
 		}

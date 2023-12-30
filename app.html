@@ -7,7 +7,7 @@
 			<div class='tab-row' >
 				<div v-for="character of model.characters" class='tab'
 						:class="{ selected: model.selectedCharacter == character}"
-						@click="model.selectedCharacter = character">
+						@click="model.selectCharacter(character)">
 					<span style="margin-right: 1rem;">{{character.name}}</span>
 					<span @click="model.editName(character)">
 						✎
@@ -29,5 +29,5 @@
 		</div>
 	</div>
 
-	<SpellList :model="model.spellList" />
+	<SpellList :model="model.spellList" :character="model.selectedCharacter" />
 </div>

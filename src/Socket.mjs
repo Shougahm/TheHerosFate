@@ -1,33 +1,33 @@
 export class Socket {
     static socket = null;
-    static port = 3001;
+    static port = 3334;
     static listeners = new Map();
 
     static async connect() {
-        return new Promise(accept => {
+        return new Promise((accept, reject) => {
             this.socket = new WebSocket(`ws://${location.hostname}:${this.port}/`);
             this.socket.onopen = accept;
             this.socket.onmessage = message => {
                 let { msg, arg } = JSON.parse(message.data)
-                if (this.listeners.has(msg)) {
-                    for (let listener of this.listeners.get(msg)) {
-                        listener(arg);
-                    }
-                }
+                this.notifyListeners(msg, arg);
             };
             this.socket.onerror = e => {
-                alert("Game server not found, running in offline mode. Refresh page to try connecting again.");
-                //HACK??? alert("Error communicating with server. Reloading.");
-                //HACK??? location.reload();
+                reject(e);
+                this.notifyListeners('socketerror', e);
             };
         });
     }
 
     static async send(msg, arg) {
         if (this.socket == null || this.socket.readyState !== WebSocket.OPEN) {
-            await this.connect();
+            try {
+                await this.connect();
+            } catch(e) {
+                return false;
+            }
         }
         this.socket.send(JSON.stringify({ msg, arg }));
+        return true;
     }
 
     static addListener(msg, callback) {
@@ -35,5 +35,13 @@ export class Socket {
             this.listeners.set(msg, [])
         }
         this.listeners.get(msg).push(callback)
+    }
+
+    static async notifyListeners(msg, arg) {
+        if (this.listeners.has(msg)) {
+            for (let listener of this.listeners.get(msg)) {
+                listener(arg);
+            }
+        }
     }
 }

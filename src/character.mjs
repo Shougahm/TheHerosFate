@@ -78,6 +78,7 @@ export class Character {
 
 		this.wounds = [];
 		this.stuns = [];
+		this.knownSpells = new Set();
 	}
 
 	get actions() {

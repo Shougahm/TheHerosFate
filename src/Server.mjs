@@ -13,6 +13,7 @@ export class Server {
         Socket.addListener("roomupdated", room => this.room = new Room(this.playerId, room));
         Socket.addListener("message", message => this.onServerMessage(message));
         Socket.addListener("console", message => console.log(message));
+        Socket.addListener("socketerror", message => console.log('socket error', message));
         window.addEventListener('beforeunload', () => this.leaveRoom());
     }
     onServerMessage(message) {
@@ -23,18 +24,25 @@ export class Server {
     createRoom() {
         Socket.send("createroom");
     }
-    joinRoom(characters) {
-        //XXX? this.room = null;
-        return Socket.send("joinroom", {
+    async joinRoom(characters) {
+        if (Socket.send("joinroom", {
 			roomNumber: 1,
 			characters,
-		});
+		})) {
+            setInterval(() => Socket.send("keepalive"), 1000);
+        }
     }
     leaveRoom() {
         if (this.room != null) {
             Socket.send("leaveroom", this.room.roomNumber);
             this.room = null;
         }
+    }
+    addCharacter(character) {
+        Socket.send("addcharacter", character);
+    }
+    deleteCharacter(character) {
+        Socket.send("deletecharacter", character);
     }
     updateCharacter(character) {
         Socket.send("updatecharacter", character);
