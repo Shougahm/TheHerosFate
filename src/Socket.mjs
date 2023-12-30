@@ -14,6 +14,7 @@ export class Socket {
             this.socket.onerror = e => {
                 reject(e);
                 this.notifyListeners('socketerror', e);
+                location.reload();
             };
         });
     }

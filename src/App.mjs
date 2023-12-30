@@ -45,7 +45,7 @@ export class App {
 			character.name = name;
 			server.updateCharacter(character);
 			// HACK
-			location.reload();
+			//location.reload();
 		}
 	}
 

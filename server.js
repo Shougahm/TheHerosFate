@@ -2,6 +2,8 @@ const express = require('express');
 const http = require('http');
 const websocket = require('websocket');
 const base64 = require('js-base64');
+const inspector = require('inspector');
+const { Cipher } = require('crypto');
 
 class Character {
     constructor(playerId, source) {
@@ -78,12 +80,15 @@ let g_nextRoomId = 1;
 setInterval(() => {
     const now = Date.now();
     
-    // boot clients that have stopped talking to us
-    for (let client of g_roomsByClient.keys()) {
-        if (now - client.keepalive > 5000) {
-            g_roomsByClient.delete(client);
+    let debug = inspector.url() !== undefined;
+    if (debug) {
+        // boot clients that have stopped talking to us
+        for (let client of g_roomsByClient.keys()) {
+            if (now - client.keepalive > 5000) {
+                g_roomsByClient.delete(client);
+            }
         }
-    }
+    } 
 
     // mark any room which has no client attached as abandoned
     let liveRooms = new Set(g_roomsByClient.values());
@@ -100,7 +105,7 @@ setInterval(() => {
 
     // boot players from rooms if the player has no client attached
     let livePlayerIds = new Set(Array.from(g_roomsByClient.keys()).map(client => client.id));
-    // console.log('live clients', livePlayerIds);
+    console.log('live clients', livePlayerIds);
     for (let room of g_rooms) {
         let deadPlayers = room.characters.filter(character => !livePlayerIds.has(character.playerId));
         if (deadPlayers.length > 0) {
@@ -132,22 +137,20 @@ function onRoundReset(room) {
     sendRoomMsg(room, 'roundreset', room);
 }
 
-function getRoomOrDie(roomNumber, checkOrphanedRoom) {
+function getRoomByNumberOrDie(client, roomNumber, checkOrphanedRoom) {
     let room = g_rooms.find(room => room.roomNumber == roomNumber);
     if (room == null) {
         throw new Error(`Room ${roomNumber} not found.`);
     }
+
+    let clientRoom = g_roomsByClient.get(client);
+    if (clientRoom == null || clientRoom.roomNumber != roomNumber) {
+        g_roomsByClient.set(client, room);
+    }
+
     if (checkOrphanedRoom && !room.hasOwner) {
         g_rooms.splice(g_rooms.indexOf(room), 1); // bye bye, room!
         throw new Error(`Room closed by owner.`);
-    }
-    return room;
-}
-
-function getRoomByClientOrDie(client) {
-    let room = g_roomsByClient.get(client);
-    if (room == null) {
-        throw new Error(`Room ${room} not found.`);
     }
     return room;
 }
@@ -184,40 +187,45 @@ function leaveRoom(client, roomNumber) {
     }
 }
 
-function resetRound(client) {
-    let room = getRoomByClientOrDie(client);
+function resetRound(client, roomNumber) {
+    let room = getRoomByNumberOrDie(client, roomNumber)
     room.resetRound();
     onRoundReset(room);
     onRoomUpdated(room);
 }
 
-function updateCharacter(client, source) {
-    let room = getRoomByClientOrDie(client);
-    let character = room.characters.find(char => char.id == source.id);
+function updateCharacter(client, arg) {
+    let room = getRoomByNumberOrDie(client, arg.roomNumber);
+    let character = room.characters.find(char => char.id == arg.character.id);
     if (character == null) {
         throw new Error('Character not found.');
     }
-    character.update(source);
+    console.log('update')
+    character.update(arg.character);
     room.checkReveal();
     onRoomUpdated(room);
 }
 
-function addCharacter(client, character) {
-    let room = getRoomByClientOrDie(client);
-    character.playerId = client.id;
-    room.characters.push(character);
+function addCharacter(client, arg) {
+    let room = getRoomByNumberOrDie(client, arg.roomNumber);
+    arg.character.playerId = client.id;
+    room.characters.push(arg.character);
     onRoomUpdated(room);
 }
 
-function deleteCharacter(client, character) {
-    let room = getRoomByClientOrDie(client);
-    let characterIndex = room.characters.findIndex(char => char.id == character.id);
+function deleteCharacter(client, arg) {
+    let room = getRoomByNumberOrDie(client, arg.roomNumber);
+    let characterIndex = room.characters.findIndex(char => char.id == arg.character.id);
     if (characterIndex != -1) {
         room.characters.splice(characterIndex, 1);
         onRoomUpdated(room);
     } else {
         console.log("deleteCharacter: Character not found");
     }
+}
+
+function onKeepAlive(client, roomNumber) {
+    getRoomByNumberOrDie(client, roomNumber);
 }
 
 function debug(client) {
@@ -250,15 +258,18 @@ wsServer.on('request', request => {
         try {
             client.keepalive = Date.now();
             let { msg, arg } = JSON.parse(message.utf8Data);
-            // console.log(client.id, msg);
+            if (msg != 'keepalive') {
+                console.log(client.id, msg);
+            }
             switch (msg) {
                 case 'createroom':        createRoom(client);             break;
                 case 'joinroom':          joinRoom(client, arg);          break;
                 case 'leaveroom':         leaveRoom(client, arg);         break;
                 case 'updatecharacter':   updateCharacter(client, arg);   break;
-                case 'addcharacter':      addCharacter(client, arg);   break;
+                case 'addcharacter':      addCharacter(client, arg);      break;
                 case 'deletecharacter':   deleteCharacter(client, arg);   break;
                 case 'resetround':        resetRound(client, arg);        break;
+                case 'keepalive':         onKeepAlive(client, arg);       break;
                 case 'debug':             debug(client);                  break;
             }
         } catch (e) {
@@ -267,7 +278,7 @@ wsServer.on('request', request => {
         }
     });
     client.on('close', () => {
-        console.log('client.on("close")');
+        console.log("client close", client.id)
         g_roomsByClient.delete(client);
     });
 });

@@ -1,4 +1,4 @@
-import { Socket } from "./Socket.mjs";
+import { Server } from "./Server.mjs";
 
 export class Room {
     constructor(playerId, source) {
@@ -26,7 +26,7 @@ export class Room {
         return this.frozenCharacters || this.characters;
     }
     reset() {
-        Socket.send("resetround");
+        Server.resetRound();
     }
     sortByName(characters) {
         if (characters) {

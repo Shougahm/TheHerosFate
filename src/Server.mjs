@@ -8,9 +8,10 @@ export class Server {
         this.message = null;
         this.playerId = getCookie('playerid', () => createUID());
         this.onRoundReset = null;
+        this.keepAliveTimer = null;
 
         Socket.addListener("roundreset", () => this.onRoundReset?.());
-        Socket.addListener("roomupdated", room => this.room = new Room(this.playerId, room));
+        Socket.addListener("roomupdated", room => this.onRoomUpdate(room));
         Socket.addListener("message", message => this.onServerMessage(message));
         Socket.addListener("console", message => console.log(message));
         Socket.addListener("socketerror", message => console.log('socket error', message));
@@ -24,13 +25,20 @@ export class Server {
     createRoom() {
         Socket.send("createroom");
     }
+    onRoomUpdate(room) {
+        this.room = new Room(this.playerId, room)
+        if (this.keepAliveTimer) {
+            setInterval(() => Socket.send("keepalive", this.room.roomNumber), 1000);
+        }
+    }
     async joinRoom(characters) {
-        if (Socket.send("joinroom", {
+        Socket.send("joinroom", {
 			roomNumber: 1,
 			characters,
-		})) {
-            setInterval(() => Socket.send("keepalive"), 1000);
-        }
+		});
+    }
+    resetRound() {
+        Socket.send("resetround", this.room.roomNumber);
     }
     leaveRoom() {
         if (this.room != null) {
@@ -39,13 +47,22 @@ export class Server {
         }
     }
     addCharacter(character) {
-        Socket.send("addcharacter", character);
+        Socket.send("addcharacter", { 
+            roomNumber: this.room.roomNumber, 
+            character
+        });
     }
     deleteCharacter(character) {
-        Socket.send("deletecharacter", character);
+        Socket.send("deletecharacter", { 
+            roomNumber: this.room.roomNumber, 
+            character
+        });
     }
     updateCharacter(character) {
-        Socket.send("updatecharacter", character);
+        Socket.send("updatecharacter", { 
+            roomNumber: this.room.roomNumber, 
+            character
+        });
     }
     debug(e) {
         if (e.shiftKey && e.altKey && e.ctrlKey) {
