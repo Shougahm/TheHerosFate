@@ -1,10 +1,13 @@
 import { SpellList } from "./SpellList.mjs";
+import { Rulebook } from "./Rulebook.mjs";
 import { Character } from "./character.mjs";
 import { server } from "./Server.mjs";
 
 export class App {
 	constructor() {
 		this.spellList = new SpellList();
+		this.rulebook = new Rulebook();
+
 		this.loadCharacters();
 		if (this.characters == null) {
 			this.characters = [];

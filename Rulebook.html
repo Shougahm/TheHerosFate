@@ -1,0 +1,54 @@
+<div class='rulebook-bg'>
+	<div class='box-header' @click='model.close()'>
+		Rulebook
+		<span style='margin-left: auto'>X</span>
+	</div>
+<div class='rulebook-content'>
+
+<!-- book content starts here -->
+
+<img src="assets/Octopus.png" width=250 style='float: right;'></p>
+
+<h1>Taco Tuesday</h1>
+
+<p>If the day is Tuesday, all players are now tacos. Refer to the Taco Action table below for combat rules.
+
+<h1>Actions</h1>
+
+<p>At the beginning of each combat Round, units are given Action Points (AP) equal to their Agility. Combat
+	then proceeds in Phases. In each Phase, Units may spend AP to perform a single Action.</p>
+
+<p>Actions are performed in order of highest to lowest initiative. Ties are broken by highest remaining AP,
+	then highest Focus, then whichever attribute players feel best fits the situation. A Phase ends only
+	when each unit has agreed that it should, and so does a Round.</p>
+
+<p>Some Actions can only be performed in certain Phases (see below). In general, Odd Phases are for movement
+	actions, Even Phases are for attack actions.</p>
+
+<table>
+	<tr>
+		<th>Action</th>
+		<th>Cost</th>
+		<th>Condition</th>
+	</tr>
+	<template v-for="action of model.actions">
+		<tr>
+			<td><b>{{action.action}}</b></td>
+			<td>{{action.cost}}</td>
+			<td>{{action.condition}}</td>
+		</tr>
+		<tr class="spelleffect">
+			<td colspan="3">{{action.resolution}}</td>
+		</tr>
+	</template>
+</table>
+
+<h1>Jokes</h1>
+
+<p>Did you hear the one about Taco Tuesday?</p>
+
+<!-- book content ends here -->
+
+
+
+</div>

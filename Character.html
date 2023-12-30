@@ -20,11 +20,7 @@
 			<tr>
 				<td>INT</td>
 				<td><number-input v-model="model.intellect"  @input="model.figureStats()"></td>
-				<td>Agility 
-					<Help label="Actions">
-						<Action :model="model.actions" />
-					</Help>
-				</td>
+				<td>Agility</td>
 				<td>{{model.agility ?? '-'}}
 				</td>
 				<template v-if="model.burden!=null">
