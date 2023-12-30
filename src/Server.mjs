@@ -27,8 +27,8 @@ export class Server {
     }
     onRoomUpdate(room) {
         this.room = new Room(this.playerId, room)
-        if (this.keepAliveTimer) {
-            setInterval(() => Socket.send("keepalive", this.room.roomNumber), 1000);
+        if (this.keepAliveTimer == null) {
+            this.keepAliveTimer = setInterval(() => Socket.send("keepalive", this.room.roomNumber), 1000);
         }
     }
     async joinRoom(characters) {
@@ -47,10 +47,12 @@ export class Server {
         }
     }
     addCharacter(character) {
-        Socket.send("addcharacter", { 
-            roomNumber: this.room.roomNumber, 
-            character
-        });
+        if (this.room) {
+            Socket.send("addcharacter", { 
+                roomNumber: this.room.roomNumber, 
+                character
+            });
+        }
     }
     deleteCharacter(character) {
         Socket.send("deletecharacter", { 
