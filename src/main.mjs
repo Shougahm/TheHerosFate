@@ -3,8 +3,8 @@ import { App } from "./App.mjs";
 window.onload = async () => {
 	await Component("Character");
     await Component("Room");
-	await Component("Action");
 	await Component("SpellList");
+	await Component("Rulebook");
 
 	Vue.component("Box", {
 		props: ['label'],
@@ -18,22 +18,6 @@ window.onload = async () => {
 				<div v-if="!collapsed">
 					<slot />
 				</div>
-			</div>`
-	});
-
-	Vue.component("Help", {
-		props: ['shown', 'label'],
-        template: `<span>
-				<b class='help-icon' @click='shown = !shown'/>
-				<div v-if='shown' class='help-bg'>
-					<div class='box-header' @click='shown=false'>
-						{{label}}
-						<span style='margin-left: auto'>X</span>
-					</div>
-					<div class='help-content'>
-						<slot/>
-					</div>
-				</span>
 			</div>`
 	});
 

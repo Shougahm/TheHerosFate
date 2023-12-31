@@ -7,52 +7,66 @@
 /* tr:nth-child(odd) { background:var(--light-color-odd); } */
 
 body {
-    padding: 1rem;
-    background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(hexpaper.png);
-    background-size: 800px; 
-    font-family: Tahoma;
+    background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('hexpaper.png');
+    background-image: 800px; 
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma;
     user-select: none;
+    -webkit-text-size-adjust: none;
 }
 
 /* div, table { border: 1px solid red; }
 span { border: 1px solid blue; } */
 
 table {
+    width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
 }
 
-.help-icon::before {
-  cursor: pointer;
-  color: yellow;
-  font-size: 1rem;
-  text-shadow: 2px 2px 4px black,
-        -1px -1px 4px blue;
-  content: "?";
+.rulebook-link {
+    position: relative;
+    margin-bottom: -1rem;
+    margin-left: 2rem;
 }
-.help-icon:hover::before {
-  color: black;
-  text-shadow: 0px 0px 4px white,
-    -1px -1px 4px white
-  ;
+.rulebook-link:before {
+    cursor: pointer;
+    color: #598BCA;
+    font-weight: bold;
+    font-size: 2rem;
+    content: "🕮";
+    position: absolute;
+    top: -.5rem;
 }
 
-.help-bg {
+.rulebook-link:hover:before {
+    text-shadow: 0px 0px 4px yellow,
+        1px 1px 4px yellow,
+        -1px -1px 4px yellow;
+}
+
+.rulebook-bg {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    margin: 1rem;
+    width: calc(100vw - (100vw - 100%) - 2rem);
+    height: calc(100vh - (100vh - 100%) - 2rem);
+    z-index: 100;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    margin: 1rem;
-    z-index: 10;
     background-color: var(--light-color);
     box-shadow: 0px 0px 7px 3px rgba(0,0,0,.7);
 }
 
-.help-content {
+.rulebook-content {
     flex: 1 0 0px;
-    overflow-y: auto;
+    overflow: auto;
+    padding: 0 1rem;
 }
 
 tr.spell > td {
