@@ -8,6 +8,7 @@ export class Spell {
         this.effect = effect;
     }
 }
+
 //TODO How fukin long do creations last? How is time defined? Is counting down the AP things use fucking stupid? Perhaps. Perhaps. Perhaps.
 export class SpellList {
     constructor() {
@@ -292,10 +293,6 @@ export class SpellList {
         this.onlyShowKnown = false;
         this.character = null;
         this.refreshTrigger = 1;
-    }
-
-    vueCreated(vue) {
-        this.vue = vue;
     }
 
     getSpellByName(name) {
