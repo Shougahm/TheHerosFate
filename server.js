@@ -28,7 +28,7 @@ class Room {
         this.frozenCharacters = null;
     }
 
-    get hasOwner() {
+    get ownerHasCharactersInRoom() {
         return this.characters.some(c => c.playerId == this.ownerId);
     }
 
@@ -82,7 +82,8 @@ setInterval(() => {
     
     let debug = inspector.url() !== undefined;
     if (debug) {
-        // boot clients that have stopped talking to us
+        // boot clients that have stopped talking to us; this is a workaround for an Android Chrome
+        // bug that prevents clients from disconnecting gracefully when the tab is closed
         for (let client of g_roomsByClient.keys()) {
             if (now - client.keepalive > 5000) {
                 g_roomsByClient.delete(client);
@@ -148,10 +149,10 @@ function getRoomByNumberOrDie(client, roomNumber, checkOrphanedRoom) {
         g_roomsByClient.set(client, room);
     }
 
-    if (checkOrphanedRoom && !room.hasOwner) {
-        g_rooms.splice(g_rooms.indexOf(room), 1); // bye bye, room!
-        throw new Error(`Room closed by owner.`);
-    }
+    // if (checkOrphanedRoom && !room.ownerHasCharactersInRoom) {
+    //     g_rooms.splice(g_rooms.indexOf(room), 1); // bye bye, room!
+    //     throw new Error(`Room closed by owner.`);
+    // }
     return room;
 }
 
@@ -170,9 +171,10 @@ function joinRoom(client, args) {
         createRoom(client, args);
         return;
     }
-    // only the previous owner can join ownerless room (allows owner to refresh the page)
-    if (!room.hasOwner && client.id != room.ownerId) {
-        throw new Error(`Room ${roomNumber} not found.`);
+    if (!room.ownerHasCharactersInRoom && client.id != room.ownerId) {
+        // we used to allow only the previous owner to join ownerless room (so owner could refresh the page), but we're now just going to transfer ownership
+        // throw new Error(`Room ${roomNumber} not found.`);
+        room.ownerId = client.id;
     }
     g_roomsByClient.set(client, room);
     room.join(client.id, characters);

@@ -22,7 +22,7 @@ export class Room {
     get votingEnabled() {
         return !this.frozenCharacters;
     }
-    get initiatives() {
+    get charactersToShow() {
         return this.frozenCharacters || this.characters;
     }
     reset() {

@@ -68,13 +68,21 @@ table {
     padding: 0 1rem;
 }
 
+.game {
+    position: fixed;
+    right: 1rem;
+    top: 1rem;
+    z-index: 100;
+}
+
 .spell {
+    position: relative;
     padding-top: .5rem;
     border-top: 3px solid var(--dark-color);
 }
 
 .spell.known {
-    box-shadow: inset 0 0 10px 4px rgba(0,0,0,.5);
+    box-shadow: inset 0 0 10px 4px rgba(0,0,0,.4);
 }
 
 .spell-header {

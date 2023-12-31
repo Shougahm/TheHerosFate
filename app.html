@@ -1,11 +1,14 @@
 <div style="padding: 1rem;">
 	<div v-if='model.message' class='message'>{{model.server.message}}</div>
 
+	<Room v-if='model.server.room' :model='model.server.room' class="game"
+	/>
+
 	<Rulebook v-if="model.rulebook.isOpen" :model="model.rulebook"/>
 
 	<template v-else-if="model.characters.length > 0">
 		<div class="row">
-			<div class="stretch" style="margin-right: 1rem">
+			<div class="stretch" style="margin-right: .5rem">
 				<div class='tab-row' >
 					<div v-for="character of model.characters" class='tab'
 							:class="{ selected: model.selectedCharacter == character}"
@@ -28,9 +31,6 @@
 				<Character class='tab-body' :model="model.selectedCharacter" />
 			</div>
 
-			<div style="position: fixed; right: 1rem; top: 1rem;">
-				<Room v-if='model.server.room' :model='model.server.room' />
-			</div>
 		</div>
 
 		<SpellList :model="model.spellList" :character="model.selectedCharacter" />
