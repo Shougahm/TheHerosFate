@@ -78,7 +78,7 @@ export class Character {
 
 		this.wounds = [];
 		this.stuns = [];
-		this.knownSpells = new Set();
+		this.knownSpellNames = new Set();
 	}
 
 	get actions() {
@@ -130,6 +130,8 @@ export class Character {
 		let mageryLvl = this.mageryLvl1 + this.mageryLvl2;
 		let graceLvl = this.graceLvl1 + this.graceLvl2;
 		let fitnessLvl = this.fitnessLvl1 + this.fitnessLvl2;
+
+		let knownSpells = [...this.knownSpellNames].map(name => this.spellList.getSpellByName(name));
 
 		this.experience = 
 				acuityLvl +

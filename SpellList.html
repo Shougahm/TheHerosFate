@@ -1,32 +1,40 @@
 <Box label="Spells">
 	<div style="padding: .4rem;">
 		<input v-model="model.spellFilter" placeholder="search spells">
-		<span><input type='checkbox' v-model='model.showKnown'>Only Show Known Spells</span>
+		<span><input type='checkbox' v-model='model.onlyShowKnown'>Only Show Known Spells</span>
 	</div>
 	<table>
-		<tr>
-			<th>Name</b></th>
-			<th>Level</th>
-			<th>Difficulty</th>
-			<th>Cost</th>
-		</tr>
-		<template v-for="spell of model.filteredSpells">
-			<tr class="spell">
-				<td><b>{{spell.name}}</b></td>
-				<td>   {{spell.level}}
-					<span v-if="spell.advanced">(advanced)</span>
-				</td>
-
-				</td>
-				<td>   {{spell.difficulty}}</td>
-				<td>   {{spell.cost}}</td>
-				<td>   <button>Learn</button></td>
-			</tr>
-			<tr class="spelleffect">
-				<td colspan="5">{{spell.effect}}</td>
-			</tr>
-		</template>
+		<div class="spell-header">
+			<div><b>Name</b></div>
+			<div>Level</div>
+			<div>Difficulty</div>
+			<div>Cost</div>
+			<div>&nbsp;</div>
+		</div>
+		<div class="spell" v-for="spell of model.filteredSpells"
+			:class="{ known: model.spellIsKnown(spell) }">
+			<div class="spell-header">
+				<div><b>{{spell.name}}</b></div>
+				<div>   {{spell.level}} <span v-if="spell.advanced">(advanced)</span> </div>
+				<div>   {{spell.difficulty}}</div>
+				<div>   {{spell.cost}}</div>
+				<div>   
+					<button class='fancy-button' @click="model.unlearn(spell)" v-if='model.spellIsKnown(spell)'>
+						🍺 Unlearn
+					</button>
+					<button class='fancy-button' @click="model.learn(spell)" v-else>
+						🧠 Learn
+					</button>
+				</div>
+			</div>
+			<div class="spelleffect">
+				{{spell.effect}}
+			</div>
+		</div>
 	</table>
+
+	<!-- HACK -->
+	<div v-show='false'>{{model.refreshTrigger}}</div>
 </Box>
 <!-- TODO Only display "Advanced" if the spell is advanced and its level is equal to character's Magery. -->
 <!-- TODO Add Magery filter checkbox (it won't display spells requiring a higher magery than the character has) -->

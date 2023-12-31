@@ -156,7 +156,8 @@ function getRoomByNumberOrDie(client, roomNumber, checkOrphanedRoom) {
 }
 
 function createRoom(client, args) {
-    let room = new Room(g_nextRoomId/*++*/, client.id);
+    let { roomNumber } = args;
+    let room = new Room(roomNumber, client.id);
     g_rooms.push(room);
     joinRoom(client, args);
 }
@@ -262,7 +263,7 @@ wsServer.on('request', request => {
                 console.log(client.id, msg);
             }
             switch (msg) {
-                case 'createroom':        createRoom(client);             break;
+                // case 'createroom':        createRoom(client);             break;
                 case 'joinroom':          joinRoom(client, arg);          break;
                 case 'leaveroom':         leaveRoom(client, arg);         break;
                 case 'updatecharacter':   updateCharacter(client, arg);   break;

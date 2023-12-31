@@ -2,6 +2,7 @@ import { SpellList } from "./SpellList.mjs";
 import { Rulebook } from "./Rulebook.mjs";
 import { Character } from "./character.mjs";
 import { server } from "./Server.mjs";
+import { serialize, deserialize } from "./util.mjs";
 
 export class App {
 	constructor() {
@@ -9,10 +10,6 @@ export class App {
 		this.rulebook = new Rulebook();
 
 		this.loadCharacters();
-		if (this.characters == null) {
-			this.characters = [];
-			this.createNewCharacter();
-		}
 		this.selectCharacter(this.characters[0]);
 
 		window.onbeforeunload = () => this.saveCharacters();
@@ -33,8 +30,8 @@ export class App {
 		}
 	}
 
-	createNewCharacter() {
-		let name = prompt("Character Name");
+	createNewCharacter(defaultName) {
+		let name = prompt("Character Name") || defaultName;
 		if (name) {
 			this.selectedCharacter = new Character(name);
 			this.characters.push(this.selectedCharacter);
@@ -60,16 +57,17 @@ export class App {
 	}
 
 	saveCharacters() {
-		console.log("saveCharacters:", JSON.stringify(this.characters));
-		localStorage.setItem("characters", JSON.stringify(this.characters));
+		console.log("saveCharacters:", serialize(this.characters));
+		localStorage.setItem("characters", serialize(this.characters));
 	}
 
 	loadCharacters() {
 		const savedCharacters = localStorage.getItem("characters");
 		if (savedCharacters) {
-			console.log('loadCharacters:', savedCharacters);
-			this.characters = JSON.parse(savedCharacters)
+			this.characters = deserialize(savedCharacters)
 				.map(saveCharacter => Object.assign(new Character(), saveCharacter));
+		} else {
+			this.characters = [];
 		}
 	}
 }

@@ -1,4 +1,4 @@
-import { actions } from "./Actions.mjs";
+import { actions } from "./actions.mjs";
 
 export class Rulebook {
     constructor() {

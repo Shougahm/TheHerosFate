@@ -1,4 +1,4 @@
-import { Server } from "./Server.mjs";
+import { server } from "./Server.mjs";
 
 export class Room {
     constructor(playerId, source) {
@@ -26,7 +26,7 @@ export class Room {
         return this.frozenCharacters || this.characters;
     }
     reset() {
-        Server.resetRound();
+        server.resetRound();
     }
     sortByName(characters) {
         if (characters) {

@@ -113,6 +113,53 @@
 		</table>
 	</Box>
 
+	<Box label="Equipment">
+		<table>
+			<tr>
+				<td>Weapon</td>
+				<td style="min-width: 7rem">
+					<span>{{model.pwr ?? '-'}}</span>
+				</td>
+			</tr>
+			<tr>
+				<td>Head or Blade</td>
+				<td><number-input v-model='model.head' @input="model.figureStats()"></td>
+			</tr>
+			<tr>
+				<td>Pole Handle</td>
+				<td class="checkbox-column"><number-checkbox v-model="model.poleHandle" @change="model.figureStats()"></td>
+			</tr>
+			<tr>
+				<td>Thrown</td>
+				<td class="checkbox-column"><number-checkbox v-model="model.thrown" @input="model.figureStats()"></td>
+			</tr>
+			<tr>
+				<td>Finesse</td>
+				<td class="checkbox-column"><number-checkbox v-model="model.finesse" @input="model.figureStats()"></td>
+			</tr>
+			<tr>
+				<td>Two-Handed</td>
+				<td><input v-model="model.twoHanded" type="checkbox" @change="model.figureStats()"></td>
+				</td>
+			</tr>
+			<tr>
+				<td>Armor</td>
+				<td><number-input v-model="model.armor" @input="model.figureStats()"></td>
+			</tr>
+			<tr>
+				<td>
+					<select v-model="model.offhandType" @change="model.figureStats()">
+						<option value="Shield">Shield</option>
+						<option value="Weapon">Offhand Weapon</option>
+					</select>
+				</td>
+				<td>
+					<number-input v-model="model.offhand" @input="model.figureStats()">
+				</td>
+			</tr>
+		</table>
+	</Box>
+
 	<Box label="Skills">
 		<table>
 			<tr>
@@ -188,53 +235,6 @@
 				<td class="checkbox-column"> <number-checkbox v-model="model.fitnessLvl1" @change="model.figureStats()"> </td>
 				<td class="checkbox-column"> <number-checkbox v-model="model.fitnessLvl2" @change="model.figureStats()"> </td>
 				<td>{{model.fitness ?? '-'}}</td>
-			</tr>
-		</table>
-	</Box>
-
-	<Box label="Equipment">
-		<table>
-			<tr>
-				<td>Weapon</td>
-				<td style="min-width: 7rem">
-					<span>{{model.pwr ?? '-'}}</span>
-				</td>
-			</tr>
-			<tr>
-				<td>Head or Blade</td>
-				<td><number-input v-model='model.head' @input="model.figureStats()"></td>
-			</tr>
-			<tr>
-				<td>Pole Handle</td>
-				<td class="checkbox-column"><number-checkbox v-model="model.poleHandle" @change="model.figureStats()"></td>
-			</tr>
-			<tr>
-				<td>Thrown</td>
-				<td class="checkbox-column"><number-checkbox v-model="model.thrown" @input="model.figureStats()"></td>
-			</tr>
-			<tr>
-				<td>Finesse</td>
-				<td class="checkbox-column"><number-checkbox v-model="model.finesse" @input="model.figureStats()"></td>
-			</tr>
-			<tr>
-				<td>Two-Handed</td>
-				<td><input v-model="model.twoHanded" type="checkbox" @change="model.figureStats()"></td>
-				</td>
-			</tr>
-			<tr>
-				<td>Armor</td>
-				<td><number-input v-model="model.armor" @input="model.figureStats()"></td>
-			</tr>
-			<tr>
-				<td>
-					<select v-model="model.offhandType" @change="model.figureStats()">
-						<option value="Shield">Shield</option>
-						<option value="Weapon">Offhand Weapon</option>
-					</select>
-				</td>
-				<td>
-					<number-input v-model="model.offhand" @input="model.figureStats()">
-				</td>
 			</tr>
 		</table>
 	</Box>

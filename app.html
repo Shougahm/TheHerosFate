@@ -1,7 +1,9 @@
 <div style="padding: 1rem;">
+	<div v-if='model.message' class='message'>{{model.server.message}}</div>
+
 	<Rulebook v-if="model.rulebook.isOpen" :model="model.rulebook"/>
 
-	<template v-else>
+	<template v-else-if="model.characters.length > 0">
 		<div class="row">
 			<div class="stretch" style="margin-right: 1rem">
 				<div class='tab-row' >
@@ -33,4 +35,6 @@
 
 		<SpellList :model="model.spellList" :character="model.selectedCharacter" />
 	</template>
+
+	<button v-else class="fancy-button" @click="model.createNewCharacter()">Create Character</button>
 </div>

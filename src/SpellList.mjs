@@ -289,21 +289,38 @@ export class SpellList {
             ];
 
         this.spellFilter = "";
-        this.showKnown = true;
+        this.onlyShowKnown = false;
         this.character = null;
+        this.refreshTrigger = 1;
+    }
+
+    vueCreated(vue) {
+        this.vue = vue;
+    }
+
+    getSpellByName(name) {
+        return this.spells.find(spell => spell.name.toLowerCase() == name.toLowerCase());
+    }
+
+    spellIsKnown(spell) {
+        return this.character?.knownSpellNames.has(spell.name.toLowerCase());
     }
 
     learn(spell) {
-        this.character.knownSpells.add(spell);
+        this.character?.knownSpellNames.add(spell.name.toLowerCase());
+        this.refreshTrigger++;
     }
 
     unlearn(spell) {
-        this.character.knownSpells.delete(spell);
+        this.character?.knownSpellNames.delete(spell.name.toLowerCase());
+        this.refreshTrigger++;
     }
 
     get filteredSpells() {
-        return this.spells.filter(spell =>
-            spell.name.toLowerCase().includes(this.spellFilter.toLowerCase())
-        );
+        return this.spells.filter(spell => {
+            let name = spell.name.toLowerCase();
+            return name.includes(this.spellFilter.toLowerCase()) 
+                && (!this.onlyShowKnown || this.character?.knownSpellNames.has(name));
+        });
     }
 }

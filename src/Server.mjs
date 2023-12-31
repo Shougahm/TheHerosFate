@@ -18,7 +18,6 @@ export class Server {
         window.addEventListener('beforeunload', () => this.leaveRoom());
     }
     onServerMessage(message) {
-        this.room = null;
         this.message = message;
         setTimeout(() => this.message = null, 2000);
     }
