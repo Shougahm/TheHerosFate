@@ -142,18 +142,13 @@ export class Character {
 				mageryLvl +
 				graceLvl +
 				fitnessLvl;
-		if (this.will < 0) {
-			this.experience = this.experience - this.will
-		}
+		let effectiveExperience = this.will < 0 ? this.experience - this.will : this.experience;
 		this.trauma = null;
 		this.clarity = null;
-		if (this.intellect > this.experience)
-			this.clarity = this.intellect - this.experience;
-		else if (this.intellect < this.experience)
-			this.trauma = this.experience - this.intellect;
-		if (this.will < 0) {
-				this.experience = this.experience + this.will
-		}
+		if (this.intellect > effectiveExperience)
+			this.clarity = this.intellect - effectiveExperience;
+		else if (this.intellect < effectiveExperience)
+			this.trauma = effectiveExperience - this.intellect;
 
 		let load = this.head +
 			+this.armor
