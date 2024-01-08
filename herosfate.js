@@ -28,7 +28,7 @@ class Room {
         this.frozenCharacters = null;
     }
 
-    get hasOwner() {
+    get ownerHasCharactersInRoom() {
         return this.characters.some(c => c.playerId == this.ownerId);
     }
 
@@ -72,6 +72,13 @@ class Room {
     }
 }
 
+function debugLog(...args) {
+    let debug = inspector.url() !== undefined;
+    if (debug) {
+        console.log(...args);
+    }
+}
+
 let g_rooms = [];
 const g_roomsByClient = new Map(); // map websockets to rooms
 let g_nextRoomId = 1;
@@ -80,15 +87,13 @@ let g_nextRoomId = 1;
 setInterval(() => {
     const now = Date.now();
     
-    let debug = inspector.url() !== undefined;
-    if (debug) {
-        // boot clients that have stopped talking to us
-        for (let client of g_roomsByClient.keys()) {
-            if (now - client.keepalive > 5000) {
-                g_roomsByClient.delete(client);
-            }
+    // boot clients that have stopped talking to us; this is a workaround for an Android Chrome
+    // bug that prevents clients from disconnecting gracefully when the tab is closed
+    for (let client of g_roomsByClient.keys()) {
+        if (now - client.keepalive > 10000) {
+            g_roomsByClient.delete(client);
         }
-    } 
+    }
 
     // mark any room which has no client attached as abandoned
     let liveRooms = new Set(g_roomsByClient.values());
@@ -105,7 +110,7 @@ setInterval(() => {
 
     // boot players from rooms if the player has no client attached
     let livePlayerIds = new Set(Array.from(g_roomsByClient.keys()).map(client => client.id));
-    console.log('live clients', livePlayerIds);
+    //debugLog('live clients', livePlayerIds);
     for (let room of g_rooms) {
         let deadPlayers = room.characters.filter(character => !livePlayerIds.has(character.playerId));
         if (deadPlayers.length > 0) {
@@ -148,15 +153,16 @@ function getRoomByNumberOrDie(client, roomNumber, checkOrphanedRoom) {
         g_roomsByClient.set(client, room);
     }
 
-    if (checkOrphanedRoom && !room.hasOwner) {
-        g_rooms.splice(g_rooms.indexOf(room), 1); // bye bye, room!
-        throw new Error(`Room closed by owner.`);
-    }
+    // if (checkOrphanedRoom && !room.ownerHasCharactersInRoom) {
+    //     g_rooms.splice(g_rooms.indexOf(room), 1); // bye bye, room!
+    //     throw new Error(`Room closed by owner.`);
+    // }
     return room;
 }
 
 function createRoom(client, args) {
-    let room = new Room(g_nextRoomId/*++*/, client.id);
+    let { roomNumber } = args;
+    let room = new Room(roomNumber, client.id);
     g_rooms.push(room);
     joinRoom(client, args);
 }
@@ -169,9 +175,10 @@ function joinRoom(client, args) {
         createRoom(client, args);
         return;
     }
-    // only the previous owner can join ownerless room (allows owner to refresh the page)
-    if (!room.hasOwner && client.id != room.ownerId) {
-        throw new Error(`Room ${roomNumber} not found.`);
+    if (!room.ownerHasCharactersInRoom && client.id != room.ownerId) {
+        // we used to allow only the previous owner to join ownerless room (so owner could refresh the page), but we're now just going to transfer ownership
+        // throw new Error(`Room ${roomNumber} not found.`);
+        room.ownerId = client.id;
     }
     g_roomsByClient.set(client, room);
     room.join(client.id, characters);
@@ -198,9 +205,9 @@ function updateCharacter(client, arg) {
     let room = getRoomByNumberOrDie(client, arg.roomNumber);
     let character = room.characters.find(char => char.id == arg.character.id);
     if (character == null) {
+        console.log('Character not found (client, arg):', client, arg);
         throw new Error('Character not found.');
     }
-    console.log('update')
     character.update(arg.character);
     room.checkReveal();
     onRoomUpdated(room);
@@ -262,7 +269,7 @@ wsServer.on('request', request => {
                 console.log(client.id, msg);
             }
             switch (msg) {
-                case 'createroom':        createRoom(client);             break;
+                // case 'createroom':        createRoom(client);             break;
                 case 'joinroom':          joinRoom(client, arg);          break;
                 case 'leaveroom':         leaveRoom(client, arg);         break;
                 case 'updatecharacter':   updateCharacter(client, arg);   break;

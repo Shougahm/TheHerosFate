@@ -2,6 +2,7 @@ import { PWR, check } from "./dice.mjs";
 import { actions } from "./actions.mjs";
 import { server } from "./Server.mjs";
 import { createUID } from "./util.mjs";
+import { SpellList } from "./SpellList.mjs";
 
 export class Character {
 	constructor(name) {
@@ -78,7 +79,7 @@ export class Character {
 
 		this.wounds = [];
 		this.stuns = [];
-		this.knownSpells = new Set();
+		this.knownSpellNames = new Set();
 	}
 
 	get actions() {
@@ -130,6 +131,14 @@ export class Character {
 		let mageryLvl = this.mageryLvl1 + this.mageryLvl2;
 		let graceLvl = this.graceLvl1 + this.graceLvl2;
 		let fitnessLvl = this.fitnessLvl1 + this.fitnessLvl2;
+
+		let spells = new SpellList();
+		let knownSpells = [...this.knownSpellNames].map(name => spells.getSpellByName(name));
+		let spellCost = 0;
+		for (let spell of knownSpells) {
+			spellCost += spell.advanced ? 2 : 1;
+		}
+		console.log('spell cost', spellCost);
 
 		this.experience = 
 				acuityLvl +

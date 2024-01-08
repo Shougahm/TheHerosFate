@@ -33,6 +33,31 @@ export function createUID() {
     return `sid-${now.substring(now.length-6)}-${rand.substring(rand.length-6)}`;
 }
 
+export function serialize(obj) {
+    function replacer(key, value) {
+        if (value instanceof Set) {
+            return { type: 'Set', items: Array.from(value) }
+        } else if (value instanceof Map) {
+            return { type: 'Map', items: [...value.entries()] }
+        }
+        return value;
+    }
+    return JSON.stringify(obj, replacer);
+}
+
+export function deserialize(s) {
+    function reviver(key, value) {
+        if (value?.type == 'Set') {
+            return new Set(value.items);
+        } else if (value?.type == 'Map') {
+            return new Map(value.items);
+        }
+        return value;
+    }
+    return JSON.parse(s, reviver);
+}
+
+
 export function copyToClipboard(text) {
     if (window.clipboardData && window.clipboardData.setData) {
         window.clipboardData.setData("Text", text);

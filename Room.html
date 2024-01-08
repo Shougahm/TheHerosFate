@@ -1,6 +1,9 @@
-<Box label="Game">
+<Box label="Game" style="z-index: 100;">
 	<div style='padding: .4rem;'>
-		<div class='row horizontal-spacing-4' v-for="character of model.initiatives">
+		<div v-if="model.charactersToShow.length == 0">
+			No players
+		</div>
+		<div class='row horizontal-spacing-4' v-for="character of model.charactersToShow">
 			<div class='name stretch' :title='character.name'>
 				{{character.name}}
 			</div>

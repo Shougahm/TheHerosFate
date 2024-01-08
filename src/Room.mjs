@@ -1,4 +1,4 @@
-import { Server } from "./Server.mjs";
+import { server } from "./Server.mjs";
 
 export class Room {
     constructor(playerId, source) {
@@ -22,11 +22,11 @@ export class Room {
     get votingEnabled() {
         return !this.frozenCharacters;
     }
-    get initiatives() {
+    get charactersToShow() {
         return this.frozenCharacters || this.characters;
     }
     reset() {
-        Server.resetRound();
+        server.resetRound();
     }
     sortByName(characters) {
         if (characters) {

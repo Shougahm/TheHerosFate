@@ -1,0 +1,25 @@
+{
+  "easyDeployment.config": {
+    "configurations": [
+      {
+        "name": "Hero's Fate",
+        "local": {
+          "projectPath": ".",
+          "outputDir": ".",
+          "exclude": ["**/node_modules/**", ".git*", ".git/**", ".vscode/**", "*.json"]
+        },
+        "remote": {
+          "deploymentPath": "~/herosfate",
+          "deleteOriginalFiles": false,
+          "postCmd": "./restartserver.sh"
+        },
+        "ssh": {
+          "host": "207.148.6.174",
+          "port": 22,
+          "username": "root",
+          "password": "Db9${VP6MSJ9%ERD"
+        }
+      }
+    ]
+  }
+}

@@ -8,6 +8,7 @@ export class Spell {
         this.effect = effect;
     }
 }
+
 //TODO How fukin long do creations last? How is time defined? Is counting down the AP things use fucking stupid? Perhaps. Perhaps. Perhaps.
 export class SpellList {
     constructor() {
@@ -330,21 +331,34 @@ export class SpellList {
             ];
 
         this.spellFilter = "";
-        this.showKnown = true;
+        this.onlyShowKnown = false;
         this.character = null;
+        this.refreshTrigger = 1;
+    }
+
+    getSpellByName(name) {
+        return this.spells.find(spell => spell.name.toLowerCase() == name.toLowerCase());
+    }
+
+    spellIsKnown(spell) {
+        return this.character?.knownSpellNames.has(spell.name.toLowerCase());
     }
 
     learn(spell) {
-        this.character.knownSpells.add(spell);
+        this.character?.knownSpellNames.add(spell.name.toLowerCase());
+        this.refreshTrigger++;
     }
 
     unlearn(spell) {
-        this.character.knownSpells.delete(spell);
+        this.character?.knownSpellNames.delete(spell.name.toLowerCase());
+        this.refreshTrigger++;
     }
 
     get filteredSpells() {
-        return this.spells.filter(spell =>
-            spell.name.toLowerCase().includes(this.spellFilter.toLowerCase())
-        );
+        return this.spells.filter(spell => {
+            let name = spell.name.toLowerCase();
+            return name.includes(this.spellFilter.toLowerCase()) 
+                && (!this.onlyShowKnown || this.character?.knownSpellNames.has(name));
+        });
     }
 }

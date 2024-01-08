@@ -1,14 +1,13 @@
 :root {
     --dark-color: #ca9859;
     --light-color: #f4cc8e;
-    --light-color-odd: #f9c677;
+    --text-bg: #FFF0D3;
+    --complementary: #598BCA;
 }
-
-/* tr:nth-child(odd) { background:var(--light-color-odd); } */
 
 body {
     background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('hexpaper.png');
-    background-image: 800px; 
+    background-size: 800px; 
     margin: 0;
     padding: 0;
     width: 100%;
@@ -17,6 +16,7 @@ body {
     user-select: none;
     -webkit-text-size-adjust: none;
 }
+
 
 /* div, table { border: 1px solid red; }
 span { border: 1px solid blue; } */
@@ -37,7 +37,7 @@ table {
     color: #598BCA;
     font-weight: bold;
     font-size: 2rem;
-    content: "🕮";
+    content: "📚";
     position: absolute;
     top: -.5rem;
 }
@@ -59,7 +59,7 @@ table {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background-color: var(--light-color);
+    background-color: var(--text-bg);
     box-shadow: 0px 0px 7px 3px rgba(0,0,0,.7);
 }
 
@@ -69,13 +69,67 @@ table {
     padding: 0 1rem;
 }
 
-tr.spell > td {
-    padding: .4rem;
+.rulebook-content table {
+    margin: .6rem 0;
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,.3);
 }
 
-tr.spelleffect > td {
+.rulebook-content *.float-right {
+    float: right; 
+    clear: right;
+    margin-left: .6rem;
+}
+
+.rulebook-content td, .rulebook-content th {
+    border: 1px solid rgba(0,0,0,.2);
+}
+
+.game {
+    position: fixed;
+    right: 1rem;
+    top: 1rem;
+    z-index: 100;
+}
+
+.spell {
+    position: relative;
+    padding-top: .5rem;
+    border-top: 3px solid var(--dark-color);
+}
+
+.spell.known {
+    box-shadow: inset 0 0 10px 4px rgba(0,0,0,.4);
+}
+
+.spell-header {
+    padding-left: 1rem;
+    padding-bottom: .5rem;
+    padding-top: rem;
+    display: flex;
+}
+
+.spell-header > div {
+    flex: 0 1 8rem;
+}
+
+.spelleffect {
     padding: 1rem;
-    border-bottom: 3px solid var(--dark-color);
+}
+
+.message {
+    position: absolute;
+    white-space: pre-wrap;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    pointer-events: none;
+    background: rgba(0,0,0,.3);
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,.5);
 }
 
 .row {
@@ -89,6 +143,7 @@ tr.spelleffect > td {
 .box {
     display: inline-block;
     background: var(--light-color);
+    background: var(--text-bg);
     border-radius: .2rem;
     border: 2px solid rgba(0,0,0,.4);
     box-shadow: 3px 3px 7px rgba(0,0,0,.4);
