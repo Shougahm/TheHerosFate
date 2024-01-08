@@ -1,6 +1,7 @@
 :root {
     --dark-color: #ca9859;
     --light-color: #f4cc8e;
+    --text-bg: #FFF0D3;
     --complementary: #598BCA;
 }
 
@@ -58,7 +59,7 @@ table {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background-color: var(--light-color);
+    background-color: var(--text-bg);
     box-shadow: 0px 0px 7px 3px rgba(0,0,0,.7);
 }
 
@@ -66,6 +67,21 @@ table {
     flex: 1 0 0px;
     overflow: auto;
     padding: 0 1rem;
+}
+
+.rulebook-content table {
+    margin: .6rem 0;
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,.3);
+}
+
+.rulebook-content *.float-right {
+    float: right; 
+    clear: right;
+    margin-left: .6rem;
+}
+
+.rulebook-content td, .rulebook-content th {
+    border: 1px solid rgba(0,0,0,.2);
 }
 
 .game {
@@ -127,6 +143,7 @@ table {
 .box {
     display: inline-block;
     background: var(--light-color);
+    background: var(--text-bg);
     border-radius: .2rem;
     border: 2px solid rgba(0,0,0,.4);
     box-shadow: 3px 3px 7px rgba(0,0,0,.4);

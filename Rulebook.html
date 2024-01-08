@@ -1,54 +1,382 @@
 <div class='rulebook-bg'>
-	<div class='box-header' @click='model.close()'>
-		Rulebook
-		<span style='margin-left: auto'>X</span>
-	</div>
-<div class='rulebook-content'>
+    <div class='box-header' @click='model.close()'> Rulebook <span style='margin-left: auto'>X</span>
+    </div>
+    <div class='rulebook-content'>
+        <!-- book content starts here -->
+        <img src="assets/Octopus.png" width=250 style='float: right;'>
 
-<!-- book content starts here -->
+        <h2>Getting Started</h2>
+        <div>
+            <div class='row horizontal-spacing-8'>
+                <table style='margin-right: 1rem;'>
+                    <tr>
+                        <td> Attributes </td>
+                        <th> Algorithm </th>
+                    </tr>
+                    <tr>
+                        <td> Focus </td>
+                        <td> INT+DEX+-CT </td>
+                    </tr>
+                    <tr>
+                        <td> Agility </td>
+                        <td> STR+DEX+-LB </td>
+                    </tr>
+                    <tr>
+                        <td> Will </td>
+                        <td> INT+STR </td>
+                    </tr>
+                    <tr>
+                        <td> Body </td>
+                        <td> 2* STR </td>
+                    </tr>
+                    <tr>
+                        <td> Liberty/Burden (LB) </td>
+                        <td> STR-Load </td>
+                    </tr>
+                    <tr>
+                        <td> Clarity/Trauma (CT) </td>
+                        <td> INT-Experience </td>
+                    </tr>
+                    <tr>
+                        <td> Offense </td>
+                        <td> DEX-Burden </td>
+                    </tr>
+                    <tr>
+                        <td> Defense </td>
+                        <td> DEX-Burden </td>
+                    </tr>
+                </table>
+                        <table>
+                            <tr>
+                                <th> Power </th>
+                                <th> Damage </th>
+                                <th> Alternate Dice </th>
+                            </tr>
+                            <tr>
+                                <td> 1 </td>
+                                <td> d2 </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td> 2 </td>
+                                <td> d4 </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td> 3 </td>
+                                <td> d6 </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td> 4 </td>
+                                <td> d8 </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td> 5 </td>
+                                <td> d8+d2 </td>
+                                <td> d6+d4 </td>
+                            </tr>
+                            <tr>
+                                <td> 6 </td>
+                                <td> d8+d4 </td>
+                                <td> d6+d6 </td>
+                            </tr>
+                            <tr>
+                                <td> 7 </td>
+                                <td> d8+d6 </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td> 8 </td>
+                                <td> 2d8 </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td> 9 </td>
+                                <td> 2d8+d2 </td>
+                                <td> 3d6 </td>
+                            </tr>
+                            <tr>
+                                <td> 10 </td>
+                                <td> 2d8+d4 </td>
+                                <td> d8+2d6 </td>
+                            </tr>
+                            <tr>
+                                <td> 11 </td>
+                                <td> 2d8+d6 </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td> 12 </td>
+                                <td> 3d8 </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td> 13… </td>
+                                <td> 3d8+d2 </td>
+                                <td> d8+3d6 </td>
+                            </tr>
+                        </table>
+            </div>
+            <p>The basic to-hit/check type roll is d12-d12, we’ll just call it Roll, it represents uncertainty. A roll of -11, -10, or -9 will always fail (extra punishments should also be metered out to those who roll the least likely of the critical failures), while a roll of +9 will always succeed, 10 will have double effect, and 11 will have triple effect. A character starts with 4 in each of the base attributes (STR/DEX/INT) with 4-6 points to allocate as they choose (4 is standard, 6 is quite a bit more powerful and complex).</p>
+            <p>The rest of their attributes will be figured from their base attributes. Agility is equal to their Strength plus their Dexterity (+-Liberty/Burden) and determines how many Action Points (AP) a character will be given at the start of a turn. Focus is equal to their Intellect plus their Dexterity (+-Clarity/Trauma) and determines how much Initiative a character will be given at the start of a turn. Body is equal to twice a character’s Strength while Will is equal to their Strength plus their Intellect, each determines how much damage a character can withstand before their Burden and Trauma become too great to continue to act.</p>
+            <p>They may then choose any basic equipment that they’d like. The more benefits they get from equipment, the greater of a Load it will be. If a character’s Strength exceeds their Load, they will be considered to be at that much Liberty, which will add to your Agility. If a character’s Load exceeds their Strength, they will be considered to be under that much Burden, which will subtract from their Agility and Combat Values. Additionally, move actions will cost +½ their Burden and -½ their Liberty. </p>
+            <p>Then, they may choose any skills or spells that they like. The more benefits they get from skills and spells, the more Experience you will have. If a character has more Intellect than they do Experience, they are considered to have that much Clarity, which will add to their Focus. If a character has more Experience than they do Intellect, they are considered to have that much Trauma, which will subtract from their Focus.</p>
+        </div>
 
-<img src="assets/Octopus.png" width=250 style='float: right;'></p>
+        <div>
+            <h4>Equipment Table </h4>
 
-<h1>Taco Tuesday</h1>
+            <table>
+                <tr>
+                    <th> Melee Weapon Properties </th>
+                    <th> Missile Weapon Properties </th>
+                    <th> Other Equipment </td>
+                    <th> Costs </th>
+                    <th> Effects </th>
+                </tr>
+                <tr>
+                    <td> Weight </td>
+                    <td></td>
+                    <td></td>
+                    <td> +X Load </td>
+                    <td> +X Power </td>
+                </tr>
+                <tr>
+                    <td> Polearm </td>
+                    <td></td>
+                    <td></td>
+                    <td> +1 Load </td>
+                    <td> +Charge Power +Charge Initiative +Target’s Charge Offense </td>
+                </tr>
+                <tr>
+                    <td> Balance </td>
+                    <td></td>
+                    <td></td>
+                    <td> +1 Load </td>
+                    <td> Divide Range by 2. </td>
+                </tr>
+                <tr>
+                    <td> Penetrating </td>
+                    <td></td>
+                    <td></td>
+                    <td> +X Load </td>
+                    <td> Ignore up to X armor for each Offensive Preparation </td>
+                </tr>
+                <tr>
+                    <td> Finesse </td>
+                    <td></td>
+                    <td></td>
+                    <td> +1 Load </td>
+                    <td> +Flanking Power </td>
+                </tr>
+                <tr>
+                    <td> Two-Handed </td>
+                    <td></td>
+                    <td></td>
+                    <td> -Str/3 Load </td>
+                    <td> Must be used with two hands. If a unit is wielding a Two-Handed Polearm, treat the hexes in front of their front hexes as additional front hexes. </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> Projectile </td>
+                    <td></td>
+                    <td> +1-3 Load </td>
+                    <td> +1-3 Power </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> Draw Weight </td>
+                    <td></td>
+                    <td> +X Load </td>
+                    <td> +X Power and +X AP to Shoot </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td> Armor </td>
+                    <td> +X Load </td>
+                    <td> Reduce damage received each round by a total of X. </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td> Shield </td>
+                    <td> +X Load </td>
+                    <td> +1 to Defensive Preparations up to X times in a single round. </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td> Offhand Weapon </td>
+                    <td> +X Load </td>
+                    <td> +1 to Offensive Preparations up to X times in a single round. </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td> Accessible Harness </td>
+                    <td> +1 Load </td>
+                    <td> Carry up to Strength Load of extra equipment or items harnessed conveniently to your body (belts). </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td> Inaccessible Harness </td>
+                    <td> +1 Load </td>
+                    <td> Carry up to Body Load of extra equipment or items harnessed inconveniently to your body (backpacks). </td>
+                </tr>
+            </table>
+        </div>
 
-<p>If the day is Tuesday, all players are now tacos. Refer to the Taco Action table below for combat rules.
+        <h4>Power</h4> Power can always be calculated thusly: The maximum possible result on the dice cannot exceed twice the power, and the total amount of dice rolled must equal the power divided by 4, rounded up. As long as both of those guidelines are abided by, you may use whichever combination of dice is most convenient for you. So between 1 and 4 power, only 1 die may be used. Between 5 and 8, any combination of two dice whose largest faces total no more than twice the power must be used. Etc. The application will always show you the configurations that use the least d2s and d4s.
 
-<h1>Actions</h1>
+        <h3>Skills </h3> 
+        
+        <p>A starting character may have any amount of Experiences which taught them skills and spells. Each Experience learning a skill grants a bonus equal to ½ of the attribute governing that skill (STR/DEX/INT), rounded up. A character may have a maximum of 2 Experiences learning skill, reaching a maximum of 100% the value of its governing attribute. A character can only learn spells for which they possess the skill in Magery, and each spell requires an Experience of its own. If a character has more Intellect than they do Experience, they are considered to have that much Clarity, which will add to their Focus.</p>
 
-<p>At the beginning of each combat Round, units are given Action Points (AP) equal to their Agility. Combat
-	then proceeds in Phases. In each Phase, Units may spend AP to perform a single Action.</p>
+        <p>If a character has more Experience than they do Intellect, they are considered to have that much Trauma, which will subtract from their Focus. Whenever a character does a non-combat action with an interesting possibility for failure, the GM should decide which skills are being tested and against what obstacles and then the acting character should roll d12-d12 and add their relevant skills to the result. Whenever the obstacle is another character’s skill, the passive opposition for that obstacle shall be at least as high as the opposing skill. For example, if character is trying to sell something for more than it’s worth, they may succeed if their Roll+Guile is equal to or greater than the buyer’s Acuity, or potentially their Roll+Acuity+Craft to see if the item is of shoddy make, or potentially their Acuity+Culture to see if the item is common.</p>
 
-<p>Actions are performed in order of highest to lowest initiative. Ties are broken by highest remaining AP,
-	then highest Focus, then whichever attribute players feel best fits the situation. A Phase ends only
-	when each unit has agreed that it should, and so does a Round.</p>
+        <p>When a skill is purchased or at some time during play, it should be expected that the player think about exactly what experiences led to the development of that skill. Write a short blurb (or a long one, who cares) about the nature of the character’s experience with the use of that skill with the intention that the blurb narrows the scope of that skill a little bit. This is especially important when multiple players have taken the same skill at similar levels to help differentiate their abilities a little bit. For example, when you buy the Culture skill, think about what cultures that character is actually experienced with: are they a rogue familiar with the culture of low-lives/tramps/vagabonds, did they find themselves moving information for nobles and are now passing familiar with courtly graces? Or are they a historian or researcher of some kind superficially familiar with a wide range of rare cultures? If you don’t want the scope of your skill to be narrow, because your character concept is that of somebody of great breadth of abilities and learnedness, that’s fine, you need only make sure that whoever has the most specifically appropriate blurb associated with a skill be the one who is tested in a given situation, even if their skill is worse.</p>
 
-<p>Some Actions can only be performed in certain Phases (see below). In general, Odd Phases are for movement
-	actions, Even Phases are for attack actions.</p>
+        <p>Skills can be used to Overcome Obstacles, meaning, avoid an interesting possible failure outcome of one of their in-game actions, or they can be used to Create or Negate an (Dis)Advantage.</p>
+        
+        <table>
+            <tr>
+                <td> Acuity </td>
+                <td> INT </td>
+                <td> Perception and awareness; calculative or logical force. </td>
+            </tr>
+            <tr>
+                <td> Empathy </td>
+                <td> INT </td>
+                <td> Emotional perception and intelligence. </td>
+            </tr>
+            <tr>
+                <td> Evoke </td>
+                <td> INT </td>
+                <td> Ability to affect or invoke the emotions of others; ability to control one’s emotions. </td>
+            </tr>
+            <tr>
+                <td> Guile </td>
+                <td> INT </td>
+                <td> Ability to affect or invoke the perceptions of others. </td>
+            </tr>
+            <tr>
+                <td> Culture </td>
+                <td> INT </td>
+                <td> Cultural knowledge and awareness; perception of class and status; familiarity with special parlances, dialects, or even special languages altogether; taste in art. </td>
+            </tr>
+            <tr>
+                <td> Crafts </td>
+                <td> INT </td>
+                <td> Knowledge and acumen in the domain of craftsmanship; perception of quality of make or construction; familiarity with tools and their use; intuition with machines and engineering tolerances. </td>
+            </tr>
+            <tr>
+                <td> Nature </td>
+                <td> INT </td>
+                <td> Knowledge and awareness of Nature; familiarity with esoteric natural truths, truths which contradict common spiritual explanations of natural phenomena. </td>
+            </tr>
+            <tr>
+                <td> Magery </td>
+                <td> INT </td>
+                <td> Knowledge and acumen in the domain of magic; perception of magic; familiarity with spiritual, cosmic, or otherworldly entities such as gods, spirits, demons, fey, etc. </td>
+            </tr>
+            <tr>
+                <td> Grace </td>
+                <td> DEX </td>
+                <td> Skill and tact of movement; balance, proprioception; ability to move purposefully, discreetly, beautifully; ability to overcome complicated obstacles requiring special skills or techniques like climbing, rolling or flipping, ducking or crawling, etc. </td>
+            </tr>
+            <tr>
+                <td> Fitness </td>
+                <td> STR </td>
+                <td> Athletic preparedness; ability to dig deep to overcome a physical obstacle requiring power or endurance such as running, jumping, climbing, or moving a heavy load. </td>
+            </tr>
+        </table>
+        
+        Magic 
 
-<table>
-	<tr>
-		<th>Action</th>
-		<th>Cost</th>
-		<th>Condition</th>
-	</tr>
-	<template v-for="action of model.actions">
-		<tr>
-			<td><b>{{action.action}}</b></td>
-			<td>{{action.cost}}</td>
-			<td>{{action.condition}}</td>
-		</tr>
-		<tr class="spelleffect">
-			<td colspan="3">{{action.resolution}}</td>
-		</tr>
-	</template>
-</table>
+        <h2>Combat</h2>
 
-<h1>Jokes</h1>
+        <h3>Tactical Values</h3> 
+        
+        Tactical Values are numbers which represent the various special conditions and circumstances which can be exploited on the battlefield. They often depend heavily on who you’re targeting, so only calculate your Tactical Values as they’re called for. The Tactical Values are:
+        
+        <ul>
+            <li>Charge is equal to the amount of hexes you last moved in a straight line this turn.</li>
 
-<p>Did you hear the one about Taco Tuesday?</p>
+            <li>High Ground is equal to the difference in elevation between your target and you.</li>
+        
+            <li>Range is equal to the amount of hexes between you and your target.</li>
+        
+            <li>Flanking is equal to the the distance around you are from your target’s front hexes.</li>
+        
+            <li>Engagement is equal to the total remaining AP of units whose front hexes you are in.</li>
+        
+            <li>Velocity is equal to the total hexes you’ve moved this turn.</li>
+        </ul>
+        
+        <h4>Wounds </h4>
+        
+        <p>Whenever damage is dealt, subtract that value from the target’s Will and Body. The attack is considered Wounding if it deals more damage than the target's Strength. If the attacker calls a hit location, then, if his successful roll is an even number, he hits that location. If the hit location is the head, and the attack is wounding, reduce the target's Intellect by 1 until they've spent 20 AP. If the hit location is a limb and the damage is Wounding, reduce the target's Dexterity by 1 until they've spent 20 AP. If the hit location is the body, reduce the target's Strength by 1 until they've spent 20 AP.</p> 
 
-<!-- book content ends here -->
+        <p>When a unit’s Will is negative, it contributes to their Trauma. When their Body is negative, it contributes to their Burden.</p> 
+        
+        <h4>Initiative</h4>
+        
+       <p>At the start of a round of combat, each unit or their leader is secretly awarded Initiative equal to Roll+Focus. Each unit may then, secretly, spend that initiative making Preparations for the round. Preparations grant bonuses that last until the end of the round. The remaining initiatives will determine the order in which units will act during the round. If Roll+Focus is a negative number, that unit and its group must sell preparations until their Initiative equals 0-2. These parties have been caught so off guard that they receive penalties until the end of the round. Combat values below 1 cannot be sold, but Agility can be sold lower than that.</p> 
+        
+        <table>
+            <tr>
+                <th> Preparations </th>
+                <th> Cost </th>
+                <th> Effect </th>
+            </tr>
+            <tr>
+                <td> Offensive </td>
+                <td> 3 Initiative </td>
+                <td> +1 Offense </td>
+            </tr>
+            <tr>
+                <td> Defensive </td>
+                <td> 3 Initiative </td>
+                <td> +1 Defense </td>
+            </tr>
+            <tr>
+                <td> Agility </td>
+                <td> 3 Initiative </td>
+                <td> +1 AP </td>
+            </tr>
+        </table>
 
+        <h4>Actions</h4>
 
+        <p>At the beginning of each combat Round, units are given Action Points (AP) equal to their Agility. Combat then proceeds in Phases. In each Phase, Units may spend AP to perform a single Action.</p>
 
+        <p>Actions are performed in order of highest to lowest initiative. Ties are broken by highest remaining AP, then highest Focus, then whichever attribute players feel best fits the situation. A Phase ends only when each unit has agreed that it should, and so does a Round.</p>
+
+        <p>Some Actions can only be performed in certain Phases (see below). In general, Odd Phases are for movement actions, Even Phases are for attack actions.</p>
+
+        <table>
+            <tr>
+                <th>Action</th>
+                <th>Cost</th>
+                <th>Condition</th>
+            </tr>
+            <template v-for="action of model.actions">
+            <tr>
+                <td>
+                    <b>{{action.action}}</b>
+                </td>
+                <td>{{action.cost}}</td>
+                <td>{{action.condition}}</td>
+            </tr>
+            <tr class="spelleffect">
+                <td colspan="3">{{action.resolution}}</td>
+            </tr>
+            </template>
+        </table>
+    </div>
+    <!-- book content ends here -->
 </div>
