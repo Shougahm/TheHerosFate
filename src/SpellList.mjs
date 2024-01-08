@@ -108,7 +108,7 @@ export class SpellList {
                 false,
                 "4",
                 "2+1R",
-                "Summon a wolf with 5 STR (2 Liberty), 7 DEX, 3 INT and 3 Natural power with Finesse within STR hexes of the caster. Must be maintained every time it spends 10 AP."
+                "Summon a wolf with 5 STR (2 Liberty), 7 DEX, 3 INT and 3 Natural Power with Finesse within STR hexes of the caster. Must be maintained every time it spends 10 AP."
             ),
             new Spell("Fire",
                 4,
@@ -257,12 +257,12 @@ export class SpellList {
                 "X",
                 "Like the Shadow spell, but covering up to 3 connected hexes."
                 ),
-            new Spell ("Sphere of Cold",
+            new Spell ("Freezing Mist",
                 6,
                 false,
                 "4",
-                "3+X",
-                "Creates a freezing mist 1 megahex in size within X+STR hexes of the caster. Any amount of any kind of fire is instantly quenched upon exposure to the sphere of cold."
+                "3",
+                "Creates a freezing mist 7 hexes in size within X+STR hexes of the caster. Each hex of freezing mist mutually negates any hex of any kind of flame. Each hex of Freezing Mist can be moved 1 hex per phase at will, they must only stay continually connected."
                 ),
             new Spell ("Drain Will",
                 6,
@@ -271,21 +271,62 @@ export class SpellList {
                 "-",
                 "Lets the mage drain mental energy from others (humans or humanoids only) into himself. The person being drained must cooperate or be subjugated (tied up, unconscious, etc.). Each 3 Will drained from the subject replenishes 1 of the caster's."
                 ),
-            new Spell ("3 Hex Shadow",
+            new Spell ("Eyes Behind",
                 6,
                 false,
-                "4",
-                "X",
-                "Like the Shadow spell, but covering up to 3 connected hexes."
+                "3+Range",
+                "2+1R",
+                "The subject gains total awareness of their full periphery which expands into a full sphere of visual perception around them. Flanking a figure with Eyes Behind active upon it is impossible. This spell must be maintained each time the caster spends 10 AP."
                 ),
-            new Spell ("3 Hex Shadow",
+            new Spell ("Levitation",
                 6,
-                false,
-                "4",
-                "X",
-                "Like the Shadow spell, but covering up to 3 connected hexes."
+                true,
+                "3+Range",
+                "3+1R",
+                "Levitates the subject off the ground, granting them a limited ability to fly. An inexperienced flier (groundwalker) will be at -2 offense in melee, plus -2 offense to shoot or cast. A winged creature given the power of levitation will instead receive +2 DEX. All levitating figures have 2+Range defense and pay no additional costs to move up or down elevation or over difficult terrain. This spell must be maintained each time the caster spends 10 AP."
                 ),
-                        
+            new Spell ("Gargoyle",
+                6,
+                true,
+                "4",
+                "4+1R",
+                "Summons a Gargoyle (10 STR, 5 DEX, 4 INT, 6 Natural Power, 2 Natural Armor. Must be maintained every time it spends 10 AP."
+                ),
+            new Spell ("",
+                6,
+                true,
+                "",
+                "",
+                ""
+                ),
+            new Spell ("",
+                6,
+                true,
+                "",
+                "",
+                ""
+                ),
+            new Spell ("",
+                6,
+                true,
+                "",
+                "",
+                ""
+                ),
+            new Spell ("",
+                6,
+                true,
+                "",
+                "",
+                ""
+                ),
+            new Spell ("",
+                6,
+                true,
+                "",
+                "",
+                ""
+                ),        
             ];
 
         this.spellFilter = "";
