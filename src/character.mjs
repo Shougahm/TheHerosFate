@@ -136,7 +136,7 @@ export class Character {
 		let knownSpells = [...this.knownSpellNames].map(name => spells.getSpellByName(name));
 		let spellCost = 0;
 		for (let spell of knownSpells) {
-			spellCost += spell.advanced ? 2 : 1;
+			spellCost += (spell.advanced && spell.level=mageryLvl) ? 2 : 1;
 		}
 		console.log('spell cost', spellCost);
 
@@ -150,7 +150,9 @@ export class Character {
 				natureLvl +
 				mageryLvl +
 				graceLvl +
-				fitnessLvl;
+				fitnessLvl +
+				spellCost;
+		
 		let effectiveExperience = this.will < 0 ? this.experience - this.will : this.experience;
 		this.trauma = null;
 		this.clarity = null;
