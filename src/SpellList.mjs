@@ -238,7 +238,7 @@ export class SpellList {
                 "Makes the subject invisible. Remove their counter from the game board and track their movements externally. Additionally, invisible figures are at +4 Defense (this does not stack with the effects of darkness or blur). This spell must be maintained each time the subject passes 10 AP."
                 ),
             new Spell ("Explode",
-                6,
+                4,
                 false,
                 "4",
                 "X",
