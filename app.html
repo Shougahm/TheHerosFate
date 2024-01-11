@@ -13,13 +13,7 @@
 					<div v-for="character of model.characters" class='tab'
 							:class="{ selected: model.selectedCharacter == character}"
 							@click="model.selectCharacter(character)">
-						<span style="margin-right: 1rem;">{{character.name}}</span>
-						<span @click="model.editName(character)">
-							✎
-						</span>
-						<span @click="model.deleteCharacter(character)">
-							🗑
-						</span>
+						<span>{{character.name}}</span>
 					</div>
 					<div class='tab' @click="model.createNewCharacter()">
 						<b>+</b>
