@@ -45,6 +45,7 @@ export class Character {
 
 		this.experience = null;
 
+		this.enchantment = null;
 		this.head = null;
 		this.armor = null;
 		this.offhandType = null;
@@ -52,6 +53,7 @@ export class Character {
 
 		this.poleHandle = 0;
 		this.thrown = 0;
+		this.penetrating = 0;
 		this.finesse = 0;
 		this.twoHanded = false;
 
@@ -61,6 +63,7 @@ export class Character {
 
 		this.offense = null;
 		this.defense = null;
+
 		this.acuity = null;
 		this.empathy = null;
 		this.evoke = null;
@@ -132,11 +135,22 @@ export class Character {
 		let graceLvl = this.graceLvl1 + this.graceLvl2;
 		let fitnessLvl = this.fitnessLvl1 + this.fitnessLvl2;
 
+		this.acuity = Math.ceil(acuityLvl / 2 * this.intellect - this.trauma / 2);
+		this.empathy = Math.ceil(empathyLvl / 2 * this.intellect - this.trauma / 2);
+		this.evoke = Math.ceil(evokeLvl / 2 * this.intellect - this.trauma / 2);
+		this.guile = Math.ceil(guileLvl / 2 * this.intellect - this.trauma / 2);
+		this.culture = Math.ceil(cultureLvl / 2 * this.intellect - this.trauma / 2);
+		this.crafts = Math.ceil(craftsLvl / 2 * this.intellect - this.trauma / 2);
+		this.nature = Math.ceil(natureLvl / 2 * this.intellect - this.trauma / 2);
+		this.magery = Math.ceil(mageryLvl / 2 * this.intellect - this.trauma / 2);
+		this.grace = Math.ceil(graceLvl / 2 * this.dexterity);
+		this.fitness = Math.ceil(fitnessLvl / 2 * this.strength);
+
 		let spells = new SpellList();
 		let knownSpells = [...this.knownSpellNames].map(name => spells.getSpellByName(name));
 		let spellCost = 0;
 		for (let spell of knownSpells) {
-			spellCost += (spell.advanced && spell.level=mageryLvl) ? 2 : 1;
+			spellCost += (spell.advanced && spell.level==this.magery) ? 2 : 1;
 		}
 		console.log('spell cost', spellCost);
 
@@ -166,7 +180,9 @@ export class Character {
 			+ this.offhand
 			+ this.poleHandle
 			+ this.thrown
-			+ this.finesse;
+			+ this.penetrating
+			+ this.finesse
+			- this.enchantment;
 
 		if (this.twoHanded) {
 			load -= Math.floor(this.strength / 4);
@@ -197,16 +213,7 @@ export class Character {
 		
 		this.agility = this.strength + this.dexterity - this.burden + this.liberty + this.agiPrep;
 		this.focus = this.dexterity + this.intellect - this.trauma + this.clarity;
-		this.acuity = Math.ceil(acuityLvl / 2 * this.intellect - this.trauma / 2);
-		this.empathy = Math.ceil(empathyLvl / 2 * this.intellect - this.trauma / 2);
-		this.evoke = Math.ceil(evokeLvl / 2 * this.intellect - this.trauma / 2);
-		this.guile = Math.ceil(guileLvl / 2 * this.intellect - this.trauma / 2);
-		this.culture = Math.ceil(cultureLvl / 2 * this.intellect - this.trauma / 2);
-		this.crafts = Math.ceil(craftsLvl / 2 * this.intellect - this.trauma / 2);
-		this.nature = Math.ceil(natureLvl / 2 * this.intellect - this.trauma / 2);
-		this.magery = Math.ceil(mageryLvl / 2 * this.intellect - this.trauma / 2);
-		this.grace = Math.ceil(graceLvl / 2 * this.dexterity);
-		this.fitness = Math.ceil(fitnessLvl / 2 * this.strength);
+		
 
 		let offensiveEquipBonus = 0;
 		let defensiveEquipBonus = 0;
@@ -216,7 +223,7 @@ export class Character {
 			offensiveEquipBonus = this.offhand;
 		}
 //TODO Fix sell rates so that you get better sell rates for having offhand wep and dex.
-//TODO Perhaps two handing should be agilityEquipBonus, it's an interesting concept.
+
 		let advantagedOffPreps = Math.min(offensiveEquipBonus, this.offPrep);
 		let regularOffPreps = (this.offPrep) - advantagedOffPreps;
 		let equipmentOffBonus = advantagedOffPreps * Math.floor(this.dexterity / 2) + regularOffPreps;

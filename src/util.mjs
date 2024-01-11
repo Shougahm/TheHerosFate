@@ -33,8 +33,11 @@ export function createUID() {
     return `sid-${now.substring(now.length-6)}-${rand.substring(rand.length-6)}`;
 }
 
-export function serialize(obj) {
+export function serialize(obj, ignoreKeys) {
     function replacer(key, value) {
+        if (ignoreKeys?.has(key)) {
+            return null;
+        }
         if (value instanceof Set) {
             return { type: 'Set', items: Array.from(value) }
         } else if (value instanceof Map) {

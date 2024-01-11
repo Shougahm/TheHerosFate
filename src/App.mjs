@@ -33,7 +33,7 @@ export class App {
 	createNewCharacter(defaultName) {
 		let name = prompt("Character Name") || defaultName;
 		if (name) {
-			this.selectedCharacter = new Character(name);
+			this.selectCharacter(new Character(name));
 			this.characters.push(this.selectedCharacter);
 			server.addCharacter(this.selectedCharacter);
 		}

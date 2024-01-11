@@ -126,8 +126,16 @@
 				<td><number-input v-model='model.head' @input="model.figureStats()"></td>
 			</tr>
 			<tr>
+				<td>Enchantment</td>
+				<td><number-input v-model='model.enchantment' @input="model.figureStats()"></td>
+			</tr>
+			<tr>
 				<td>Pole Handle</td>
 				<td class="checkbox-column"><number-checkbox v-model="model.poleHandle" @change="model.figureStats()"></td>
+			</tr>
+			<tr>
+				<td>Penetrating</td>
+				<td class="checkbox-column"><number-checkbox v-model="model.penetrating" @change="model.figureStats()"></td>
 			</tr>
 			<tr>
 				<td>Thrown</td>
