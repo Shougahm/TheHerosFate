@@ -5,7 +5,8 @@ import { createUID } from "./util.mjs";
 import { SpellList } from "./SpellList.mjs";
 
 export class Character {
-	constructor(name) {
+	constructor(name, app) {
+		this.app = app;
 		this.id = createUID();
         this.name = name;
 
@@ -87,6 +88,18 @@ export class Character {
 
 	get actions() {
 		return actions;
+	}
+
+	editName() {
+		let name = prompt("Character Name", this.name);
+		if (name) {
+			this.name = name;
+			server.updateCharacter(this);
+		}
+	}
+
+	delete() {
+		this.app.deleteCharacter(this);
 	}
 
 	addWound(wound) {

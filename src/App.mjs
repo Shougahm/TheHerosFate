@@ -12,11 +12,16 @@ export class App {
 		this.loadCharacters();
 		this.selectCharacter(this.characters[0]);
 
-		window.onbeforeunload = () => this.saveCharacters();
+        document.body.onbeforeunload = () => this.onbeforeunload();
 
 		this.server = server;
 		server.joinRoom(this.characters);
 		server.onRoundReset = () => this.resetRound();
+	}
+
+	onbeforeunload() {
+		server.leaveRoom();
+        this.saveCharacters();
 	}
 
 	selectCharacter(character) {
@@ -33,6 +38,7 @@ export class App {
 	createNewCharacter(defaultName) {
 		let name = prompt("Character Name") || defaultName;
 		if (name) {
+			this.selectedCharacter = new Character(name, this);
 			this.selectCharacter(new Character(name));
 			this.characters.push(this.selectedCharacter);
 			server.addCharacter(this.selectedCharacter);
@@ -40,13 +46,7 @@ export class App {
 	}
 
 	editName(character) {
-		let name = prompt("Character Name", character.name);
-		if (name) {
-			character.name = name;
-			server.updateCharacter(character);
-			// HACK
-			//location.reload();
-		}
+		character.editName();
 	}
 
 	deleteCharacter(character) {
@@ -57,16 +57,23 @@ export class App {
 	}
 
 	saveCharacters() {
-		console.log("saveCharacters:", serialize(this.characters));
-		localStorage.setItem("characters", serialize(this.characters));
+		let serialized = serialize(this.characters, (key, value) => value == this);
+		console.log("saveCharacters:", serialized);
+		localStorage.setItem("characters", serialized);
 	}
 
 	loadCharacters() {
 		const savedCharacters = localStorage.getItem("characters");
 		if (savedCharacters) {
-			this.characters = deserialize(savedCharacters)
-				.map(saveCharacter => Object.assign(new Character(), saveCharacter));
-		} else {
+			try {
+				this.characters = deserialize(savedCharacters)
+					.map(saveCharacter => Object.assign(new Character(null, this), saveCharacter));
+			} catch (e) { 
+				console.log(e);
+			}
+		}
+
+		if (this.characters == null) {
 			this.characters = [];
 		}
 	}

@@ -15,7 +15,6 @@ export class Server {
         Socket.addListener("message", message => this.onServerMessage(message));
         Socket.addListener("console", message => console.log(message));
         Socket.addListener("socketerror", message => console.log('socket error', message));
-        window.addEventListener('beforeunload', () => this.leaveRoom());
     }
     onServerMessage(message) {
         this.message = message;
