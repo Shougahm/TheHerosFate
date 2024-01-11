@@ -3,12 +3,13 @@ import { actions } from "./actions.mjs";
 import { server } from "./Server.mjs";
 import { createUID } from "./util.mjs";
 import { SpellList } from "./SpellList.mjs";
+import { App } from "./App.mjs";
 
 export class Character {
 	constructor(name, app) {
-		this.app = app;
 		this.id = createUID();
         this.name = name;
+		this.portrait = "https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Faa3af934-1d71-418a-8794-84aa8fac66be%2F83ab9786-9f47-44b1-b5b1-eacb266b2311%2F_36e29d1f-b1eb-466b-a662-5c455ba64acd.jpg?id=d0787701-bb3a-4d52-850d-ce975c51f860&table=collection&spaceId=aa3af934-1d71-418a-8794-84aa8fac66be&width=1920";
 
 		this.strength = 4;
 		this.dexterity = 4;
@@ -90,7 +91,7 @@ export class Character {
 		return actions;
 	}
 
-	editName() {
+	changeName() {
 		let name = prompt("Character Name", this.name);
 		if (name) {
 			this.name = name;
@@ -98,8 +99,15 @@ export class Character {
 		}
 	}
 
+	changePortrait() {
+		let url = prompt("Portrait URL", this.portrait);
+		if (url) {
+			this.portrait = url;
+		}
+	}
+
 	delete() {
-		this.app.deleteCharacter(this);
+		App.instance.deleteCharacter(this);
 	}
 
 	addWound(wound) {

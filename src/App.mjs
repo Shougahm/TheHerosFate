@@ -5,6 +5,8 @@ import { server } from "./Server.mjs";
 import { serialize, deserialize } from "./util.mjs";
 
 export class App {
+	static instance = new App();
+
 	constructor() {
 		this.spellList = new SpellList();
 		this.rulebook = new Rulebook();
@@ -53,6 +55,7 @@ export class App {
 		if (confirm(`Delete ${character.name} forever?`)) {
 			this.characters.splice(this.characters.indexOf(character), 1);
 			server.deleteCharacter(character);
+			this.selectedCharacter = this.characters[0];
 		}
 	}
 

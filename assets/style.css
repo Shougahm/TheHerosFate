@@ -27,6 +27,10 @@ table {
     border-collapse: collapse;
 }
 
+.toolbar {
+    margin-bottom: 1rem;
+}
+
 .rulebook-link {
     position: relative;
     margin-bottom: -1rem;
@@ -286,12 +290,29 @@ input[type=checkbox] {
     font-size: 1.1rem;
 }
 
+button:not(.fancy-button) {
+    display: inline-block;
+    border-radius: 6px;
+    font-family: "Lato", sans-serif;
+    padding: .2rem 10px;
+    border: solid #0003;
+    background: var(--dark-color);
+    cursor: pointer;
+    box-shadow: 2px 2px 2px #0006;
+}
+
+button:not(.fancy-button):hover {
+    border: solid #fffa;
+    color: #fffd;
+}
+
 .fancy-button {
+    cursor: pointer;
     background: #ECECEC;
     border-radius: .2rem;
     padding: .3rem;
     margin: .2rem;
-    display: block;
+    display: inline-block;
     font-family: arial;
     font-weight: bold;
     color:#252525;

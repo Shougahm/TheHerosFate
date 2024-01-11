@@ -44,5 +44,5 @@ window.onload = async () => {
 		},
 	});
 
-	bootstrap(new App());
+	bootstrap(App.instance);
 }
