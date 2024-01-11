@@ -63,7 +63,7 @@ export class SpellList {
                 "It costs the subject +2*1-3 AP to Run until the subject has passed 40 AP."
             ),
             new Spell("Trailtwister",
-                3,
+                2,
                 false,
                 "4",
                 "4",
@@ -182,7 +182,7 @@ export class SpellList {
                 "Create a 1 hex illusion within X*STR hexes of the caster. An illusion is indistinguishable from a real creation in both form and function by all minds that believe it. If any creature exceeds 4 on a roll+INT-Trauma (which they must spend 5 AP to do), the illusion will be unraveled. Unthinking things like mirrors or water will not corroborate the mage's illusion. The presence of such details in the environment that would betray the reality of an illusion (it is standing in running water without disrupting its flow, falling snow does not settle on it, etc.) may be used to argue for a reduction in the AP cost or difficulty of disbelief. Lasts X*12 minutes."
             ),
             new Spell("Control Animal",
-                5,
+                2,
                 true,
                 "3+Ranges",
                 "2+1R",
@@ -210,8 +210,8 @@ export class SpellList {
                 "Creates a solid wall in one hex within 2*STR hexes of the mage— looks like a real wall. This spell CANNOT be cast over a figure or part of a figure to entomb him/her in solid rock; cast at a hex containing a figure, it fails. (A wall cast on an image, or part of one, WILL destroy it.)"
                 ),
             new Spell ("Spook",
-                5,
-                true,
+                3,
+                false,
                 "4+Range",
                 "1+1R",
                 "Lets the subject walk, run, climb, etc., totally noiselessly. +DEX Grace and Fitness to absorb a fall. This spell must be maintained each time the subject passes 10 AP."
@@ -221,7 +221,7 @@ export class SpellList {
                 true,
                 "4",
                 "4+1R",
-                "Summon a snake with STR 3, DEX 7, INT 2, +2 Defense, and +4 Focus within STR hexes of the caster. The snake’s venom deals 2 power every time the victim passes 5 AP until the victim has passed power 2*10 AP. More venom does not increase the effect. Must be maintained every time it passes 10 AP."
+                "Summon a snake with STR 2, DEX 7, INT 2, +2 Defense, and +4 Focus within STR hexes of the caster. The snake’s venom deals 1 power every time the victim passes 5 AP until the victim has passed power 2*10 AP. More venom does not increase the effect. Must be maintained every time it passes 10 AP."
                 ),
             new Spell ("Stasis",
                 6,
@@ -231,7 +231,7 @@ export class SpellList {
                 "Everything in one hex into a perfect state of stasis, negating every AP the subjects would spend or produce until the Stasis has negated power (X*10) AP. This effectively puases most magical effects currently on the subjects as well as prevents them from taking any actions. Subjects in stasis can't be moved, attacked, or otherwise affected while they are in stasis, and also cannot percieve anything during the duration of the stasis (including the stasis itself)."
                 ),
             new Spell ("Invisibility",
-                6,
+                5,
                 false,
                 "4+Range",
                 "3+1R",
@@ -245,7 +245,7 @@ export class SpellList {
                 "Deal 1+X power damage to every creature (including the caster) in the caster's and each adjacent hex."
                 ),
             new Spell ("Mage Sight",
-                6,
+                5,
                 false,
                 "4+Range",
                 "2+1R",
@@ -280,14 +280,14 @@ export class SpellList {
                 "Lets the mage drain mental energy from others (humans or humanoids only) into himself. The person being drained must cooperate or be subjugated (tied up, unconscious, etc.). Each 3 Will drained from the subject replenishes 1 of the caster's."
                 ),
             new Spell ("Eyes Behind",
-                6,
-                false,
+                5,
+                true,
                 "4+Range",
                 "2+1R",
                 "The subject gains total awareness of their full periphery which expands into a full sphere of visual perception around them. Flanking a figure with Eyes Behind active upon it is impossible. This spell must be maintained each time the caster passes 10 AP."
                 ),
             new Spell ("Levitation",
-                6,
+                5,
                 true,
                 "4+Range",
                 "3+1R",
@@ -330,7 +330,7 @@ export class SpellList {
                 ),
             new Spell ("4 Hex Image",
                 6,
-                true,
+                false,
                 "4",
                 "2",
                 "Like the Image spell, but covering up to 3 connected hexes."
@@ -377,13 +377,56 @@ export class SpellList {
                 "3+1R",
                 "Puts any one elemental under mage's control as long as spell is maintained. The elemental will resist the spell if it exceeds 6 on a saving roll+INT. Most elementals will simply leave if a control spell fails, but a fire elemental may well attack, and any large elemental might feel hostile; make a reaction r A controlled elemental will follow most orders (see CONTROL SPELLS), but gets another 3-die saving roll if given an order which is likely to result in its own demise. WL cost to mage: 3, plus 1 every MINUTE (6 turns) the spell is maintained after the first minute. If the elemental has a ST greater than 30, double this cost. A mage may control morc than one elemental, but they MUST be of the same type;. this is true even if he created the elementals himself."
                 ),
-            new Spell ("Telekinesis",
-                6,
-                true,
+            new Spell ("",
+                7,
+                false,
                 "",
                 "",
                 ""
-                ),        
+                ),
+            new Spell ("",
+                7,
+                false,
+                "",
+                "",
+                ""
+                ),
+            new Spell ("",
+                7,
+                false,
+                "",
+                "",
+                ""
+                ),
+            new Spell ("",
+                7,
+                false,
+                "",
+                "",
+                ""
+                ),
+            new Spell ("",
+                7,
+                false,
+                "",
+                "",
+                ""
+                ),
+            new Spell ("",
+                7,
+                false,
+                "",
+                "",
+                ""
+                ),
+            new Spell ("",
+                7,
+                false,
+                "",
+                "",
+                ""
+                ),
+
             ];
 
         this.spellFilter = "";
