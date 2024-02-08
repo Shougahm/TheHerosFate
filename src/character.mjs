@@ -1,4 +1,4 @@
-import { PWR, check } from "./dice.mjs";
+import { PWR, check, roll } from "./dice.mjs";
 import { actions } from "./actions.mjs";
 import { server } from "./Server.mjs";
 import { createUID } from "./util.mjs";
@@ -6,10 +6,10 @@ import { SpellList } from "./SpellList.mjs";
 import { App } from "./App.mjs";
 
 export class Character {
-	constructor(name, app) {
+	constructor(name) {
 		this.id = createUID();
         this.name = name;
-		this.portrait = "https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Faa3af934-1d71-418a-8794-84aa8fac66be%2F83ab9786-9f47-44b1-b5b1-eacb266b2311%2F_36e29d1f-b1eb-466b-a662-5c455ba64acd.jpg?id=d0787701-bb3a-4d52-850d-ce975c51f860&table=collection&spaceId=aa3af934-1d71-418a-8794-84aa8fac66be&width=1920";
+		this.portrait = `http://placekitten.com/${roll(200,800)}/${roll(200,800)}`;
 
 		this.strength = 4;
 		this.dexterity = 4;

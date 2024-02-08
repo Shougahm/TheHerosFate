@@ -4,6 +4,11 @@
 		<button @click="model.changePortrait()">🖼️ Change Portrait</button>
 		<button @click="model.delete()">🗑 Delete</button>
 	</div>
+	<Box label="Portrait" class="portrait">
+		<div style="position: relative;">
+			<img style="width: 30vw" :src="model.portrait">
+		</div>
+	</Box>
     <Box label='Characteristics'>
 		<table :class="{ 'box-collapsed': model.hideCharacteristics }">
 			<tr>
@@ -251,11 +256,5 @@
 				<td>{{model.fitness ?? '-'}}</td>
 			</tr>
 		</table>
-	</Box>
-
-	<Box label="Portrait">
-		<div style="position: relative;">
-			<img style="width: 30vw" :src="model.portrait">
-		</div>
 	</Box>
 </div>
