@@ -11,19 +11,27 @@ export class Action {
 export const actions = [
     new Action('Melee', 5, 'Even Phase', 'Roll damage against a melee target whose Defense≤Roll+Offense+2Flanking equal to Weapon Power. If you are grappling the target, roll damage equal to ½ Strength + Natural Weapon Power. If you have submitted the target, roll damage equal to Strength + Natural Weapon Power'),
 
-    new Action('Grapple', '5+Engagement', 'Even Phase', 'Enter the hex of a target whose Defense+Grace≤Roll+Offense+Grace+2Flanking and begin grappling them.'),
+    new Action('Bind', 5+'Engagement', 'Even Phase', 'Enter the hex of a target whose Defense+Grace≤Roll+Offense+Grace+2Flanking and Bind them. Bound figures are Burdened equal to the Fitness of the other figure in the Bind. Aditionally, each figure is forced to reface directly toward each other. If you exceed their defense by their Grace, you may take it to the floor immediately. All bound figures are disarmed in this case.'),
 
-    new Action('Submit/Escape', '5', 'Even Phase, Grappling', 'Put an unsubmitted target whose Defense+Grace≤Roll+Offense+Grace into a submission hold of some kind. Once submitted, the target gains Burden equal to Roll+Fitness until they escape.'),
+    new Action('Escape', 5, 'Any Phase, Bound', 'You maul a target whose Defense+Grace≤Roll+Offense+Grace, dealing Roll+Fitness power damage. You may instead choose to deal Fitness power stuns.'),
 
-    new Action('Throw', '5', 'Even Phase', 'Roll damage against any target whose Defense≤Roll+Offense-Range'),
+    new Action('Takedown', 5, 'Even Phase, Bound', 'You maul a target whose Defense+Grace≤Roll+Offense+Grace, dealing Roll+Fitness power damage. You may instead choose to deal Fitness power stuns.'),
+
+    new Action('Maul/Submit', 5, 'Even Phase, Bound, Prone', 'You maul a target whose Defense+Grace≤Roll+Offense+Grace, dealing Roll+Fitness power damage. You may instead choose to submit, dealing Fitness power stun.'),
+
+    new Action('Bash', 5, 'Even Phase', "If you exceed the target's Defense+Fitness+Charge on a roll+Offense+Fitness+Charge, they must move into any open adjacent hex away from you. Additionally, they are tripped if you exceeded your roll by their Fitness. In the case of Bashing, treat Shields as Offhand Weapons (they affect offensive preparations) and treat Offhand Weapons as nothing."),
+
+    new Action('Parry', 5, 'Even Phase', "Treat Offhand Weapons as Shields (they affect offensive preparations) and treat Shields as nothing until you spend 5 AP. If your defense exceeds an attacker's roll by half their Grace during this time, disarm them. If you exceed their attack by their entire Grace, they drop the weapon into any adjacent open hex you choose. If they crit fail their attack, you may break their weapon."),
+
+    new Action('Throw', 5, 'Even Phase', 'Roll damage against any target whose Defense≤Roll+Offense-Range'),
 
     new Action('Shoot', '12-DEX+Velocity+Engagement', 'Even Phase', 'Roll damage against a ranged target whose Defense≤Roll+Offense-(Range/DEX)'),
 
     new Action('Cast', '5+X+Velocity', 'Even Phase', 'Cast a spell costing X or less Will.'),
 
-    new Action('Run', 'X + Engagement + 1/2LB', 'Odd Phase', 'Move X hexes forward. At any time before, during, or after this movement, you may reface, up to 2 times.'),
+    new Action('Run', 'X+Engagement+-1/2LB', 'Odd Phase', 'Move X hexes forward. At any time before, during, or after this movement, you may reface, up to 2 times.'),
 
-    new Action('Shift', 'X*3', 'None', 'Move X hexes nowhere further from your engagers. You may reface.'),
+    new Action('Shift', 'X*(3+-1/2LB)', 'None', 'Move X hexes in any direction nowhere further from your engagers. You may reface.'),
 
-    new Action('Equip', 'X', 'None', 'If X is at least 3, equip any weapon or item you have accessibly harnessed to your body. If X is at least 5, equip any weapon or item loose in same hex as you. If X is at least 10, equip any weapon or item in any container in the same hex as you (including your own inaccessible harness)'),
+    new Action('Equip', 'X', 'None', 'If X is at least 3, equip any weapon or item you have accessibly harnessed to your body, or accessibly harness any equipped weapon or item. If X is at least 5, equip any weapon or item loose in same hex as you. If X is at least 8, equip any weapon or item in any container in the same hex as you (including your own inaccessible harness), or inaccessibly harness any weapons or items in the same hex as you.'),
 ];

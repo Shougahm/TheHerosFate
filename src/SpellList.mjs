@@ -433,13 +433,14 @@ export class SpellList {
                 "",
                 ""
                 ),
-
+    
             ];
 
         this.spellFilter = "";
         this.onlyShowKnown = false;
         this.character = null;
         this.refreshTrigger = 1;
+        this.sortByLevel()
     }
 
     sortByName() {
