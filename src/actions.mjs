@@ -11,13 +11,13 @@ export class Action {
 export const actions = [
     new Action('Melee', 5, 'Even Phase', 'Roll damage against a melee target whose Defense≤Roll+Offense+2Flanking equal to Weapon Power. If you are grappling the target, roll damage equal to ½ Strength + Natural Weapon Power. If you have submitted the target, roll damage equal to Strength + Natural Weapon Power'),
 
-    new Action('Bind', 5+'Engagement', 'Even Phase', 'Enter the hex of a target whose Defense+Grace≤Roll+Offense+Grace+2Flanking and Bind them. Bound figures are Burdened equal to the Fitness of the other figure in the Bind. Aditionally, each figure is forced to reface directly toward each other. If you exceed their defense by their Grace, you may take it to the floor immediately. All bound figures are disarmed in this case.'),
-
-    new Action('Escape', 5, 'Any Phase, Bound', 'You maul a target whose Defense+Grace≤Roll+Offense+Grace, dealing Roll+Fitness power damage. You may instead choose to deal Fitness power stuns.'),
+    new Action('Bind', 5+'Engagement', 'Even Phase', 'Enter a bind with a target whose Defense+Grace≤Roll+Offense+Grace+2Flanking. Bound figures are Burdened equal to the Fitness of the other figure in the Bind. Aditionally, each figure is forced to reface directly toward each other. If you exceed your roll by their Grace, you may take it to the floor immediately. All bound figures are disarmed in this case.'),
 
     new Action('Takedown', 5, 'Even Phase, Bound', 'You maul a target whose Defense+Grace≤Roll+Offense+Grace, dealing Roll+Fitness power damage. You may instead choose to deal Fitness power stuns.'),
 
     new Action('Maul/Submit', 5, 'Even Phase, Bound, Prone', 'You maul a target whose Defense+Grace≤Roll+Offense+Grace, dealing Roll+Fitness power damage. You may instead choose to submit, dealing Fitness power stun.'),
+
+    new Action('Escape', 5, 'Any Phase, Bound', 'You maul a target whose Defense+Grace≤Roll+Offense+Grace, dealing Roll+Fitness power damage. You may instead choose to deal Fitness power stuns.'),
 
     new Action('Bash', 5, 'Even Phase', "If you exceed the target's Defense+Fitness+Charge on a roll+Offense+Fitness+Charge, they must move into any open adjacent hex away from you. Additionally, they are tripped if you exceeded your roll by their Fitness. In the case of Bashing, treat Shields as Offhand Weapons (they affect offensive preparations) and treat Offhand Weapons as nothing."),
 
