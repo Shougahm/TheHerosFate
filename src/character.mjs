@@ -48,6 +48,7 @@ export class Character {
 		this.experience = null;
 
 		this.quality = null;
+		this.decoration = null;
 		this.head = null;
 		this.armor = null;
 		this.offhandType = null;
@@ -189,6 +190,7 @@ export class Character {
 				spellCost;
 		
 		let effectiveExperience = this.will < 0 ? this.experience - this.will : this.experience;
+			effectiveExperience = effectiveExperience-this.decoration
 		this.trauma = null;
 		this.clarity = null;
 		if (this.intellect > effectiveExperience)
