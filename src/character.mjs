@@ -128,9 +128,11 @@ export class Character {
 	addStun(stun) {
 		this.stuns.push(Number(stun));
 		this.figureStats();
+		this.figureStats();
 	}
 	removeStun(stunIndex) {
 		this.stuns.splice(stunIndex, 1);
+		this.figureStats();
 		this.figureStats();
 	}
 	get bramage() {
@@ -156,16 +158,7 @@ export class Character {
 		let graceLvl = this.graceLvl1 + this.graceLvl2;
 		let fitnessLvl = this.fitnessLvl1 + this.fitnessLvl2;
 
-		this.acuity = Math.ceil(acuityLvl / 2 * this.intellect - this.trauma / 2);
-		this.empathy = Math.ceil(empathyLvl / 2 * this.intellect - this.trauma / 2);
-		this.evoke = Math.ceil(evokeLvl / 2 * this.intellect - this.trauma / 2);
-		this.guile = Math.ceil(guileLvl / 2 * this.intellect - this.trauma / 2);
-		this.culture = Math.ceil(cultureLvl / 2 * this.intellect - this.trauma / 2);
-		this.crafts = Math.ceil(craftsLvl / 2 * this.intellect - this.trauma / 2);
-		this.nature = Math.ceil(natureLvl / 2 * this.intellect - this.trauma / 2);
-		this.magery = Math.ceil(mageryLvl / 2 * this.intellect - this.trauma / 2);
-		this.grace = Math.ceil(graceLvl / 2 * this.dexterity);
-		this.fitness = Math.ceil(fitnessLvl / 2 * this.strength);
+		
 
 		let spells = new SpellList();
 		let knownSpells = [...this.knownSpellNames].map(name => spells.getSpellByName(name));
@@ -195,6 +188,17 @@ export class Character {
 			this.clarity = this.intellect - effectiveExperience;
 		else if (this.intellect < effectiveExperience)
 			this.trauma = effectiveExperience - this.intellect;
+			
+		this.acuity = Math.ceil(acuityLvl / 2 * this.intellect - this.trauma / 2);
+		this.empathy = Math.ceil(empathyLvl / 2 * this.intellect - this.trauma / 2);
+		this.evoke = Math.ceil(evokeLvl / 2 * this.intellect - this.trauma / 2);
+		this.guile = Math.ceil(guileLvl / 2 * this.intellect - this.trauma / 2);
+		this.culture = Math.ceil(cultureLvl / 2 * this.intellect - this.trauma / 2);
+		this.crafts = Math.ceil(craftsLvl / 2 * this.intellect - this.trauma / 2);
+		this.nature = Math.ceil(natureLvl / 2 * this.intellect - this.trauma / 2);
+		this.magery = Math.ceil(mageryLvl / 2 * this.intellect - this.trauma / 2);
+		this.grace = Math.ceil(graceLvl / 2 * this.dexterity - this.burden / 2);
+		this.fitness = Math.ceil(fitnessLvl / 2 * this.strength - this.burden / 2);
 
 		let load = this.head +
 			+this.armor

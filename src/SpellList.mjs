@@ -186,7 +186,7 @@ export class SpellList {
                 true,
                 "5",
                 "X+1",
-                "Create a 1 hex illusion within X*STR hexes of the caster. An illusion is indistinguishable from a real creation in both form and function by all minds that believe it. If any creature exceeds 4 on a roll+INT-Trauma (which they must spend 5 AP to do), the illusion will be unraveled. Unthinking things like mirrors or water will not corroborate the mage's illusion. The presence of such details in the environment that would betray the reality of an illusion (it is standing in running water without disrupting its flow, falling snow does not settle on it, etc.) may be used to argue for a reduction in the AP cost or difficulty of disbelief. Lasts X*12 minutes."
+                "Create a 1 hex illusion within X*STR hexes of the caster. An illusion is indistinguishable from a real creation in both form and function by all minds that believe it. If any creature exceeds the mage's Guile on a roll+Acuity (which they must spend 5 AP to do), the illusion will be unraveled. Unthinking things like mirrors or water will not corroborate the mage's illusion. The presence of such details in the environment that would betray the reality of an illusion (it is standing in running water without disrupting its flow, falling snow does not settle on it, etc.) may be used to argue for a reduction in the AP cost or difficulty of disbelief. Lasts X*12 minutes."
             ),
             new Spell("Control Animal",
                 2,
