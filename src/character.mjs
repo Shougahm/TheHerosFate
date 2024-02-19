@@ -47,7 +47,7 @@ export class Character {
 
 		this.experience = null;
 
-		this.enchantment = null;
+		this.quality = null;
 		this.head = null;
 		this.armor = null;
 		this.offhandType = null;
@@ -203,7 +203,7 @@ export class Character {
 			+ this.thrown
 			+ this.penetrating
 			+ this.finesse
-			- this.enchantment;
+			- this.quality;
 
 		if (this.twoHanded) {
 			load -= Math.floor(this.strength / 4);
