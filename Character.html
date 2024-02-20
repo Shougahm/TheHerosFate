@@ -131,7 +131,7 @@
 					<span>{{model.pwr ?? '-'}}</span>
 				</td>
 			</tr>
-			<!-- TODO I want to be able to save *an equipment*. Add a title box, maybe even icon art. When saved, all the information on the equipment card gets condensed; unselected options are hidden, input fields are hidden, the values displayed in a more compact way, title at the top icon to the left maybe. This "item" should be then appear in one of 5 zones: Floor, Accessible Harness, Inaccessible Harness, Equipped, or GM Box. GM Box should be hidden from non gms, and be used essentially as notespace for the GM. Load is then calculated based on your equipments' places in the zones. The Equipped Zone is 1 to 1 with the Load, what you've got equipped directly contributes to Load.-->
+			<!-- TODO I want to be able to save *an equipment*. Add a title box, maybe even icon art. When saved, all the information on the equipment card gets condensed; unselected options are hidden, input fields are hidden, the values displayed in a more compact way, title at the top icon to the left maybe. This "item" should be then appear in one of 5 zones: Floor, Accessible Harness, Inaccessible Harness, Equipped, or GM Box. GM Box should be hidden from non gms, and be used essentially as notespace for the GM, and the Harnessed and Equipped zones should be hidden from. Load is then calculated based on your equipments' places in the zones. The Equipped Zone is 1 to 1 with the Load, what you've got equipped directly contributes to Load.-->
 			<tr>
 				<td>Head or Blade</td>
 				<td><number-input v-model='model.head' @input="model.figureStats()"></td>

@@ -159,8 +159,6 @@ export class Character {
 		let graceLvl = this.graceLvl1 + this.graceLvl2;
 		let fitnessLvl = this.fitnessLvl1 + this.fitnessLvl2;
 
-		
-
 		let spells = new SpellList();
 		let knownSpells = [...this.knownSpellNames].map(name => spells.getSpellByName(name));
 		let spellCost = 0;
@@ -203,12 +201,13 @@ export class Character {
 		this.fitness = Math.ceil(fitnessLvl / 2 * this.strength - this.burden / 2);
 
 		let load = this.head +
-			+this.armor
+			+ this.armor
 			+ this.offhand
 			+ this.poleHandle
 			+ this.thrown
 			+ this.penetrating
 			+ this.finesse
+			+ this.decoration
 			- this.quality;
 
 		if (this.twoHanded) {
