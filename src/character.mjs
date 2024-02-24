@@ -239,7 +239,7 @@ export class Character {
 			this.unready();
 		}
 		
-		this.agility = this.strength + this.dexterity - this.burden + (this.liberty * this.agiPrep);
+		this.agility = this.strength + this.dexterity - this.burden + this.liberty + (this.agiPrep*(1+this.liberty));
 		this.focus = this.dexterity + this.intellect - this.trauma + this.clarity;
 		
 
