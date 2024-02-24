@@ -49,6 +49,7 @@ export class Character {
 
 		this.quality = null;
 		this.decoration = null;
+		this.reload = null;
 		this.head = null;
 		this.armor = null;
 		this.offhandType = null;
@@ -208,6 +209,7 @@ export class Character {
 			+ this.penetrating
 			+ this.finesse
 			+ this.decoration
+			- this.reload
 			- this.quality;
 
 		if (this.twoHanded) {
@@ -237,7 +239,7 @@ export class Character {
 			this.unready();
 		}
 		
-		this.agility = this.strength + this.dexterity - this.burden + this.liberty + this.agiPrep;
+		this.agility = this.strength + this.dexterity - this.burden + (this.liberty * this.agiPrep);
 		this.focus = this.dexterity + this.intellect - this.trauma + this.clarity;
 		
 
